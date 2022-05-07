@@ -108,11 +108,12 @@ function Draw() {
 	for (var i = 0; i < 10; i++) {
 		for (var j = 0; j < 10; j++) {
 			var center = new Object();
-			center.x = i * 60 + 30;
-			center.y = j * 60 + 30;
+			center.x = i * (canvas.width)/10 + (canvas.width)/20;
+			center.y = j * (canvas.width)/10 + (canvas.width)/20;
 			if (board[i][j] == 2) {
+				//the pacman
 				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI + start_angle, 1.85 * Math.PI +end_angle); // half circle
+				context.arc(center.x, center.y, (canvas.width)/20, 0.15 * Math.PI + start_angle, 1.85 * Math.PI +end_angle); // half circle
 				context.lineTo(center.x, center.y);
 				context.fillStyle = pac_color; //color
 				context.fill();
@@ -121,13 +122,15 @@ function Draw() {
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 1) {
+				//"candies"
 				context.beginPath();
-				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 4) {
+				//walls
 				context.beginPath();
-				context.rect(center.x - 30, center.y - 30, 60, 60);
+				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
 				context.fillStyle = "grey"; //color
 				context.fill();
 			}
