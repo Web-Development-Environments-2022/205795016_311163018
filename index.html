@@ -1,16 +1,59 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- script for the menu buttons -->
+		<script>
+			function show(shown, hidden1,hidden2,hidden3) {
+			  document.getElementById(shown).style.display='block';
+			  document.getElementById(hidden1).style.display='none';
+			  document.getElementById(hidden2).style.display='none';
+			  document.getElementById(hidden3).style.display='none';
+
+			  return false;
+			}
+			</script>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<title>FUCK-MAN</title>
 	</head>
 
+
 	<body>
 		<div id="header">
 			<h1>Welcome to **C*MAN !<br>More than just a PACMAN</h1>
+		</div> 
+		<!-- menu -->
+		<div id = "menu">
+			<ul>
+				<li><a href="#" onclick="show('Welcome','Register' ,'Login','About');"><h2>Welcome</h2></a></li>
+				<li><a href="#" onclick=" show('Register','Welcome' ,'Login','About');"><h2>Register</h2></a></li>
+				<li><a href="#" onclick=" show('Login','Register' ,'Welcome','About');"><h2>Login</h2></a></li>
+				<li><a href="#" onclick=" show('About','Register' ,'Login','Welcome');"><h2>About</h2></a></li>
+
+			</ul>
 		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+		<div id="Welcome">
+			<h2>YO YO YO Mother Fucker this is the Welcome page (.)(.)</h2>
+		  </div>
+		  <div id="Register" style="display:none">
+			<h2>Now im another page <===3</h2>
+		  </div>
+		  <div id="Login" style="display:none">
+			<h2>LoGin the fuck in</h2>
+		  </div>
+		  <div id="About" style="display:none">
+			<h2>What do you care about me?!!?!?!?!</h2>
+		  </div>
+
+
 		<div id="score">
 			<label for="lblScore">SCORE:</label>
 			<input id="lblScore" type="text" />
@@ -20,7 +63,7 @@
 			<input id="lblTime" type="text" />
 		</div>
 		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
+			<canvas id="canvas" height="900" width="900"></canvas>
 		</div>
 	</body>
 </html>
