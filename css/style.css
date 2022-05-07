@@ -1,0 +1,18 @@
+h1 {
+    width: 600px;
+    background-color: rgb(0, 150, 220);
+    color: white;
+	font-size: 250%;
+	text-align: center;
+	border: white;
+	border-width: 10px;
+    -webkit-text-stroke: 0.8px #c89666;
+    border-left: 5px #c89666 solid;
+    transition: border-width 0.4s;
+    border-radius: 15px 50px 30px;
+    
+}
+h1:hover {
+    border-width: 15px;
+
+}

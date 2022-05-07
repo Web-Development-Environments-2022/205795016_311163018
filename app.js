@@ -6,6 +6,10 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var start_angle = 0;
+var end_angle =0;
+var eye_x = 5;
+var eye_y =15;
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -15,7 +19,7 @@ $(document).ready(function() {
 function Start() {
 	board = new Array();
 	score = 0;
-	pac_color = "yellow";
+	pac_color = "green";
 	var cnt = 100;
 	var food_remain = 50;
 	var pacman_remain = 1;
@@ -108,12 +112,12 @@ function Draw() {
 			center.y = j * 60 + 30;
 			if (board[i][j] == 2) {
 				context.beginPath();
-				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+				context.arc(center.x, center.y, 30, 0.15 * Math.PI + start_angle, 1.85 * Math.PI +end_angle); // half circle
 				context.lineTo(center.x, center.y);
 				context.fillStyle = pac_color; //color
 				context.fill();
 				context.beginPath();
-				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+				context.arc(center.x + eye_x, center.y - eye_y, 5, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 1) {
@@ -137,21 +141,37 @@ function UpdatePosition() {
 	if (x == 1) {
 		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
 			shape.j--;
+			eye_x = 12;
+			eye_y = 4;
+			start_angle = -Math.PI/2;
+			end_angle = -Math.PI/2;
 		}
 	}
 	if (x == 2) {
 		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
+			eye_x = -12;
+			eye_y = -4;			
+			start_angle = Math.PI/2;
+			end_angle = Math.PI/2;			
 		}
 	}
 	if (x == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
 			shape.i--;
+			eye_x = -5;
+			eye_y = 14;
+			start_angle = Math.PI;
+			end_angle = Math.PI;			
 		}
 	}
 	if (x == 4) {
 		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
+			eye_x = 5;
+			eye_y = 14;			
+			start_angle = 0;
+			end_angle = 0;			
 		}
 	}
 	if (board[shape.i][shape.j] == 1) {
