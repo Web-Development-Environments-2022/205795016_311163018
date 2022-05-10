@@ -10,6 +10,8 @@ var start_angle = 0;
 var end_angle =0;
 var eye_x = 5;
 var eye_y =15;
+var total_points =50;
+
 
 $(document).ready(function() {
 	context = canvas.getContext("2d");
@@ -19,9 +21,25 @@ $(document).ready(function() {
 function Start() {
 	board = new Array();
 	score = 0;
-	pac_color = "green";
+	pac_color = "fuchsia";
 	var cnt = 100;
 	var food_remain = 50;
+	//50*0.6=30 --> 5 points - lime --> board[i][j] = 1;
+	var lime_balls = Math.round(food_remain*0.6);
+	//50*0.3=15 --> 15 p - blue --> board[i][j] = 5;
+	var blue_balls = Math.round(food_remain*0.3);
+	//50*0.1 = 5 --> 25 p - red --> board[i][j] = 6;
+	var red_balls = Math.round(food_remain*0.1);
+	//in case of not integer
+	while (lime_balls+blue_balls+red_balls !=food_remain) {
+		if (lime_balls+blue_balls+red_balls <food_remain) {
+			lime_balls++;
+		} else {
+			lime_balls--;
+		}
+	}
+	total_points = lime_balls*5 + blue_balls*15 + red_balls*25;
+
 	var pacman_remain = 1;
 	start_time = new Date();
 	for (var i = 0; i < 10; i++) {
@@ -40,7 +58,55 @@ function Start() {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					board[i][j] = 1;
+					if (lime_balls>0 && blue_balls>0 && red_balls>0) {
+						rnd_ball = Math.floor(Math.random()*3)//0=lime_ball(5 pt),1=blue ball(15 pt),2=red ball(25pt)
+						if (rnd_ball==0) {
+							lime_balls--;
+							board[i][j] = 1;
+						} else if (rnd_ball==1) {
+							blue_balls--;
+							board[i][j]=5;
+						} else {
+							red_balls--;
+							board[i][j]=6;
+						}
+					} else if (lime_balls>0 && blue_balls>0) {
+						rnd_ball = Math.floor(Math.random()*2)//0=lime_ball(5 pt),1=blue ball(15 pt)
+						if (rnd_ball==0) {
+							lime_balls--;
+							board[i][j] = 1;
+						} else if (rnd_ball==1) {
+							blue_balls--;
+							board[i][j]=5;
+						}
+					} else if (lime_balls>0 && red_balls>0) {
+						rnd_ball = Math.floor(Math.random()*2)//0=lime_ball(5 pt),1=red ball(25pt)
+						if (rnd_ball==0) {
+							lime_balls--;
+							board[i][j] = 1;
+						} else if (rnd_ball==1) {
+							red_balls--;
+							board[i][j]=6;
+						}
+					} else if (blue_balls>0 && red_balls>0) {
+						rnd_ball = Math.floor(Math.random()*3)//0=blue ball(15 pt),1=red ball(25pt)
+						if (rnd_ball==0) {
+							blue_balls--;
+							board[i][j] = 5;
+						} else if (rnd_ball==1) {
+							red_balls--;
+							board[i][j]=6;
+						}						
+					} else if(lime_balls>0) {
+						lime_balls--;
+						board[i][j] = 1;						
+					} else if(blue_balls>0) {
+						blue_balls--;
+						board[i][j] = 5;						
+					} else {
+						red_balls--;
+						board[i][j] = 6;
+					}
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
 					shape.i = i;
 					shape.j = j;
@@ -122,17 +188,58 @@ function Draw() {
 				context.fillStyle = "black"; //color
 				context.fill();
 			} else if (board[i][j] == 1) {
-				//"candies"
+				//lime ball
 				context.beginPath();
 				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
-				context.fillStyle = "pink"; //color
+				context.fillStyle = "lime"; //color
 				context.fill();
+				context.font="30px Arial";
+				context.textAlign = "center";
+				context.strokeStyle = "black"; //pts color
+				context.strokeText("5",center.x,center.y);
+				context.stroke();
+			} else if (board[i][j] == 5) {
+				//"blue ball
+				context.beginPath();
+				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
+				context.fillStyle = "blue"; //color
+				context.fill();	
+				context.font="30px Arial";
+				context.textAlign = "center";
+				context.strokeStyle = "white"; //pts color
+				context.strokeText("15",center.x,center.y);
+				context.stroke();
+			} else if (board[i][j] == 6) {
+				//red ball
+				context.beginPath();
+				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
+				context.fillStyle = "red"; //color
+				context.fill();
+				context.font="30px Arial";
+				context.textAlign = "center";
+				context.strokeStyle = "white"; //pts color
+				context.strokeText("25",center.x,center.y);
+				context.stroke();
 			} else if (board[i][j] == 4) {
 				//walls
+				//the original part was :
+				// context.beginPath();
+				// context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
+				// context.fillStyle = "grey"; //color
+				// context.fill();
+				//
 				context.beginPath();
-				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
+				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/20);
 				context.fillStyle = "grey"; //color
 				context.fill();
+				context.beginPath();
+				context.rect(center.x - (canvas.width)/20, center.y, (canvas.width)/10, (canvas.width)/20);
+				context.fillStyle = "darkorange"; //color
+				context.fill();
+				context.beginPath();
+				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
+				context.strokeStyle = "black"; //color
+				context.stroke();
 			}
 		}
 	}
@@ -177,16 +284,20 @@ function UpdatePosition() {
 			end_angle = 0;			
 		}
 	}
-	if (board[shape.i][shape.j] == 1) {
-		score++;
+	if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
+		score+=5;
+	} else if (board[shape.i][shape.j] == 5) {//blue ball = 15 points
+		score+=15;
+	} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
+		score+=25;
 	}
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
 	if (score >= 20 && time_elapsed <= 10) {
-		pac_color = "green";
+		pac_color = "fuchsia";
 	}
-	if (score == 50) {
+	if (score == total_points) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
 	} else {
