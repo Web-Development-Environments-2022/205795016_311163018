@@ -125,7 +125,7 @@ function Draw() {
 				//"candies"
 				context.beginPath();
 				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
+				context.fillStyle = "pink"; //color
 				context.fill();
 			} else if (board[i][j] == 4) {
 				//walls
