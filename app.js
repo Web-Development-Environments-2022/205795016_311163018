@@ -249,7 +249,7 @@ function UpdatePosition() {
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
 	if (x == 1) {
-		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
+		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {//up
 			shape.j--;
 			eye_x = 12;
 			eye_y = 4;
@@ -258,7 +258,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {//down
 			shape.j++;
 			eye_x = -12;
 			eye_y = -4;			
@@ -267,7 +267,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 3) {
-		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {
+		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {//left
 			shape.i--;
 			eye_x = -5;
 			eye_y = 14;
@@ -276,7 +276,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {//right
 			shape.i++;
 			eye_x = 5;
 			eye_y = 14;			
