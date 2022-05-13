@@ -84,10 +84,10 @@
 					<p><b>Please fill in the details to Login.</b></p>
 					<hr>
 					<label for="User_Name"><b>User Name</b></label><br>
-					<input type="text" placeholder="User Name" name="User_Name" required><br>
+					<input type="text" id="User_Name_login" placeholder="User Name" name="User_Name_login" required><br>
 					<label for="pwd"><b>Password</b></label><br>
-					<input type="password" placeholder="Enter Password" name="pwd" required><br>
-					<input type="submit" class="loginbtn" value="Login">
+					<input type="password" id="pwd_login" placeholder="Enter Password" name="pwd_login" required><br>
+					<button type="submit" class="loginbtn" value="Login" onclick="login();"><strong>Login</strong></button>
 					<hr>
 				</div>
 
@@ -98,15 +98,15 @@
 		  </div>
 
 
-		<div id="score">
+		<div id="score" style="display: none">
 			<label for="lblScore">SCORE:</label>
 			<input id="lblScore" type="text" />
 		</div>
-		<div id="time">
+		<div id="time" style="display: none">
 			<label for="lblTime">TIME:</label>
 			<input id="lblTime" type="text" />
 		</div>
-		<div id="game">
+		<div id="game" style="display: none">
 			<br><canvas id="canvas" height="900" width="900" style="border:5px solid green;"></canvas>
 		</div>
 	</body>

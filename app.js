@@ -313,6 +313,9 @@ function show(shown,hidden1,hidden2,hidden3) {
   document.getElementById(hidden1).style.display='none';
   document.getElementById(hidden2).style.display='none';
   document.getElementById(hidden3).style.display='none';
+  document.getElementById("score").style.display='none';
+  document.getElementById("time").style.display='none';
+  document.getElementById("game").style.display='none';
 
   return false;
 }
