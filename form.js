@@ -26,8 +26,21 @@ function register(){
     if (pwd_confirm != password){
         window.alert("dude..WTF you entered two different password..stop with the weed.")
     }
-    // TODO need to fix this....
-    if (full_name.search(/\d/) == 1){
-        window.alert("You are not a robot <br> there is no reason for you to have a number in your name.")
+
+    if (full_name.search(/\d/ )!= -1){
+        window.alert("You are not a robot there is no reason for you to have a number in your name.")
     }
+
+    let is_it = ValidateEmail(email)
+    if (!is_it){
+        window.alert("You have entered an invalid email address!")
+    }
+}
+
+
+function ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)){
+    return (true)
+    }
+    return (false)
 }
