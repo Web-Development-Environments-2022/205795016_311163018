@@ -198,3 +198,11 @@ h1:hover {
   }
 
   /* ------------------------------------------------------------------------------- */
+  .avatar {
+    vertical-align: middle;
+    /* width: 70px;
+    height: 70px; */
+    border-radius: 50%;
+    transition: transform .2s;
+    overflow: hidden;
+}
