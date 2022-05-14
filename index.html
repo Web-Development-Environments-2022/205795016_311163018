@@ -24,7 +24,7 @@
 				<li><a href="#" onclick="showAndHideDivs('welcome');"><h2>Welcome</h2></a></li>
 				<li><a href="#" onclick="showAndHideDivs('register');"><h2>Register</h2></a></li>
 				<li><a href="#" onclick="showAndHideDivs('login');"><h2>Login</h2></a></li>
-				<li><a href="#" onclick="showAndHideDivs('about');"><h2>About</h2></a></li>
+				<li><a href="#" onclick="openAbout(); showMeWhatYouGot(event);"><h2>About</h2></a></li>
 
 			</ul>
 		</div>
@@ -259,9 +259,24 @@
 
 
 
-
+		  
 		  <div id="About" >
-			<h2>What do you care about me?!!?!?!?!</h2>
+	
+			<dialog id="dialog" name="dialog">
+				<button onclick="closeAbout()" style="float:right" >X</button>
+				<h2>YO Yo Yo</h2>
+			</dialog>
+
+			<!-- <div id="root">
+				<button id="modal-opener">Open Modal</button>
+			  </div>
+			  <div id="modal-root">
+				<div class="modal">
+					<button onclick="closeAbout()" style="float:right" >X</button>
+					<h2>YO Yo Yo</h2>
+				</div>
+			  </div> -->
+
 		  </div>
 
 
