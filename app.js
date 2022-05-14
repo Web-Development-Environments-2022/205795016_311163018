@@ -14,9 +14,13 @@ var total_points =50;
 
 
 $(document).ready(function() {
-	context = canvas.getContext("2d");
-	Start();
+
+	showAndHideDivs("welcome")
+
+	//context = canvas.getContext("2d");
+	//Start();
 });
+
 
 function Start() {
 	board = new Array();
@@ -306,19 +310,145 @@ function UpdatePosition() {
 }
 
 
+
+function showAndHideDivs(currentScreen)
+{
+
+	switch(currentScreen)
+	{
+		case "welcome": // start mode
+			$('#Welcome').show();
+			$('#Register').hide();
+			$('#Login').hide();
+			$('#Settings').hide();
+			$('#About').hide();
+			$('#score').hide();
+			$('#time').hide();
+			$('#game').hide();
+			break;
+		case "register": // start mode
+			$('#Welcome').hide();
+			$('#Register').show();
+			$('#Login').hide();
+			$('#Settings').hide();
+			$('#About').hide();
+			$('#score').hide();
+			$('#time').hide();
+			$('#game').hide();
+			break;
+		case "login": // start mode
+			$('#Welcome').hide();
+			$('#Register').hide();
+			$('#Login').show();
+			$('#Settings').hide();
+			$('#About').hide();
+			$('#score').hide();
+			$('#time').hide();
+			$('#game').hide();
+			break;
+		case "about": // start mode
+			$('#Welcome').hide();
+			$('#Register').hide();
+			$('#Login').hide();
+			$('#Settings').hide();
+			$('#About').show();
+			$('#score').hide();
+			$('#time').hide();
+			$('#game').hide();
+			break;
+
+		case "settings": // start mode
+
+			$('#Welcome').hide();
+			$('#Register').hide();
+			$('#Login').hide();
+			$('#About').hide();
+			$('#Settings').show();
+			$('#score').hide();
+			$('#time').hide();
+			$('#game').hide();
+			break;
+
+		case "game": // start mode
+
+			$('#Welcome').hide();
+			$('#Register').hide();
+			$('#Login').hide();
+			$('#About').hide();
+			$('#Settings').show();
+			$('#score').show();
+			$('#time').show();
+			$('#game').show();
+
+
+			context = canvas.getContext("2d");
+			Start();
+
+
+
+			break;
+	}
+
+
+
+
+
+}
 // this function changes the div that we want to see on click.
 // need to add the canvas to this function
-function show(shown,hidden1,hidden2,hidden3) {
-  document.getElementById(shown).style.display='block';
-  document.getElementById(hidden1).style.display='none';
-  document.getElementById(hidden2).style.display='none';
-  document.getElementById(hidden3).style.display='none';
-  document.getElementById("score").style.display='none';
-  document.getElementById("time").style.display='none';
-  document.getElementById("game").style.display='none';
+// function show1(shown,hidden1,hidden2,hidden3) {
+// 	$('#Welcome').show();
+// 	$('#Register').hide();
+// 	$('#Login').hide();
+// 	$('#About').hide();
+// 	$('#game_screen').hide();
+// 	$('#Settings').hide();
+// 	$('#score').hide();
+// 	$('#time').hide();
+// 	$('#game').hide();
 
-  return false;
-}
+
+//   return false;
+// }
+// function show2(shown,hidden1,hidden2,hidden3) {
+// 	$('#Welcome').hide();
+// 	$('#Register').show();
+// 	$('#Login').hide();
+// 	$('#About').hide();
+// 	$('#game_screen').hide();
+// 	$('#Settings').hide();
+// 	$('#score').hide();
+// 	$('#time').hide();
+// 	$('#game').hide();
+
+//   return false;
+// }
+// function show3(shown,hidden1,hidden2,hidden3) {
+// 	$('#Welcome').hide();
+// 	$('#Register').hide();
+// 	$('#Login').show();
+// 	$('#About').hide();
+// 	$('#game_screen').hide();
+// 	$('#Settings').hide();
+// 	$('#score').hide();
+// 	$('#time').hide();
+// 	$('#game').hide();
+
+//   return false;
+// }
+// function show4(shown,hidden1,hidden2,hidden3) {
+// 	$('#Welcome').hide();
+// 	$('#Register').hide();
+// 	$('#Login').hide();
+// 	$('#About').show();
+// 	$('#game_screen').hide();
+// 	$('#Settings').hide();
+// 	$('#score').hide();
+// 	$('#time').hide();
+// 	$('#game').hide();
+
+//   return false;
+// }
 
 
 
