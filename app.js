@@ -11,6 +11,30 @@ var end_angle =0;
 var eye_x = 5;
 var eye_y =15;
 var total_points =50;
+var food_remain;
+
+
+var img = document.getElementById("right");
+var avatar_style;
+
+//cell size
+var height_cell = 60;
+var width_cell = 60;
+
+
+//ghosts
+var GhostAmount=1;
+var interval_ghosts;
+var ghost_pink = new Object();
+ghost_pink.image = new Image(width_cell-4,height_cell-4);
+ghost_pink.image.src = "\\photos\\ghost_pink.jpg";
+ghost_pink.id=7;
+ghost_pink.showGhost =true;
+ghost_pink.sleep = 0;
+ghost_pink.i=0;
+ghost_pink.j=0;
+
+
 
 
 $(document).ready(function() {
@@ -18,12 +42,9 @@ $(document).ready(function() {
 	Start();
 });
 
-function Start() {
-	board = new Array();
-	score = 0;
-	pac_color = "fuchsia";
-	var cnt = 100;
-	var food_remain = 50;
+function ConfigureGame() {
+	
+	food_remain = 50;//TODO : update this with element ID from index.html
 	//50*0.6=30 --> 5 points - lime --> board[i][j] = 1;
 	var lime_balls = Math.round(food_remain*0.6);
 	//50*0.3=15 --> 15 p - blue --> board[i][j] = 5;
@@ -40,13 +61,52 @@ function Start() {
 	}
 	total_points = lime_balls*5 + blue_balls*15 + red_balls*25;
 
+	GhostAmount = 1;// TODO: update this after marge with element id
+	if (GhostAmount==1) {
+		ghost_pink.showGhost = true;
+		//TODO: add more ghosts
+		ghost_pink.sleep =0;
+	}
+}
+
+function Start() {
+	board = new Array();
+	score = 0;
+	pac_color = "fuchsia";
+	var cnt = 100;
+	img = document.getElementById("right");
+
 	var pacman_remain = 1;
 	start_time = new Date();
+	// ConfigureGame();
+	food_remain = 50;//TODO : update this with element ID from index.html
+	//50*0.6=30 --> 5 points - lime --> board[i][j] = 1;
+	var lime_balls = Math.round(food_remain*0.6);
+	//50*0.3=15 --> 15 p - blue --> board[i][j] = 5;
+	var blue_balls = Math.round(food_remain*0.3);
+	//50*0.1 = 5 --> 25 p - red --> board[i][j] = 6;
+	var red_balls = Math.round(food_remain*0.1);
+	//in case of not integer
+	while (lime_balls+blue_balls+red_balls !=food_remain) {
+		if (lime_balls+blue_balls+red_balls <food_remain) {
+			lime_balls++;
+		} else {
+			lime_balls--;
+		}
+	}
+	total_points = lime_balls*5 + blue_balls*15 + red_balls*25;
+
+	GhostAmount = 1;// TODO: update this after marge with element id
+	if (GhostAmount==1) {
+		ghost_pink.showGhost = true;
+		//TODO: add more ghosts
+		ghost_pink.sleep =0;
+	}	
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
 		for (var j = 0; j < 10; j++) {
-			if (
+			if (//walls
 				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
 				(i == 3 && j == 5) ||
@@ -54,6 +114,11 @@ function Start() {
 				(i == 6 && j == 2)
 			) {
 				board[i][j] = 4;
+			} else if (i==ghost_pink.i && j==ghost_pink.j && ghost_pink.showGhost==true) {
+				board[0][0] = ghost_pink.id;
+				ghost_pink.i=0;
+				ghost_pink.j=0;
+				//TODO: add more ghosts with else if...blabla
 			} else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
@@ -139,7 +204,9 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
+
+	interval = setInterval(UpdatePosition,120);
+	interval_ghosts = setInterval(UpdatePositionGhosts,400);
 }
 
 function findRandomEmptyCell(board) {
@@ -179,14 +246,15 @@ function Draw() {
 			if (board[i][j] == 2) {
 				//the pacman
 				context.beginPath();
-				context.arc(center.x, center.y, (canvas.width)/20, 0.15 * Math.PI + start_angle, 1.85 * Math.PI +end_angle); // half circle
-				context.lineTo(center.x, center.y);
-				context.fillStyle = pac_color; //color
-				context.fill();
-				context.beginPath();
-				context.arc(center.x + eye_x, center.y - eye_y, 5, 0, 2 * Math.PI); // circle
-				context.fillStyle = "black"; //color
-				context.fill();
+				// context.arc(center.x, center.y, (canvas.width)/20, 0.15 * Math.PI + start_angle, 1.85 * Math.PI +end_angle); // half circle
+				// context.lineTo(center.x, center.y);
+				// context.fillStyle = pac_color; //color
+				// context.fill();
+				// context.beginPath();
+				// context.arc(center.x + eye_x, center.y - eye_y, 5, 0, 2 * Math.PI); // circle
+				// context.fillStyle = "black"; //color
+				// context.fill();
+				context.drawImage(img,center.x,center.y,(canvas.width)/15, (canvas.width)/15);
 			} else if (board[i][j] == 1) {
 				//lime ball
 				context.beginPath();
@@ -240,7 +308,10 @@ function Draw() {
 				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
 				context.strokeStyle = "black"; //color
 				context.stroke();
-			}
+			//ghosts
+			} else if (board[i][j]==ghost_pink.id && ghost_pink.showGhost==true) {
+				context.drawImage(ghost_pink.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell-4,height_cell-4);
+			}//TODO: continue with more ghists...
 		}
 	}
 }
@@ -255,6 +326,8 @@ function UpdatePosition() {
 			eye_y = 4;
 			start_angle = -Math.PI/2;
 			end_angle = -Math.PI/2;
+			img = document.getElementById("up");
+			//ctx.drawImage(img, 10, 10);
 		}
 	}
 	if (x == 2) {
@@ -263,7 +336,8 @@ function UpdatePosition() {
 			eye_x = -12;
 			eye_y = -4;			
 			start_angle = Math.PI/2;
-			end_angle = Math.PI/2;			
+			end_angle = Math.PI/2;
+			img = document.getElementById("down");			
 		}
 	}
 	if (x == 3) {
@@ -272,7 +346,8 @@ function UpdatePosition() {
 			eye_x = -5;
 			eye_y = 14;
 			start_angle = Math.PI;
-			end_angle = Math.PI;			
+			end_angle = Math.PI;
+			img = document.getElementById("left");
 		}
 	}
 	if (x == 4) {
@@ -281,7 +356,8 @@ function UpdatePosition() {
 			eye_x = 5;
 			eye_y = 14;			
 			start_angle = 0;
-			end_angle = 0;			
+			end_angle = 0;
+			img = document.getElementById("right");
 		}
 	}
 	if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
@@ -290,7 +366,11 @@ function UpdatePosition() {
 		score+=15;
 	} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
 		score+=25;
+	} else if (board[shape.i][shape.j]>=7 && board[shape.i][board.shape.j]<=11) {
+		GoIntoGhost();
 	}
+
+
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
@@ -299,11 +379,14 @@ function UpdatePosition() {
 	}
 	if (score == total_points) {
 		window.clearInterval(interval);
+		window.clearInterval(interval_ghosts);
 		window.alert("Game completed");
 	} else {
 		Draw();
 	}
 }
+
+
 
 
 // this function changes the div that we want to see on click.
@@ -321,4 +404,69 @@ function show(shown,hidden1,hidden2,hidden3) {
 }
 
 
+
+//ghosts
+function UpdatePositionGhosts() {
+	if(ghost_pink.showGhost) {
+		GhostStep(ghost_pink);
+	}
+	Draw();
+}
+
+function GhostLocationReset() {//set ghost location to grid corners
+	if (ghost_pink.showGhost==true) {
+		board[ghost_pink.i][ghost_pink.j] == ghost_pink.sleep;
+		ghost_pink.sleep = 0;
+		ghost_pink.i=0;
+		ghost_pink.j=0;
+		//board[0][0] = ghost_pink.id; 
+		board[0][0]=7;
+	}
+
+}
+
+function GhostStep(ghost) {
+	board[ghost.i][ghost.j]==ghost.sleep;
+	if (board[ghost.i][ghost.j] == 2){
+		GoIntoGhost();
+	} else if (ghost.i > shape.i && ghost.i < board.length -1 ) {
+		if (board[ghost.i+1][ghost.j]!=4 && board[ghost.i+1][ghost.j]<7) {//avoid collision
+			ghost.i ++;
+		} else if (ghost.j < shape.j && ghost.j < board.length -1 ) {
+			ghost.j ++;
+		} else {
+			ghost.j --;
+		}
+	} else if (shape.i < ghost.i && ghost.i > 0) {
+		if ( board[ghost.i-1][ghost.j]!=4 && board[ghost.i-1][ghost.j]<7) {//avoid collision
+			ghost.i --;
+		} else if (ghost.j < shape.j && ghost.j < board.length -1 ) {
+			ghost.j ++;
+		} else {
+			ghost.j --;
+		}
+	} else if (shape.j>ghost.j && ghost.j < board.length -1) {
+		if (board[ghost.i][ghost.j+1]!=4 && board[ghost.i][ghost.j+1]<7) {//avoid collision
+			ghost.j ++;
+		} else if (ghost.i < shape.i && ghost.i < board.length -1 ) {
+			ghost.i ++;
+		} else {
+			ghost.i --;
+		}
+	} else if (shape.j < ghost.j && ghost.j >= 0 ) {
+		if (board[ghost.i][ghost.j-1]!=4 && board[ghost.i][ghost.j-1]<7) {//avoid collision
+			ghost.j --;
+		} else if (ghost.i < shape.i && ghost.i < board.length -1 ) {
+			ghost.i ++;
+		} else {
+			ghost.i --;
+		}
+	}
+	board[ghost.i][ghost.j]==ghost.id;
+}
+
+function GoIntoGhost() {
+	//TODO
+	GhostLocationReset();
+}
 
