@@ -13,8 +13,9 @@ var eye_y =15;
 var total_points =50;
 var food_remain;
 
-
-var img = document.getElementById("right");
+var img = new Image();
+img.src = "\\photos\\right_circle.png"
+// var img = document.getElementById("right");
 var avatar_style;
 
 //cell size
@@ -25,6 +26,7 @@ var width_cell = 60;
 //ghosts
 var GhostAmount=1;
 var interval_ghosts;
+//pink
 var ghost_pink = new Object();
 ghost_pink.image = new Image(width_cell-4,height_cell-4);
 ghost_pink.image.src = "\\photos\\ghost_pink.jpg";
@@ -33,7 +35,33 @@ ghost_pink.showGhost =true;
 ghost_pink.sleep = 0;
 ghost_pink.i=0;
 ghost_pink.j=0;
-
+//blue
+var ghost_blue = new Object();
+ghost_blue.image = new Image(width_cell-4,height_cell-4);
+ghost_blue.image.src = "\\photos\\ghost_blue.jpg";
+ghost_blue.id=8;
+ghost_blue.showGhost =true;
+ghost_blue.sleep = 0;
+ghost_blue.i=9;
+ghost_blue.j=9;
+//orange
+var ghost_orange = new Object();
+ghost_orange.image = new Image(width_cell-4,height_cell-4);
+ghost_orange.image.src = "\\photos\\ghost_orange.jpg";
+ghost_orange.id=9;
+ghost_orange.showGhost =true;
+ghost_orange.sleep = 0;
+ghost_orange.i=0;
+ghost_orange.j=9;
+//red
+var ghost_red = new Object();
+ghost_red.image = new Image(width_cell-4,height_cell-4);
+ghost_red.image.src = "\\photos\\ghost_red.jpg";
+ghost_red.id=10;
+ghost_red.showGhost =true;
+ghost_red.sleep = 0;
+ghost_red.i=9;
+ghost_red.j=0;
 
 
 
@@ -46,12 +74,13 @@ $(document).ready(function() {
 });
 
 
+
 function Start() {
 	board = new Array();
 	score = 0;
 	pac_color = "fuchsia";
 	var cnt = 100;
-	img = document.getElementById("right");
+	// img = document.getElementById("right");
 
 	var pacman_remain = 1;
 	start_time = new Date();
@@ -73,11 +102,37 @@ function Start() {
 	}
 	total_points = lime_balls*5 + blue_balls*15 + red_balls*25;
 
-	GhostAmount = 1;// TODO: update this after marge with element id
+	GhostAmount = 2;// TODO: update this after marge with element id
 	if (GhostAmount==1) {
 		ghost_pink.showGhost = true;
-		//TODO: add more ghosts
-		ghost_pink.sleep =0;
+		ghost_blue.showGhost =false;
+		ghost_orange.showGhost=false;
+		ghost_red.showGhost=false;
+		ghost_pink.sleep=0;
+	} else if (GhostAmount==2) {
+		ghost_pink.showGhost = true;
+		ghost_blue.showGhost =true;
+		ghost_orange.showGhost=false;
+		ghost_red.showGhost=false;
+		ghost_pink.sleep=0;
+		ghost_blue.sleep=0;
+	} else if (GhostAmount==3) {
+		ghost_pink.showGhost = true;
+		ghost_blue.showGhost =true;
+		ghost_orange.showGhost=true;
+		ghost_red.showGhost=false;
+		ghost_pink.sleep=0;
+		ghost_blue.sleep=0;
+		ghost_orange.sleep=0;
+	} else if (GhostAmount==4) {
+		ghost_pink.showGhost = true;
+		ghost_blue.showGhost =true;
+		ghost_orange.showGhost=true;
+		ghost_red.showGhost=true;
+		ghost_pink.sleep=0;
+		ghost_blue.sleep=0;
+		ghost_orange.sleep=0;
+		ghost_red.sleep=0;
 	}	
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
@@ -95,6 +150,21 @@ function Start() {
 				board[0][0] = ghost_pink.id;
 				ghost_pink.i=0;
 				ghost_pink.j=0;
+				//TODO: add more ghosts with else if...blabla
+			}else if (i==ghost_blue.i && j==ghost_blue.j && ghost_blue.showGhost==true) {
+				board[9][9] = ghost_blue.id;
+				ghost_blue.i=9;
+				ghost_blue.j=9;
+				//TODO: add more ghosts with else if...blabla
+			}else if (i==ghost_orange.i && j==ghost_orange.j && ghost_orange.showGhost==true) {
+				board[0][9] = ghost_orange.id;
+				ghost_orange.i=0;
+				ghost_orange.j=9;
+				//TODO: add more ghosts with else if...blabla
+			}else if (i==ghost_red.i && j==ghost_red.j && ghost_red.showGhost==true) {
+				board[9][0] = ghost_red.id;
+				ghost_red.i=9;
+				ghost_red.j=0;
 				//TODO: add more ghosts with else if...blabla
 			} else {
 				var randomNum = Math.random();
@@ -232,6 +302,15 @@ function Draw() {
 				// context.fillStyle = "black"; //color
 				// context.fill();
 				context.drawImage(img,center.x,center.y,(canvas.width)/15, (canvas.width)/15);
+			//ghosts
+			} else if (i==ghost_pink.i && j==ghost_pink.j && ghost_pink.showGhost==true) {
+				context.drawImage(ghost_pink.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
+			}else if (i==ghost_blue.i && j==ghost_blue.j && ghost_blue.showGhost==true) {
+				context.drawImage(ghost_blue.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
+			}else if (i==ghost_orange.i && j==ghost_orange.j && ghost_orange.showGhost==true) {
+				context.drawImage(ghost_orange.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
+			}else if (i==ghost_orange.i && j==ghost_orange.j && ghost_orange.showGhost==true) {
+				context.drawImage(ghost_orange.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
 			} else if (board[i][j] == 1) {
 				//lime ball
 				context.beginPath();
@@ -285,10 +364,7 @@ function Draw() {
 				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
 				context.strokeStyle = "black"; //color
 				context.stroke();
-			//ghosts
-			} else if (board[i][j]==ghost_pink.id && ghost_pink.showGhost==true) {
-				context.drawImage(ghost_pink.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell-4,height_cell-4);
-			}//TODO: continue with more ghists...
+			}
 		}
 	}
 }
@@ -303,7 +379,8 @@ function UpdatePosition() {
 			eye_y = 4;
 			start_angle = -Math.PI/2;
 			end_angle = -Math.PI/2;
-			img = document.getElementById("up");
+			img.src = "\\photos\\up.jpg"
+			//img = document.getElementById("up");
 			//ctx.drawImage(img, 10, 10);
 		}
 	}
@@ -314,7 +391,8 @@ function UpdatePosition() {
 			eye_y = -4;			
 			start_angle = Math.PI/2;
 			end_angle = Math.PI/2;
-			img = document.getElementById("down");			
+			img.src = "\\photos\\down.jpg"
+			//img = document.getElementById("down");			
 		}
 	}
 	if (x == 3) {
@@ -324,7 +402,8 @@ function UpdatePosition() {
 			eye_y = 14;
 			start_angle = Math.PI;
 			end_angle = Math.PI;
-			img = document.getElementById("left");
+			img.src = "\\photos\\left.jpg"
+			//img = document.getElementById("left");
 		}
 	}
 	if (x == 4) {
@@ -334,7 +413,8 @@ function UpdatePosition() {
 			eye_y = 14;			
 			start_angle = 0;
 			end_angle = 0;
-			img = document.getElementById("right");
+			img.src = "\\photos\\right_circle.png"
+			//img = document.getElementById("right");
 		}
 	}
 	if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
@@ -347,7 +427,7 @@ function UpdatePosition() {
 		GoIntoGhost();
 	}
 
-
+	console.log(shape.i,shape.j);
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
@@ -512,6 +592,15 @@ function UpdatePositionGhosts() {
 	if(ghost_pink.showGhost) {
 		GhostStep(ghost_pink);
 	}
+	if(ghost_blue.showGhost) {
+		GhostStep(ghost_blue);
+	}
+	if(ghost_orange.showGhost) {
+		GhostStep(ghost_orange);
+	}
+	if(ghost_red.showGhost) {
+		GhostStep(ghost_red);
+	}
 	Draw();
 }
 
@@ -521,8 +610,28 @@ function GhostLocationReset() {//set ghost location to grid corners
 		ghost_pink.sleep = 0;
 		ghost_pink.i=0;
 		ghost_pink.j=0;
-		//board[0][0] = ghost_pink.id; 
-		board[0][0]=7;
+		board[0][0] = ghost_pink.id; 
+	}
+	if (ghost_blue.showGhost==true) {
+		board[ghost_blue.i][ghost_blue.j] == ghost_blue.sleep;
+		ghost_blue.sleep = 0;
+		ghost_blue.i=9;
+		ghost_blue.j=9;
+		board[9][9] = ghost_blue.id; 
+	}
+	if (ghost_orange.showGhost==true) {
+		board[ghost_orange.i][ghost_orange.j] == ghost_orange.sleep;
+		ghost_orange.sleep = 0;
+		ghost_orange.i=0;
+		ghost_orange.j=9;
+		board[0][9] = ghost_orange.id; 
+	}
+	if (ghost_red.showGhost==true) {
+		board[ghost_red.i][ghost_red.j] == ghost_red.sleep;
+		ghost_red.sleep = 0;
+		ghost_red.i=9;
+		ghost_red.j=0;
+		board[9][0] = ghost_red.id; 
 	}
 
 }
@@ -531,37 +640,37 @@ function GhostStep(ghost) {
 	board[ghost.i][ghost.j]==ghost.sleep;
 	if (board[ghost.i][ghost.j] == 2){
 		GoIntoGhost();
-	} else if (ghost.i > shape.i && ghost.i < board.length -1 ) {
+	} else if (shape.i > ghost.i && ghost.i < board.length -1 ) {
 		if (board[ghost.i+1][ghost.j]!=4 && board[ghost.i+1][ghost.j]<7) {//avoid collision
-			ghost.i ++;
+			ghost.i++;
 		} else if (ghost.j < shape.j && ghost.j < board.length -1 ) {
-			ghost.j ++;
+			ghost.j++;
 		} else {
-			ghost.j --;
+			ghost.j--;
 		}
 	} else if (shape.i < ghost.i && ghost.i > 0) {
 		if ( board[ghost.i-1][ghost.j]!=4 && board[ghost.i-1][ghost.j]<7) {//avoid collision
-			ghost.i --;
+			ghost.i--;
 		} else if (ghost.j < shape.j && ghost.j < board.length -1 ) {
-			ghost.j ++;
+			ghost.j++;
 		} else {
-			ghost.j --;
+			ghost.j--;
 		}
 	} else if (shape.j>ghost.j && ghost.j < board.length -1) {
 		if (board[ghost.i][ghost.j+1]!=4 && board[ghost.i][ghost.j+1]<7) {//avoid collision
-			ghost.j ++;
+			ghost.j++;
 		} else if (ghost.i < shape.i && ghost.i < board.length -1 ) {
-			ghost.i ++;
+			ghost.i++;
 		} else {
-			ghost.i --;
+			ghost.i--;
 		}
 	} else if (shape.j < ghost.j && ghost.j >= 0 ) {
 		if (board[ghost.i][ghost.j-1]!=4 && board[ghost.i][ghost.j-1]<7) {//avoid collision
-			ghost.j --;
+			ghost.j--;
 		} else if (ghost.i < shape.i && ghost.i < board.length -1 ) {
-			ghost.i ++;
+			ghost.i++;
 		} else {
-			ghost.i --;
+			ghost.i--;
 		}
 	}
 	board[ghost.i][ghost.j]==ghost.id;
