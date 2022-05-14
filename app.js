@@ -63,6 +63,32 @@ ghost_red.sleep = 0;
 ghost_red.i=9;
 ghost_red.j=0;
 
+
+var interval_move_50;
+//50 points moving (cherry image)
+var move_50_points = new Object();
+move_50_points.image = new Image(width_cell,height_cell);
+move_50_points.image.src = "\\photos\\cherry.png";
+move_50_points.id=11;
+move_50_points.showGhost = true;
+move_50_points.sleep = 0;
+move_50_points.i=5;
+move_50_points.j=5;
+
+
+var interval_clock;
+//5 sec clock_bonus (clock_bonus image)
+var clock_bonus_sec = new Object();
+clock_bonus_sec.image = new Image(width_cell,height_cell);
+clock_bonus_sec.image.src = "\\photos\\clock_image.png";
+clock_bonus_sec.id=12;
+clock_bonus_sec.showGhost = true;
+clock_bonus_sec.sleep = 0;
+clock_bonus_sec.i=5;
+clock_bonus_sec.j=5;
+
+
+
 //lives
 var lives=5;
 
@@ -79,40 +105,6 @@ $(document).ready(function() {
 });
 
 
-// 	GhostAmount = 1;// TODO: update this after marge with element id
-// 	if (GhostAmount==1) {
-// 		ghost_pink.showGhost = true;
-// 		ghost_blue.showGhost =false;
-// 		ghost_orange.showGhost=false;
-// 		ghost_red.showGhost=false;
-// 		ghost_pink.sleep=0;
-// 	} else if (GhostAmount==2) {
-// 		ghost_pink.showGhost = true;
-// 		ghost_blue.showGhost =true;
-// 		ghost_orange.showGhost=false;
-// 		ghost_red.showGhost=false;
-// 		ghost_pink.sleep=0;
-// 		ghost_blue.sleep=0;
-// 	} else if (GhostAmount==3) {
-// 		ghost_pink.showGhost = true;
-// 		ghost_blue.showGhost =true;
-// 		ghost_orange.showGhost=true;
-// 		ghost_red.showGhost=false;
-// 		ghost_pink.sleep=0;
-// 		ghost_blue.sleep=0;
-// 		ghost_orange.sleep=0;
-// 	} else if (GhostAmount==4) {
-// 		ghost_pink.showGhost = true;
-// 		ghost_blue.showGhost =true;
-// 		ghost_orange.showGhost=true;
-// 		ghost_red.showGhost=true;
-// 		ghost_pink.sleep=0;
-// 		ghost_blue.sleep=0;
-// 		ghost_orange.sleep=0;
-// 		ghost_red.sleep=0;
-// 	}
-// }
-
 function Start() {
 	board = new Array();
 	score = 0;
@@ -127,20 +119,20 @@ function Start() {
 	food_remain = document.getElementById("balls").value;
 
 	//50*0.6=30 --> 5 points - lime --> board[i][j] = 1;
-	var lime_balls = Math.round(food_remain*0.6);
+	var ball_5_counter = Math.round(food_remain*0.6);
 	//50*0.3=15 --> 15 p - blue --> board[i][j] = 5;
-	var blue_balls = Math.round(food_remain*0.3);
+	var ball_15_counter = Math.round(food_remain*0.3);
 	//50*0.1 = 5 --> 25 p - red --> board[i][j] = 6;
-	var red_balls = Math.round(food_remain*0.1);
+	var ball_25_counter = Math.round(food_remain*0.1);
 	//in case of not integer
-	while (lime_balls+blue_balls+red_balls !=food_remain) {
-		if (lime_balls+blue_balls+red_balls <food_remain) {
-			lime_balls++;
+	while (ball_5_counter+ball_15_counter+ball_25_counter !=food_remain) {
+		if (ball_5_counter+ball_15_counter+ball_25_counter <food_remain) {
+			ball_5_counter++;
 		} else {
-			lime_balls--;
+			ball_5_counter--;
 		}
 	}
-	total_points = lime_balls*5 + blue_balls*15 + red_balls*25;
+	total_points = ball_5_counter*5 + ball_15_counter*15 + ball_25_counter*25;
 
 	GhostAmount = 2;// TODO: update this after marge with element id
 	GhostAmount = document.getElementById("num_of_monsters").value;// TODO: update this after marge with element id
@@ -174,7 +166,15 @@ function Start() {
 		ghost_blue.sleep=0;
 		ghost_orange.sleep=0;
 		ghost_red.sleep=0;
-	}	
+	}
+	//50 points character
+	move_50_points.showGhost = true;
+	move_50_points.sleep = 0;
+	// [move_50_points.i,move_50_points.j] = findRandomEmptyCell(board);
+
+	clock_bonus_sec.showGhost = true;
+	clock_bonus_sec.sleep = 0;
+
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -191,73 +191,73 @@ function Start() {
 				board[0][0] = ghost_pink.id;
 				ghost_pink.i=0;
 				ghost_pink.j=0;
-				//TODO: add more ghosts with else if...blabla
-			}else if (i==ghost_blue.i && j==ghost_blue.j && ghost_blue.showGhost==true) {
+			} else if (i==ghost_blue.i && j==ghost_blue.j && ghost_blue.showGhost==true) {
 				board[9][9] = ghost_blue.id;
 				ghost_blue.i=9;
 				ghost_blue.j=9;
-				//TODO: add more ghosts with else if...blabla
-			}else if (i==ghost_orange.i && j==ghost_orange.j && ghost_orange.showGhost==true) {
+			} else if (i==ghost_orange.i && j==ghost_orange.j && ghost_orange.showGhost==true) {
 				board[0][9] = ghost_orange.id;
 				ghost_orange.i=0;
 				ghost_orange.j=9;
-				//TODO: add more ghosts with else if...blabla
-			}else if (i==ghost_red.i && j==ghost_red.j && ghost_red.showGhost==true) {
+			} else if (i==ghost_red.i && j==ghost_red.j && ghost_red.showGhost==true) {
 				board[9][0] = ghost_red.id;
 				ghost_red.i=9;
 				ghost_red.j=0;
-				//TODO: add more ghosts with else if...blabla
+			}else if (i==move_50_points.i && j==move_50_points.j && move_50_points.showGhost==true) {
+				board[i][j] = move_50_points.id;
+			}else if (i==clock_bonus_sec.i && j==clock_bonus_sec.j && clock_bonus_sec.showGhost==true) {
+				board[i][j] = clock_bonus_sec.id;
 			} else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
 					food_remain--;
-					if (lime_balls>0 && blue_balls>0 && red_balls>0) {
+					if (ball_5_counter>0 && ball_15_counter>0 && ball_25_counter>0) {
 						rnd_ball = Math.floor(Math.random()*3)//0=lime_ball(5 pt),1=blue ball(15 pt),2=red ball(25pt)
 						if (rnd_ball==0) {
-							lime_balls--;
+							ball_5_counter--;
 							board[i][j] = 1;
 						} else if (rnd_ball==1) {
-							blue_balls--;
+							ball_15_counter--;
 							board[i][j]=5;
 						} else {
-							red_balls--;
+							ball_25_counter--;
 							board[i][j]=6;
 						}
-					} else if (lime_balls>0 && blue_balls>0) {
+					} else if (ball_5_counter>0 && ball_15_counter>0) {
 						rnd_ball = Math.floor(Math.random()*2)//0=lime_ball(5 pt),1=blue ball(15 pt)
 						if (rnd_ball==0) {
-							lime_balls--;
+							ball_5_counter--;
 							board[i][j] = 1;
 						} else if (rnd_ball==1) {
-							blue_balls--;
+							ball_15_counter--;
 							board[i][j]=5;
 						}
-					} else if (lime_balls>0 && red_balls>0) {
+					} else if (ball_5_counter>0 && ball_25_counter>0) {
 						rnd_ball = Math.floor(Math.random()*2)//0=lime_ball(5 pt),1=red ball(25pt)
 						if (rnd_ball==0) {
-							lime_balls--;
+							ball_5_counter--;
 							board[i][j] = 1;
 						} else if (rnd_ball==1) {
-							red_balls--;
+							ball_25_counter--;
 							board[i][j]=6;
 						}
-					} else if (blue_balls>0 && red_balls>0) {
+					} else if (ball_15_counter>0 && ball_25_counter>0) {
 						rnd_ball = Math.floor(Math.random()*3)//0=blue ball(15 pt),1=red ball(25pt)
 						if (rnd_ball==0) {
-							blue_balls--;
+							ball_15_counter--;
 							board[i][j] = 5;
 						} else if (rnd_ball==1) {
-							red_balls--;
+							ball_25_counter--;
 							board[i][j]=6;
 						}						
-					} else if(lime_balls>0) {
-						lime_balls--;
+					} else if(ball_5_counter>0) {
+						ball_5_counter--;
 						board[i][j] = 1;						
-					} else if(blue_balls>0) {
-						blue_balls--;
+					} else if(ball_15_counter>0) {
+						ball_15_counter--;
 						board[i][j] = 5;						
 					} else {
-						red_balls--;
+						ball_25_counter--;
 						board[i][j] = 6;
 					}
 				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
@@ -295,6 +295,8 @@ function Start() {
 
 	interval = setInterval(UpdatePosition,120);
 	interval_ghosts = setInterval(UpdatePositionGhosts,400);
+	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1111);
+	interval_clock = setInterval(UpdatePositionClockBonus,888);
 }
 
 function findRandomEmptyCell(board) {
@@ -355,14 +357,20 @@ function Draw() {
 				context.drawImage(ghost_blue.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
 			}else if (i==ghost_orange.i && j==ghost_orange.j && ghost_orange.showGhost==true) {
 				context.drawImage(ghost_orange.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
-			}else if (i==ghost_orange.i && j==ghost_orange.j && ghost_orange.showGhost==true) {
-				context.drawImage(ghost_orange.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
+			}else if (i==ghost_red.i && j==ghost_red.j && ghost_red.showGhost==true) {
+				context.drawImage(ghost_red.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
+			//50 points
+			}else if (i==move_50_points.i && j==move_50_points.j && move_50_points.showGhost==true) {
+				context.drawImage(move_50_points.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
+			//clock bonus
+			}else if (i==clock_bonus_sec.i && j==clock_bonus_sec.j && clock_bonus_sec.showGhost==true) {
+				context.drawImage(clock_bonus_sec.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
 			} else if (board[i][j] == 1) {
 				//lime ball
-				let ball_5 = document.getElementById("5_points").value
+				let ball_5_color = document.getElementById("5_points").value
 				context.beginPath();
 				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
-				context.fillStyle = ball_5; //color
+				context.fillStyle = ball_5_color; //color
 				context.fill();
 				context.font="30px Arial";
 				context.textAlign = "center";
@@ -371,10 +379,10 @@ function Draw() {
 				context.stroke();
 			} else if (board[i][j] == 5) {
 				//"blue ball
-				let ball_15 = document.getElementById("15_points").value
+				let ball_15_color = document.getElementById("15_points").value
 				context.beginPath();
 				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
-				context.fillStyle = ball_15; //color
+				context.fillStyle = ball_15_color; //color
 				context.fill();	
 				context.font="30px Arial";
 				context.textAlign = "center";
@@ -383,10 +391,10 @@ function Draw() {
 				context.stroke();
 			} else if (board[i][j] == 6) {
 				//red ball
-				let ball_25 = document.getElementById("25_points").value
+				let ball_25_color = document.getElementById("25_points").value
 				context.beginPath();
 				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
-				context.fillStyle = ball_25; //color
+				context.fillStyle = ball_25_color; //color
 				context.fill();
 				context.font="30px Arial";
 				context.textAlign = "center";
@@ -465,6 +473,16 @@ function UpdatePosition() {
 			//img.src = "\\photos\\right_circle.png"
 			//img = document.getElementById("right");
 		}
+	}
+	if(board[shape.i][shape.j]==11) {
+		score+=50;
+		move_50_points.showGhost=false;
+		window.clearInterval(interval_move_50);
+	}else if(board[shape.i][shape.j]==12) {
+		time_elapsed = time_elapsed -5;
+		//TODO: CHANGE IT TO interval_clock
+		clock_bonus_sec.showGhost=false;
+		window.clearInterval(interval_clock);
 	}else if (board[shape.i][shape.j] == 1 || board[shape.i][shape.j] == 5 || board[shape.i][shape.j] == 6) {
 		ball_pick_sound.play();
 		if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
@@ -474,9 +492,10 @@ function UpdatePosition() {
 		} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
 			score+=25;
 		}
-	} else if (board[shape.i][shape.j]>=7 && board[shape.i][board.shape.j]<=11) {
+	} else if (board[shape.i][shape.j]>=7 && board[shape.i][board.shape.j]<=10) {
 		GoIntoGhost();
 	}
+
 
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
@@ -655,6 +674,104 @@ function UpdatePositionGhosts() {
 	Draw();
 }
 
+function UpdatePosition50PointsCharacter(){
+	if(move_50_points.showGhost) {
+		board[move_50_points.i][move_50_points.j] = move_50_points.sleep;
+		if (board[move_50_points.i][move_50_points.j] == 2) {
+			move_50_points.showGhost=false;
+			score = score +50;
+			board[move_50_points.i][move_50_points.j] = 0;
+			// window.clearInterval(interval_move_50);
+		// } else if (shape.j < move_50_points.j && move_50_points.j >= 0 ) {
+		// 	if (board[move_50_points.i][move_50_points.j-1]!=4 && board[move_50_points.i][move_50_points.j-1]<7) {//avoid collision
+		// 		move_50_points.j--;
+		// 	} else if (move_50_points.i < shape.i && move_50_points.i < board.length -1 ) {
+		// 		move_50_points.i++;
+		// 	} else {
+		// 		move_50_points.i--;
+		// 	}
+		// } else if (shape.j>move_50_points.j && move_50_points.j < board.length -1) {
+		// 	if (board[move_50_points.i][move_50_points.j+1]!=4 && board[move_50_points.i][move_50_points.j+1]<7) {//avoid collision
+		// 		move_50_points.j++;
+		// 	} else if (move_50_points.i < shape.i && move_50_points.i < board.length -1 ) {
+		// 		move_50_points.i++;
+		// 	} else {
+		// 		move_50_points.i--;
+		// 	}
+		// } else if (shape.i < move_50_points.i && move_50_points.i > 0) {
+		// 	if ( board[move_50_points.i-1][move_50_points.j]!=4 && board[move_50_points.i-1][move_50_points.j]<7) {//avoid collision
+		// 		move_50_points.i--;
+		// 	} else if (move_50_points.j < shape.j && move_50_points.j < board.length -1 ) {
+		// 		move_50_points.j++;
+		// 	} else {
+		// 		move_50_points.j--;
+		// 	}
+		// }else {
+		// 	if (board[move_50_points.i+1][move_50_points.j]!=4 && board[move_50_points.i+1][move_50_points.j]<7) {//avoid collision
+		// 		move_50_points.i++;
+		// 	} else if (move_50_points.j < shape.j && move_50_points.j < board.length -1 ) {
+		// 		move_50_points.j++;
+		// 	} else {
+		// 		move_50_points.j--;
+		// 	}
+		// }
+		} else {
+			[move_50_points.i,move_50_points.j] = findRandomEmptyCell(board);
+			board[move_50_points.i][move_50_points.j]=move_50_points.id;
+		}
+		Draw();
+	}
+}
+
+function UpdatePositionClockBonus(){
+	if(clock_bonus_sec.showGhost) {
+		board[clock_bonus_sec.i][clock_bonus_sec.j] = clock_bonus_sec.sleep;
+		if (board[clock_bonus_sec.i][clock_bonus_sec.j] == 2) {
+			clock_bonus_sec.showGhost=false;
+			score = score +50;
+			board[clock_bonus_sec.i][clock_bonus_sec.j] = 0;
+			// window.clearInterval(interval_move_50);
+		// } else if (shape.j < clock_bonus_sec.j && clock_bonus_sec.j >= 0 ) {
+		// 	if (board[clock_bonus_sec.i][clock_bonus_sec.j-1]!=4 && board[clock_bonus_sec.i][clock_bonus_sec.j-1]<7) {//avoid collision
+		// 		clock_bonus_sec.j--;
+		// 	} else if (clock_bonus_sec.i < shape.i && clock_bonus_sec.i < board.length -1 ) {
+		// 		clock_bonus_sec.i++;
+		// 	} else {
+		// 		clock_bonus_sec.i--;
+		// 	}
+		// } else if (shape.j>clock_bonus_sec.j && clock_bonus_sec.j < board.length -1) {
+		// 	if (board[clock_bonus_sec.i][clock_bonus_sec.j+1]!=4 && board[clock_bonus_sec.i][clock_bonus_sec.j+1]<7) {//avoid collision
+		// 		clock_bonus_sec.j++;
+		// 	} else if (clock_bonus_sec.i < shape.i && clock_bonus_sec.i < board.length -1 ) {
+		// 		clock_bonus_sec.i++;
+		// 	} else {
+		// 		clock_bonus_sec.i--;
+		// 	}
+		// } else if (shape.i < clock_bonus_sec.i && clock_bonus_sec.i > 0) {
+		// 	if ( board[clock_bonus_sec.i-1][clock_bonus_sec.j]!=4 && board[clock_bonus_sec.i-1][clock_bonus_sec.j]<7) {//avoid collision
+		// 		clock_bonus_sec.i--;
+		// 	} else if (clock_bonus_sec.j < shape.j && clock_bonus_sec.j < board.length -1 ) {
+		// 		clock_bonus_sec.j++;
+		// 	} else {
+		// 		clock_bonus_sec.j--;
+		// 	}
+		// }else {
+		// 	if (board[clock_bonus_sec.i+1][clock_bonus_sec.j]!=4 && board[clock_bonus_sec.i+1][clock_bonus_sec.j]<7) {//avoid collision
+		// 		clock_bonus_sec.i++;
+		// 	} else if (clock_bonus_sec.j < shape.j && clock_bonus_sec.j < board.length -1 ) {
+		// 		clock_bonus_sec.j++;
+		// 	} else {
+		// 		clock_bonus_sec.j--;
+		// 	}
+		// }
+		} else {
+			[clock_bonus_sec.i,clock_bonus_sec.j] = findRandomEmptyCell(board);
+			board[clock_bonus_sec.i][clock_bonus_sec.j]=clock_bonus_sec.id;
+		}
+		Draw();
+	}
+}
+
 function GhostLocationReset() {//set ghost location to grid corners
 	if (ghost_pink.showGhost==true) {
 		board[ghost_pink.i][ghost_pink.j] == ghost_pink.sleep;
@@ -745,8 +862,16 @@ function GoIntoGhost() {
 function End() {
 	window.clearInterval(interval);
 	window.clearInterval(interval_ghosts);
+	if(move_50_points.show) {
+		move_50_points.show=false;
+		window.clearInterval(interval_move_50);
+	}
+	if(clock_bonus_sec.show) {
+		clock_bonus_sec.show=false;
+		window.clearInterval(interval_move_50);
+	}
 	var msg;
-	if (score==total_points) {
+	if (score<=total_points) {
 		msg = "WINNER ! \n SCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
 	} else {
 		msg = "Game Over ! \nYOU LOSE ! \nSCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
