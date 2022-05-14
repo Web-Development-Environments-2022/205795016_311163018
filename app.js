@@ -29,6 +29,10 @@ var ghost_pink = new Object();
 ghost_pink.image = new Image(width_cell-4,height_cell-4);
 ghost_pink.image.src = "\\photos\\ghost_pink.jpg";
 ghost_pink.id=7;
+ghost_pink.showGhost =true;
+ghost_pink.sleep = 0;
+ghost_pink.i=0;
+ghost_pink.j=0;
 
 
 
@@ -59,7 +63,7 @@ function ConfigureGame() {
 
 	GhostAmount = 1;// TODO: update this after marge with element id
 	if (GhostAmount==1) {
-		ghost_pink.showGhost=true;
+		ghost_pink.showGhost = true;
 		//TODO: add more ghosts
 		ghost_pink.sleep =0;
 	}
@@ -94,7 +98,7 @@ function Start() {
 
 	GhostAmount = 1;// TODO: update this after marge with element id
 	if (GhostAmount==1) {
-		ghost_pink.showGhost=true;
+		ghost_pink.showGhost = true;
 		//TODO: add more ghosts
 		ghost_pink.sleep =0;
 	}	
@@ -110,7 +114,7 @@ function Start() {
 				(i == 6 && j == 2)
 			) {
 				board[i][j] = 4;
-			} else if (i==0 && j==0 && ghost_pink.showGhost) {
+			} else if (i==ghost_pink.i && j==ghost_pink.j && ghost_pink.showGhost==true) {
 				board[0][0] = ghost_pink.id;
 				ghost_pink.i=0;
 				ghost_pink.j=0;
@@ -200,8 +204,9 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
-	interval_ghosts = setInterval(GhostLocationUpdate,400);
+
+	interval = setInterval(UpdatePosition,120);
+	interval_ghosts = setInterval(UpdatePositionGhosts,400);
 }
 
 function findRandomEmptyCell(board) {
@@ -304,7 +309,7 @@ function Draw() {
 				context.strokeStyle = "black"; //color
 				context.stroke();
 			//ghosts
-			} else if (board[i][j]==ghost_pink.id && ghost_pink.showGhost) {
+			} else if (board[i][j]==ghost_pink.id && ghost_pink.showGhost==true) {
 				context.drawImage(ghost_pink.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell-4,height_cell-4);
 			}//TODO: continue with more ghists...
 		}
@@ -398,15 +403,15 @@ function show(shown,hidden1,hidden2,hidden3) {
 
 
 //ghosts
-function GhostLocationUpdate() {
-	if (ghost_pink.showGhost) {
+function UpdatePositionGhosts() {
+	if(ghost_pink.showGhost) {
 		GhostStep(ghost_pink);
 	}
 	Draw();
 }
 
 function GhostLocationReset() {//set ghost location to grid corners
-	if (ghost_pink.showGhost) {
+	if (ghost_pink.showGhost==true) {
 		board[ghost_pink.i][ghost_pink.j] == ghost_pink.sleep;
 		ghost_pink.sleep = 0;
 		ghost_pink.i=0;
@@ -421,7 +426,7 @@ function GhostStep(ghost) {
 	board[ghost.i][ghost.j]==ghost.sleep;
 	if (board[ghost.i][ghost.j] == 2){
 		GoIntoGhost();
-	} else if (shape.i > ghost.i && (ghost.i < board.length -1) ) {
+	} else if (ghost.i > shape.i && ghost.i < board.length -1 ) {
 		if (board[ghost.i+1][ghost.j]!=4 && board[ghost.i+1][ghost.j]<7) {//avoid collision
 			ghost.i ++;
 		} else if (ghost.j < shape.j && ghost.j < board.length -1 ) {
@@ -454,7 +459,6 @@ function GhostStep(ghost) {
 			ghost.i --;
 		}
 	}
-
 	board[ghost.i][ghost.j]==ghost.id;
 }
 
