@@ -1,5 +1,6 @@
 
 var users = {}
+var controls = {}
 users["k"] == "k"
 
 function register(){
@@ -46,7 +47,8 @@ function register(){
 
     users[user_name] = password
     window.alert("Congrats you registred sucessfully")
-    show('Login','Register' ,'Welcome','About')
+    showAndHideDivs("login")
+    //show('Login','Register' ,'Welcome','About')
 }
 
 
@@ -67,7 +69,9 @@ function login() {
         // checking if the password is correct
         if (users[user_name] == password){
             window.alert("Welcome back and enjoy the game.")
-            showgame()
+            showAndHideDivs("settings")
+            //showsettings()
+            //showgame()
             return
             //TODO change to setting and then to game screen
 
@@ -85,15 +89,114 @@ function login() {
     }
 }
 
+
+function default_controls(){
+    controls = {'up':38, 'down':40, 'right':39, 'left':37}
+    $('#up').val("up")
+	$('#down').val("down")
+	$('#right').val("right")
+	$('#left').val("left")
+}
+
+
+function myKeyPress(e , key){
+    var keynum
+    if(window.event){
+        keynum = e.keyCode;
+    }
+
+    switch(key){
+        case('up'):
+			//wantedKey = $('#moveup')
+			controls['up'] = keynum
+			break;
+		case('down'):
+			//wantedKey = $('#movedown')
+			controls['down'] = keynum
+			break;
+		case('right'):
+			//wantedKey = $('#moveright')
+			controls['right'] = keynum
+			break;
+		case('left'):
+			//wantedKey = $('#moveleft')
+			controls['left'] = keynum
+			break;
+    }
+
+}
+
+
+
+function check_settings(){
+    // let up = $('#up').val()
+	// let down = $('#down').val()
+	// let right = $('#right').val()
+	// let left = $('#left').val()
+
+
+
+    // if ((up == '') || (down == '') || (right == '') || (left == '')){
+    //     window.alert("Please fill all the value to start the game.")
+    //     return
+    // }
+
+    // let moving_keys = new Set([up, down, right, left]);
+	// if (moving_keys.size != 4){
+	// 	window.alert('Identical keys error - You configured 2 or more different movements with the same keys, please choose a different key for every different move')
+	// 	return
+	// }
+    showAndHideDivs("game")
+    //showgame()
+}
+
+
+
+
+function showsettings(){
+
+    $('#Welcome').hide();
+	$('#Register').hide();
+	$('#Login').hide();
+	$('#About').hide();
+	$('#game_screen').hide();
+	$('#Settings').show();
+	$('#score').hide();
+	$('#time').hide();
+	$('#game').hide();
+
+    // document.getElementById("Settings").style.display='block';
+    // document.getElementById("score").style.display='none';
+    // document.getElementById("time").style.display='none';
+    // document.getElementById("game").style.display='none';
+    // document.getElementById("Welcome").style.display='none';
+    // document.getElementById("Register").style.display='none';
+    // document.getElementById("Login").style.display='none';
+    // document.getElementById("About").style.display='none';
+
+}
+
 function showgame(){
 
-    document.getElementById("score").style.display='block';
-    document.getElementById("time").style.display='block';
-    document.getElementById("game").style.display='block';
-    document.getElementById("Welcome").style.display='none';
-    document.getElementById("Register").style.display='none';
-    document.getElementById("Login").style.display='none';
-    document.getElementById("About").style.display='none';
+    $('#Welcome').hide();
+	$('#Register').hide();
+	$('#Login').hide();
+	$('#About').hide();
+	$('#game_screen').hide();
+	$('#Settings').show();
+	$('#score').hide();
+	$('#time').hide();
+	$('#game').show();
+
+    // document.getElementById("score").style.display='block';
+    // document.getElementById("time").style.display='block';
+    // document.getElementById("game").style.display='block';
+    // document.getElementById("Settings").style.display='none';
+    // document.getElementById("Welcome").style.display='none';
+    // document.getElementById("Register").style.display='none';
+    // document.getElementById("Login").style.display='none';
+    // document.getElementById("About").style.display='none';
+    Start();
 
   
     // return false;

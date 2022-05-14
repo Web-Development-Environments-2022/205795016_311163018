@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- script for the menu buttons -->
-		<script>
-			function show(shown, hidden1,hidden2,hidden3) {
-			  document.getElementById(shown).style.display='block';
-			  document.getElementById(hidden1).style.display='none';
-			  document.getElementById(hidden2).style.display='none';
-			  document.getElementById(hidden3).style.display='none';
 
-			  return false;
-			}
-			</script>
 		<script src="./jquery-3.4.1.slim.min.js"></script>
 		<script type="text/javascript" src="./app.js"></script>
 		<script type="text/javascript" src="./form.js"></script>
@@ -27,14 +17,14 @@
 		<!-- menu -->
 		<div id = "menu">
 			<ul>
-				<img id="up" class="avatar" width="0" height="0" src="\photos\up.jpg">
+				<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
 				<img id="down" width="0" height="0" src="\photos\down.jpg">
 				<img id="left" width="0" height="0" src="\photos\left.jpg">
-				<img id="right" width="0" height="0" src="\photos\right_circle.png">
-				<li><a href="#" onclick="show('Welcome','Register' ,'Login','About');"><h2>Welcome</h2></a></li>
-				<li><a href="#" onclick=" show('Register','Welcome' ,'Login','About');"><h2>Register</h2></a></li>
-				<li><a href="#" onclick=" show('Login','Register' ,'Welcome','About');"><h2>Login</h2></a></li>
-				<li><a href="#" onclick=" show('About','Register' ,'Login','Welcome');"><h2>About</h2></a></li>
+				<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
+				<li><a href="#" onclick="showAndHideDivs('welcome');"><h2>Welcome</h2></a></li>
+				<li><a href="#" onclick="showAndHideDivs('register');"><h2>Register</h2></a></li>
+				<li><a href="#" onclick="showAndHideDivs('login');"><h2>Login</h2></a></li>
+				<li><a href="#" onclick="showAndHideDivs('about');"><h2>About</h2></a></li>
 
 			</ul>
 		</div>
@@ -47,14 +37,14 @@
 
 		<div id="Welcome">
 			<div class="btn-group">
-				<button class="button_R" onclick="show('Register','Welcome' ,'Login','About');"><span class="text">Register</span></button>
-				<button class="Button_L" onclick="show('Login','Register' ,'Welcome','About');"><span class="text">Login</span></button>
+				<button class="button_R" onclick="showAndHideDivs('register');"><span class="text">Register</span></button>
+				<button class="Button_L" onclick="showAndHideDivs('login');"><span class="text">Login</span></button>
 				<!-- <button>Sony</button> -->
 				</div>
 				<!-- <button class="button-64" role="button" onclick="show('Register','Welcome' ,'Login','About');"><span class="text">Register</span></button>
 				<br>
 				<button class="button-64" role="button" onclick="show('Login','Register' ,'Welcome','About');"><span class="text">Login</span></button> -->		  </div>
-		  <div id="Register" style="display:none">
+		  <div id="Register" >
 			<form name="regi_form" action='javascript:register()'>
 				<div class="container">
 					<h2>Register Here</h2>
@@ -73,11 +63,21 @@
 					<label for="birthday"><b>Birthday</b></label><br>
 					<input type="date" id="birthday" placeholder="Pick your date" id="birthday" name="birthday" min="1922-05-10" , max="2022-05-16" required>				
 					<hr>
+					<ul>
+						<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
+						<img id="down" width="0" height="0" src="\photos\down.jpg">
+						<img id="left" width="0" height="0" src="\photos\left.jpg">
+						<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
+						<li><a href="#" onclick="register(); "><h2>Register</h2></a></li>
+
+		
+					</ul>
 					<button type="submit" class="registerbtn"><strong>Register</strong></button>
 				</div>
 
-			</form>		  </div>
-		  <div id="Login" style="display:none">
+			</form>	
+		 </div>
+		  <div id="Login" >
 			<form>
 				<div class="container">
 					<h2>Login</h2>
@@ -87,26 +87,116 @@
 					<input type="text" id="User_Name_login" placeholder="User Name" name="User_Name_login" required><br>
 					<label for="pwd"><b>Password</b></label><br>
 					<input type="password" id="pwd_login" placeholder="Enter Password" name="pwd_login" required><br>
+					<ul>
+						<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
+						<img id="down" width="0" height="0" src="\photos\down.jpg">
+						<img id="left" width="0" height="0" src="\photos\left.jpg">
+						<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
+						<li><a href="#" onclick="login(); default_controls();"><h2>Login</h2></a></li>
+
+		
+					</ul>
 					<button type="submit" class="loginbtn" value="Login" onclick="login();"><strong>Login</strong></button>
 					<hr>
 				</div>
 
 			</form>
 		  </div>
-		  <div id="About" style="display:none">
+
+		  <div id="Settings" >
+			  <table>
+				  <h2>Settings</h2>
+				  <form>
+					  <table>
+						  <tr>
+							  <b>Select your keys to move</b><br>
+							  <ul>
+								<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
+								<img id="down" width="0" height="0" src="\photos\down.jpg">
+								<img id="left" width="0" height="0" src="\photos\left.jpg">
+								<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
+								<li><a href="#" onclick="default_controls(); "><h2>default keys</h2></a></li>
+		
+				
+							</ul>
+							  <button onclick="default_controls()"><strong>default keys</strong></button>
+							  <td>
+								  UP
+							  </td>
+							  <td>
+								<input id="up" type="text" onkeydown="myKeyPress(event, 'up')"/> 
+							  </td>
+						  </tr>
+						  <tr>
+							<td>
+								DOWN
+							</td>
+							<td>
+							  <input id="down" type="text" onkeydown="myKeyPress(event, 'down')"/> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								RIGHT
+							</td>
+							<td>
+							  <input id="right" type="text" onkeydown="myKeyPress(event, 'right')"/> 
+							</td>
+						</tr>
+						<tr>
+							<td>
+								LEFT
+							</td>
+							<td>
+							  <input id="left" type="text" onkeydown="myKeyPress(event, 'left')"/> 
+							</td>
+						</tr>
+					  </table>
+					  <table>
+						  <tr>
+							  <b>Choose number of balls</b><br>
+							  <ul>
+								  <td>
+									  <input id="balls" type="text" placeholder="choose a number between 50 to 90">
+								  </td>
+							  </ul>
+						  </tr>
+					  </table>
+					  <ul>
+						<li><a href="#" onclick="check_settings();"><h2>Start Game</h2></a></li>
+					</ul>
+					  
+					  <button onclick="check_settings()"><strong>Start Game</strong></button>
+				  </form>
+			  </table>
+		  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		  <div id="About" >
 			<h2>What do you care about me?!!?!?!?!</h2>
 		  </div>
 
 
-		<div id="score" style="display: none">
+		<div id="score" >
 			<label for="lblScore">SCORE:</label>
 			<input id="lblScore" type="text" />
 		</div>
-		<div id="time" style="display: none">
+		<div id="time">
 			<label for="lblTime">TIME:</label>
 			<input id="lblTime" type="text" />
 		</div>
-		<div id="game" style="display: none">
+		<div id="game">
 			<br><canvas id="canvas" height="900" width="900" style="border:5px solid green;"></canvas>
 		</div>
 	</body>
