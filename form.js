@@ -129,23 +129,43 @@ function myKeyPress(e , key){
 
 
 function check_settings(){
-    // let up = $('#up').val()
-	// let down = $('#down').val()
-	// let right = $('#right').val()
-	// let left = $('#left').val()
+    let up = $('#up').val()
+	let down = $('#down').val()
+	let right = $('#right').val()
+	let left = $('#left').val()
+    let balls_num = document.getElementById("balls")
+    let game_timer = $('game_time').val()
+    let monsters_num = $('num_of_monsters').val()
 
 
 
-    // if ((up == '') || (down == '') || (right == '') || (left == '')){
-    //     window.alert("Please fill all the value to start the game.")
-    //     return
-    // }
+    if ((up == '') || (down == '') || (right == '') || (left == '') || (balls_num == '') || (game_timer == '')|| (monsters_num =='')){
+        window.alert("Please fill all the value to start the game.")
+        return
+    }
 
-    // let moving_keys = new Set([up, down, right, left]);
-	// if (moving_keys.size != 4){
-	// 	window.alert('Identical keys error - You configured 2 or more different movements with the same keys, please choose a different key for every different move')
-	// 	return
-	// }
+    let moving_keys = new Set([up, down, right, left]);
+	if (moving_keys.size != 4){
+		window.alert('Identical keys error - You configured 2 or more different movements with the same keys, please choose a different key for every different move')
+		return
+	}
+
+    if (balls_num < 50 || balls_num > 90){
+        window.alert("Please choose a number between 50 and 90 for number of balls.")
+        return
+    }
+
+    if (game_timer < 60){
+        window.alert("minimum game time is 60 seconds. Please Choose an higher number.")
+        return
+    }
+
+    if (monsters_num < 1 || balls_num > 4){
+        window.alert("Please choose a number between 1 and 4 for number of monsters.")
+        return
+    }
+
+
     showAndHideDivs("game")
     //showgame()
 }
