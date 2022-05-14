@@ -125,32 +125,39 @@ function default_controls(){
 }
 
 
-function myKeyPress(e , key){
-    var keynum
-    if(window.event){
-        keynum = e.keyCode;
-    }
-
-    switch(key){
-        case('up'):
-			//wantedKey = $('#moveup')
-			controls["up"] = keynum
-			break;
-		case('down'):
-			//wantedKey = $('#movedown')
-			controls['down'] = keynum
-			break;
-		case('right'):
-			//wantedKey = $('#moveright')
-			controls['right'] = keynum
-			break;
-		case('left'):
-			//wantedKey = $('#moveleft')
-			controls['left'] = keynum
-			break;
-    }
-
+function random_opt(){
+    $('#balls').val(Math.floor((Math.random()*41)+50))
+    $('#game_time').val(Math.floor((Math.random()*150)+60))
+    $('#num_of_monsters').val(Math.floor((Math.random()*4)+ 1))
 }
+
+
+// function myKeyPress(e , key){
+//     var keynum
+//     if(window.event){
+//         keynum = e.keyCode;
+//     }
+
+//     switch(key){
+//         case('up'):
+// 			//wantedKey = $('#moveup')
+// 			controls["up"] = keynum
+// 			break;
+// 		case('down'):
+// 			//wantedKey = $('#movedown')
+// 			controls['down'] = keynum
+// 			break;
+// 		case('right'):
+// 			//wantedKey = $('#moveright')
+// 			controls['right'] = keynum
+// 			break;
+// 		case('left'):
+// 			//wantedKey = $('#moveleft')
+// 			controls['left'] = keynum
+// 			break;
+//     }
+
+// }
 
 
 
