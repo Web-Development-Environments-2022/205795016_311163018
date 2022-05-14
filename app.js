@@ -365,7 +365,7 @@ function UpdatePosition() {
 
 
 
-<<<<<<< HEAD
+
 function showAndHideDivs(currentScreen)
 {
 
