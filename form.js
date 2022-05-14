@@ -2,6 +2,27 @@
 var users = {}
 var controls = {}
 users["k"] == "k"
+var KEY = {
+    BACKSPACE: 8,
+    TAB:       9,
+    RETURN:   13,
+    ESC:      27,
+    SPACE:    32,
+    PAGEUP:   33,
+    PAGEDOWN: 34,
+    END:      35,
+    HOME:     36,
+    LEFT:     37,
+    UP:       38,
+    RIGHT:    39,
+    DOWN:     40,
+    INSERT:   45,
+    DELETE:   46,
+    ZERO:     48, ONE: 49, TWO: 50, THREE: 51, FOUR: 52, FIVE: 53, SIX: 54, SEVEN: 55, EIGHT: 56, NINE: 57,
+    A:        65, B: 66, C: 67, D: 68, E: 69, F: 70, G: 71, H: 72, I: 73, J: 74, K: 75, L: 76, M: 77, N: 78, O: 79, P: 80, Q: 81, R: 82, S: 83, T: 84, U: 85, V: 86, W: 87, X: 88, Y: 89, Z: 90,
+    a:        65, b: 66, c: 67, d: 68, e: 69, f: 70, g: 71, h: 72, i: 73, j: 74, k: 75, l: 76, m: 77, n: 78, o: 79, p: 80, q: 81, r: 82, s: 83, t: 84, u: 85, v: 86, w: 87, x: 88, y: 89, z: 90,
+    TILDA:    192
+  };
 
 function register(){
     let user_name = $('#User_Name').val()
@@ -108,7 +129,7 @@ function myKeyPress(e , key){
     switch(key){
         case('up'):
 			//wantedKey = $('#moveup')
-			controls['up'] = keynum
+			controls["up"] = keynum
 			break;
 		case('down'):
 			//wantedKey = $('#movedown')
@@ -129,17 +150,27 @@ function myKeyPress(e , key){
 
 
 function check_settings(){
-    let up = $('#up').val()
-	let down = $('#down').val()
-	let right = $('#right').val()
-	let left = $('#left').val()
+    //let up = $('#up').val()
+    let up = document.getElementById("up").value
+	let down = document.getElementById("down").value
+	let right = document.getElementById("right").value
+	let left = document.getElementById("left").value
+    //window.alert(KEY[up])
+    
     let balls_num = document.getElementById("balls")
-    let game_timer = $('game_time').val()
-    let monsters_num = $('num_of_monsters').val()
+    //let game_timer = $('game_time').val()
+    let game_timer = document.getElementById("game_time")
+
+    //let monsters_num = $('num_of_monsters').val()
+    let monsters_num = document.getElementById("num_of_monsters")
 
 
 
-    if ((up == '') || (down == '') || (right == '') || (left == '') || (balls_num == '') || (game_timer == '')|| (monsters_num =='')){
+    window.alert(ball_5)
+
+
+
+    if ((up == '') || (down == '') || (right == '') || (left == '') || (balls_num.value == '') || (game_timer.value == '')|| (monsters_num.value =='')){
         window.alert("Please fill all the value to start the game.")
         return
     }
@@ -150,20 +181,23 @@ function check_settings(){
 		return
 	}
 
-    if (balls_num < 50 || balls_num > 90){
+    if (balls_num.value < 50 || balls_num.value > 90){
         window.alert("Please choose a number between 50 and 90 for number of balls.")
         return
     }
 
-    if (game_timer < 60){
+    if (game_timer.value < 60){
         window.alert("minimum game time is 60 seconds. Please Choose an higher number.")
         return
     }
 
-    if (monsters_num < 1 || balls_num > 4){
+    if (monsters_num.value < 1 || monsters_num.value > 4){
         window.alert("Please choose a number between 1 and 4 for number of monsters.")
         return
     }
+
+
+    setControls(up , down, right, left)
 
 
     showAndHideDivs("game")
@@ -172,6 +206,10 @@ function check_settings(){
 
 
 
+function setControls(u , d ,r ,l){
+    controls = {'up':KEY[u], 'down':KEY[d], 'right':KEY[r], 'left':KEY[l]}
+    return
+}
 
 function showsettings(){
 

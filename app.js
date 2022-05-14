@@ -118,7 +118,9 @@ function Start() {
 	var pacman_remain = 1;
 	start_time = new Date();
 	// ConfigureGame();
-	food_remain = 50;//TODO : update this with element ID from index.html
+	//food_remain = 50;//TODO : update this with element ID from index.html
+	food_remain = document.getElementById("balls").value;
+
 	//50*0.6=30 --> 5 points - lime --> board[i][j] = 1;
 	var lime_balls = Math.round(food_remain*0.6);
 	//50*0.3=15 --> 15 p - blue --> board[i][j] = 5;
@@ -136,6 +138,7 @@ function Start() {
 	total_points = lime_balls*5 + blue_balls*15 + red_balls*25;
 
 	GhostAmount = 2;// TODO: update this after marge with element id
+	GhostAmount = document.getElementById("num_of_monsters").value;// TODO: update this after marge with element id
 	if (GhostAmount==1) {
 		ghost_pink.showGhost = true;
 		ghost_blue.showGhost =false;
@@ -300,16 +303,21 @@ function findRandomEmptyCell(board) {
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	let up = document.getElementById("up").value
+	let down = document.getElementById("down").value
+	let left = document.getElementById("left").value
+	let right = document.getElementById("right").value
+
+	if (keysDown[KEY[up]]) {
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[KEY[down]]) {
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[KEY[left]]) {
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[KEY[right]]) {
 		return 4;
 	}
 }
@@ -346,9 +354,10 @@ function Draw() {
 				context.drawImage(ghost_orange.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
 			} else if (board[i][j] == 1) {
 				//lime ball
+				let ball_5 = document.getElementById("5_points").value
 				context.beginPath();
 				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
-				context.fillStyle = "lime"; //color
+				context.fillStyle = ball_5; //color
 				context.fill();
 				context.font="30px Arial";
 				context.textAlign = "center";
@@ -357,9 +366,10 @@ function Draw() {
 				context.stroke();
 			} else if (board[i][j] == 5) {
 				//"blue ball
+				let ball_15 = document.getElementById("15_points").value
 				context.beginPath();
 				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
-				context.fillStyle = "blue"; //color
+				context.fillStyle = ball_15; //color
 				context.fill();	
 				context.font="30px Arial";
 				context.textAlign = "center";
@@ -368,9 +378,10 @@ function Draw() {
 				context.stroke();
 			} else if (board[i][j] == 6) {
 				//red ball
+				let ball_25 = document.getElementById("25_points").value
 				context.beginPath();
 				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
-				context.fillStyle = "red"; //color
+				context.fillStyle = ball_25; //color
 				context.fill();
 				context.font="30px Arial";
 				context.textAlign = "center";
