@@ -63,7 +63,12 @@ ghost_red.sleep = 0;
 ghost_red.i=9;
 ghost_red.j=0;
 
+//lives
+var lives=5;
 
+//sounds
+var ghost_sound = new Audio("\\sound\\ghost_sound.mp3");
+var ball_pick_sound=new Audio("\\sound\\ball_pick.mp3");
 
 $(document).ready(function() {
 
@@ -111,7 +116,7 @@ $(document).ready(function() {
 function Start() {
 	board = new Array();
 	score = 0;
-	pac_color = "fuchsia";
+	pac_color = "yellow";
 	var cnt = 100;
 	// img = document.getElementById("right");
 
@@ -326,15 +331,15 @@ function Draw() {
 			if (board[i][j] == 2) {
 				//the pacman
 				context.beginPath();
-				// context.arc(center.x, center.y, (canvas.width)/20, 0.15 * Math.PI + start_angle, 1.85 * Math.PI +end_angle); // half circle
-				// context.lineTo(center.x, center.y);
-				// context.fillStyle = pac_color; //color
-				// context.fill();
-				// context.beginPath();
-				// context.arc(center.x + eye_x, center.y - eye_y, 5, 0, 2 * Math.PI); // circle
-				// context.fillStyle = "black"; //color
-				// context.fill();
-				context.drawImage(img,center.x,center.y,(canvas.width)/15, (canvas.width)/15);
+				context.arc(center.x, center.y, (canvas.width)/20, 0.15 * Math.PI + start_angle, 1.85 * Math.PI +end_angle); // half circle
+				context.lineTo(center.x, center.y);
+				context.fillStyle = pac_color; //color
+				context.fill();
+				context.beginPath();
+				context.arc(center.x + eye_x, center.y - eye_y, 5, 0, 2 * Math.PI); // circle
+				context.fillStyle = "black"; //color
+				context.fill();
+				//context.drawImage(img,center.x,center.y,(canvas.width)/15, (canvas.width)/15);
 			//ghosts
 			} else if (i==ghost_pink.i && j==ghost_pink.j && ghost_pink.showGhost==true) {
 				context.drawImage(ghost_pink.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
@@ -412,7 +417,7 @@ function UpdatePosition() {
 			eye_y = 4;
 			start_angle = -Math.PI/2;
 			end_angle = -Math.PI/2;
-			img.src = "\\photos\\up.jpg"
+			//img.src = "\\photos\\up.jpg"
 			//img = document.getElementById("up");
 			//ctx.drawImage(img, 10, 10);
 		}
@@ -424,7 +429,7 @@ function UpdatePosition() {
 			eye_y = -4;			
 			start_angle = Math.PI/2;
 			end_angle = Math.PI/2;
-			img.src = "\\photos\\down.jpg"
+			//img.src = "\\photos\\down.jpg"
 			//img = document.getElementById("down");			
 		}
 	}
@@ -435,7 +440,7 @@ function UpdatePosition() {
 			eye_y = 14;
 			start_angle = Math.PI;
 			end_angle = Math.PI;
-			img.src = "\\photos\\left.jpg"
+			//img.src = "\\photos\\left.jpg"
 			//img = document.getElementById("left");
 		}
 	}
@@ -446,31 +451,33 @@ function UpdatePosition() {
 			eye_y = 14;			
 			start_angle = 0;
 			end_angle = 0;
-			img.src = "\\photos\\right_circle.png"
+			//img.src = "\\photos\\right_circle.png"
 			//img = document.getElementById("right");
 		}
-	}
-	if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
-		score+=5;
-	} else if (board[shape.i][shape.j] == 5) {//blue ball = 15 points
-		score+=15;
-	} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
-		score+=25;
+	}else if (board[shape.i][shape.j] == 1 || board[shape.i][shape.j] == 5 || board[shape.i][shape.j] == 6) {
+		ball_pick_sound.play();
+		if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
+			score+=5;
+		} else if (board[shape.i][shape.j] == 5) {//blue ball = 15 points
+			score+=15;
+		} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
+			score+=25;
+		}
 	} else if (board[shape.i][shape.j]>=7 && board[shape.i][board.shape.j]<=11) {
 		GoIntoGhost();
 	}
 
-	console.log(shape.i,shape.j);
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 20 && time_elapsed <= 10) {
+	if (score >= 20 && time_elapsed >= 100) {
 		pac_color = "fuchsia";
 	}
 	if (score == total_points) {
-		window.clearInterval(interval);
-		window.clearInterval(interval_ghosts);
-		window.alert("Game completed");
+		End();
+		// window.clearInterval(interval);
+		// window.clearInterval(interval_ghosts);
+		// window.alert("Game completed");
 	} else {
 		Draw();
 	}
@@ -710,7 +717,29 @@ function GhostStep(ghost) {
 }
 
 function GoIntoGhost() {
-	//TODO
-	GhostLocationReset();
+	ghost_sound.play();
+	score = score -10;
+	lives--;
+	if (lives==0) {
+		End();
+	}else {
+		GhostLocationReset();
+	}
+	board[shape.i][shape.j]=0;
+	[shape.i,shape.j] = findRandomEmptyCell(board);
+	board[shape.i][shape.j] =2;
+	Draw();
+}
+
+function End() {
+	window.clearInterval(interval);
+	window.clearInterval(interval_ghosts);
+	var msg;
+	if (score==total_points) {
+		msg = "WINNER ! \n SCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
+	} else {
+		msg = "Game Over ! \nYOU LOSE ! \nSCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
+	}
+	window.alert(msg);
 }
 
