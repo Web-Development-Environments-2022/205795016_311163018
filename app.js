@@ -74,42 +74,39 @@ $(document).ready(function() {
 });
 
 
-<<<<<<< HEAD
-	GhostAmount = 1;// TODO: update this after marge with element id
-	if (GhostAmount==1) {
-		ghost_pink.showGhost = true;
-		ghost_blue.showGhost =false;
-		ghost_orange.showGhost=false;
-		ghost_red.showGhost=false;
-		ghost_pink.sleep=0;
-	} else if (GhostAmount==2) {
-		ghost_pink.showGhost = true;
-		ghost_blue.showGhost =true;
-		ghost_orange.showGhost=false;
-		ghost_red.showGhost=false;
-		ghost_pink.sleep=0;
-		ghost_blue.sleep=0;
-	} else if (GhostAmount==3) {
-		ghost_pink.showGhost = true;
-		ghost_blue.showGhost =true;
-		ghost_orange.showGhost=true;
-		ghost_red.showGhost=false;
-		ghost_pink.sleep=0;
-		ghost_blue.sleep=0;
-		ghost_orange.sleep=0;
-	} else if (GhostAmount==4) {
-		ghost_pink.showGhost = true;
-		ghost_blue.showGhost =true;
-		ghost_orange.showGhost=true;
-		ghost_red.showGhost=true;
-		ghost_pink.sleep=0;
-		ghost_blue.sleep=0;
-		ghost_orange.sleep=0;
-		ghost_red.sleep=0;
-	}
-}
-=======
->>>>>>> 9854cedbf3e07ee4b79ee36a7fd3e7915a3d44e9
+// 	GhostAmount = 1;// TODO: update this after marge with element id
+// 	if (GhostAmount==1) {
+// 		ghost_pink.showGhost = true;
+// 		ghost_blue.showGhost =false;
+// 		ghost_orange.showGhost=false;
+// 		ghost_red.showGhost=false;
+// 		ghost_pink.sleep=0;
+// 	} else if (GhostAmount==2) {
+// 		ghost_pink.showGhost = true;
+// 		ghost_blue.showGhost =true;
+// 		ghost_orange.showGhost=false;
+// 		ghost_red.showGhost=false;
+// 		ghost_pink.sleep=0;
+// 		ghost_blue.sleep=0;
+// 	} else if (GhostAmount==3) {
+// 		ghost_pink.showGhost = true;
+// 		ghost_blue.showGhost =true;
+// 		ghost_orange.showGhost=true;
+// 		ghost_red.showGhost=false;
+// 		ghost_pink.sleep=0;
+// 		ghost_blue.sleep=0;
+// 		ghost_orange.sleep=0;
+// 	} else if (GhostAmount==4) {
+// 		ghost_pink.showGhost = true;
+// 		ghost_blue.showGhost =true;
+// 		ghost_orange.showGhost=true;
+// 		ghost_red.showGhost=true;
+// 		ghost_pink.sleep=0;
+// 		ghost_blue.sleep=0;
+// 		ghost_orange.sleep=0;
+// 		ghost_red.sleep=0;
+// 	}
+// }
 
 function Start() {
 	board = new Array();
