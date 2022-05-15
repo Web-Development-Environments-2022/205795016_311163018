@@ -87,10 +87,23 @@ clock_bonus_sec.sleep = 0;
 clock_bonus_sec.i=5;
 clock_bonus_sec.j=5;
 
-
+//good drug = add live to user
+var good_drug = new Object();
+good_drug.image = new Image(width_cell,height_cell);
+good_drug.image.src = "\\photos\\good_drug.png";
+good_drug.id=13;
+good_drug.showGhost = true;
+good_drug.sleep = 0;
+good_drug.i=7;
+good_drug.j=7;
 
 //lives
 var lives=5;
+var life_context;
+var life = new Object();
+life.image = new Image(width_cell,height_cell);
+life.image.src = "\\photos\\life.png";
+//var life_canvas = document.getElementById("life_canvas");
 
 //sounds
 var ghost_sound = new Audio("\\sound\\ghost_sound.mp3");
@@ -117,7 +130,9 @@ function Start() {
 	// ConfigureGame();
 	//food_remain = 50;//TODO : update this with element ID from index.html
 	food_remain = document.getElementById("balls").value;
-
+	if (food_remain>=80) {
+		food_remain =80;
+	}
 	//50*0.6=30 --> 5 points - lime --> board[i][j] = 1;
 	var ball_5_counter = Math.round(food_remain*0.6);
 	//50*0.3=15 --> 15 p - blue --> board[i][j] = 5;
@@ -174,7 +189,8 @@ function Start() {
 
 	clock_bonus_sec.showGhost = true;
 	clock_bonus_sec.sleep = 0;
-
+	good_drug.showGhost = true;
+	good_drug.sleep = 0;
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -207,6 +223,8 @@ function Start() {
 				board[i][j] = move_50_points.id;
 			}else if (i==clock_bonus_sec.i && j==clock_bonus_sec.j && clock_bonus_sec.showGhost==true) {
 				board[i][j] = clock_bonus_sec.id;
+			}else if (i==good_drug.i && j==good_drug.j && good_drug.showGhost==true) {
+				board[i][j] = good_drug.id;
 			} else {
 				var randomNum = Math.random();
 				if (randomNum <= (1.0 * food_remain) / cnt) {
@@ -294,9 +312,9 @@ function Start() {
 	);
 
 	interval = setInterval(UpdatePosition,120);
-	interval_ghosts = setInterval(UpdatePositionGhosts,400);
-	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1111);
-	interval_clock = setInterval(UpdatePositionClockBonus,888);
+	interval_ghosts = setInterval(UpdatePositionGhosts,215);
+	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1000);
+	//interval_clock = setInterval(UpdatePositionClockBonus,889);
 }
 
 function findRandomEmptyCell(board) {
@@ -330,6 +348,13 @@ function GetKeyPressed() {
 }
 
 function Draw() {
+	life_canvas.width=life_canvas.width;
+	for (var i = 0; i<lives; i++) {
+		var center = new Object();
+		center.x = i * (life_canvas.width)/10 + (life_canvas.width)/20;
+		// life_context.beginPath();
+		life_context.drawImage(life.image,center.x - (width_cell/2) +2 ,(height_cell/2)+2,width_cell,height_cell);
+	}
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
@@ -365,6 +390,9 @@ function Draw() {
 			//clock bonus
 			}else if (i==clock_bonus_sec.i && j==clock_bonus_sec.j && clock_bonus_sec.showGhost==true) {
 				context.drawImage(clock_bonus_sec.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
+			}//good_drug
+			else if (i==good_drug.i && j==good_drug.j && good_drug.showGhost==true) {
+				context.drawImage(good_drug.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
 			} else if (board[i][j] == 1) {
 				//lime ball
 				let ball_5_color = document.getElementById("5_points").value
@@ -475,14 +503,19 @@ function UpdatePosition() {
 		}
 	}
 	if(board[shape.i][shape.j]==11) {
+		//TODO: Notify user!!!
 		score+=50;
 		move_50_points.showGhost=false;
 		window.clearInterval(interval_move_50);
 	}else if(board[shape.i][shape.j]==12) {
 		time_elapsed = time_elapsed -5;
-		//TODO: CHANGE IT TO interval_clock
+		//TODO: Notify user!!!
 		clock_bonus_sec.showGhost=false;
-		window.clearInterval(interval_clock);
+		//window.clearInterval(interval_clock);
+	}else if(board[shape.i][shape.j]==13) {	
+				//TODO: Notify user!!!
+		lives+=1;
+		good_drug.showGhost=false;
 	}else if (board[shape.i][shape.j] == 1 || board[shape.i][shape.j] == 5 || board[shape.i][shape.j] == 6) {
 		ball_pick_sound.play();
 		if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
@@ -587,6 +620,7 @@ function showAndHideDivs(currentScreen)
 
 
 			context = canvas.getContext("2d");
+			life_context = life_canvas.getContext("2d");
 			Start();
 
 
@@ -671,6 +705,28 @@ function UpdatePositionGhosts() {
 	if(ghost_red.showGhost) {
 		GhostStep(ghost_red);
 	}
+	if(clock_bonus_sec.showGhost && Math.round(time_elapsed)%7==0) {
+		board[clock_bonus_sec.i][clock_bonus_sec.j] = clock_bonus_sec.sleep;
+		if (board[clock_bonus_sec.i][clock_bonus_sec.j] == 2) {
+			clock_bonus_sec.showGhost=false;
+			score = score +50;
+			board[clock_bonus_sec.i][clock_bonus_sec.j] = 0;
+		} else {
+			[clock_bonus_sec.i,clock_bonus_sec.j] = findRandomEmptyCell(board);
+			board[clock_bonus_sec.i][clock_bonus_sec.j]=clock_bonus_sec.id;
+		}
+	}
+	if(good_drug.showGhost && Math.round(time_elapsed)%13==0) {
+		board[good_drug.i][good_drug.j] = good_drug.sleep;
+		if (board[good_drug.i][good_drug.j] == 2) {
+			good_drug.showGhost=false;
+			lives+=1;
+			board[good_drug.i][good_drug.j] = 0;
+		} else {
+			[good_drug.i,good_drug.j] = findRandomEmptyCell(board);
+			board[good_drug.i][good_drug.j]=good_drug.id;
+		}
+	}
 	Draw();
 }
 
@@ -682,30 +738,34 @@ function UpdatePosition50PointsCharacter(){
 			score = score +50;
 			board[move_50_points.i][move_50_points.j] = 0;
 			// window.clearInterval(interval_move_50);
-		// } else if (shape.j < move_50_points.j && move_50_points.j >= 0 ) {
-		// 	if (board[move_50_points.i][move_50_points.j-1]!=4 && board[move_50_points.i][move_50_points.j-1]<7) {//avoid collision
-		// 		move_50_points.j--;
-		// 	} else if (move_50_points.i < shape.i && move_50_points.i < board.length -1 ) {
-		// 		move_50_points.i++;
-		// 	} else {
-		// 		move_50_points.i--;
-		// 	}
-		// } else if (shape.j>move_50_points.j && move_50_points.j < board.length -1) {
-		// 	if (board[move_50_points.i][move_50_points.j+1]!=4 && board[move_50_points.i][move_50_points.j+1]<7) {//avoid collision
-		// 		move_50_points.j++;
-		// 	} else if (move_50_points.i < shape.i && move_50_points.i < board.length -1 ) {
-		// 		move_50_points.i++;
-		// 	} else {
-		// 		move_50_points.i--;
-		// 	}
-		// } else if (shape.i < move_50_points.i && move_50_points.i > 0) {
-		// 	if ( board[move_50_points.i-1][move_50_points.j]!=4 && board[move_50_points.i-1][move_50_points.j]<7) {//avoid collision
-		// 		move_50_points.i--;
-		// 	} else if (move_50_points.j < shape.j && move_50_points.j < board.length -1 ) {
-		// 		move_50_points.j++;
-		// 	} else {
-		// 		move_50_points.j--;
-		// 	}
+		}else if (Math.round(food_remain)%7==0) {
+			[move_50_points.i,move_50_points.j] = findRandomEmptyCell(board);
+			board[move_50_points.i][move_50_points.j]=move_50_points.id;
+		}
+		 else if (shape.j > move_50_points.j && move_50_points.j >= 0 ) {
+			if (board[move_50_points.i][move_50_points.j-1]!=4 && board[move_50_points.i][move_50_points.j-1]<7) {//avoid collision
+				move_50_points.j--;
+			} else if (move_50_points.i < shape.i && move_50_points.i >0 ) {
+				move_50_points.i--;
+			} else {
+				move_50_points.i++;
+			}
+		} else if (shape.j < move_50_points.j && move_50_points.j < board.length -1) {
+			if (board[move_50_points.i][move_50_points.j+1]!=4 && board[move_50_points.i][move_50_points.j+1]<7) {//avoid collision
+				move_50_points.j++;
+			} else if (move_50_points.i < shape.i && move_50_points.i >0 ) {
+				move_50_points.i--;
+			} else {
+				move_50_points.i++;
+			}
+		} else if (shape.i < move_50_points.i && move_50_points.i < board.length -1) {
+			if ( board[move_50_points.i-1][move_50_points.j]!=4 && board[move_50_points.i-1][move_50_points.j]<7) {//avoid collision
+				move_50_points.i++;
+			} else if (move_50_points.j < shape.j && move_50_points.j < board.length -1 ) {
+				move_50_points.j++;
+			} else {
+				move_50_points.j--;
+			}
 		// }else {
 		// 	if (board[move_50_points.i+1][move_50_points.j]!=4 && board[move_50_points.i+1][move_50_points.j]<7) {//avoid collision
 		// 		move_50_points.i++;
@@ -857,6 +917,11 @@ function GoIntoGhost() {
 	[shape.i,shape.j] = findRandomEmptyCell(board);
 	board[shape.i][shape.j] =2;
 	Draw();
+	if(lives<=2 && good_drug.showGhost==false){
+		good_drug.showGhost=true;
+		// [good_drug.i,good_drug.j]=findRandomEmptyCell(board);
+		// board[good_drug.i][good_drug.j]==13;
+	}
 }
 
 function End() {
@@ -868,10 +933,10 @@ function End() {
 	}
 	if(clock_bonus_sec.show) {
 		clock_bonus_sec.show=false;
-		window.clearInterval(interval_move_50);
+		//window.clearInterval(interval_move_50);
 	}
 	var msg;
-	if (score<=total_points) {
+	if (score>=total_points) {
 		msg = "WINNER ! \n SCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
 	} else {
 		msg = "Game Over ! \nYOU LOSE ! \nSCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
