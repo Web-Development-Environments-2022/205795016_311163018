@@ -118,7 +118,8 @@ $(document).ready(function() {
 });
 
 
-function Start() {
+function Start(restart=false) {
+	game_timer_app = document.getElementById("game_time");
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
@@ -455,6 +456,9 @@ function Draw() {
 }
 
 function UpdatePosition() {
+	if (time_elapsed>= game_timer_app.value) {
+		return End();
+	}
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
 	if (x == 1) {
@@ -917,11 +921,6 @@ function GoIntoGhost() {
 	[shape.i,shape.j] = findRandomEmptyCell(board);
 	board[shape.i][shape.j] =2;
 	Draw();
-	if(lives<=2 && good_drug.showGhost==false){
-		good_drug.showGhost=true;
-		// [good_drug.i,good_drug.j]=findRandomEmptyCell(board);
-		// board[good_drug.i][good_drug.j]==13;
-	}
 }
 
 function End() {
@@ -936,11 +935,25 @@ function End() {
 		//window.clearInterval(interval_move_50);
 	}
 	var msg;
-	if (score>=total_points) {
-		msg = "WINNER ! \n SCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
+	if (time_elapsed>=game_timer_app.value) {
+		if (lives==0) {
+			msg="Loser !";
+		} else if(score<100) {
+			msg = "Yoy are better than " + score + " points !";
+		} else {
+			msg="Winner !";
+		}
 	} else {
-		msg = "Game Over ! \nYOU LOSE ! \nSCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
+		if (score>=total_points) {
+			msg = "WINNER ! \n SCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
+		} else {
+			msg = "Game Over ! \nYOU LOSE ! \nSCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
+		}
 	}
 	window.alert(msg);
+	time_elapsed =0;
+	score = 0;
+	lives=5;
+	showAndHideDivs("settings");
 }
 
