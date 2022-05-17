@@ -1,7 +1,11 @@
 
+
 body{
-  background: url(https://p4.wallpaperbetter.com/wallpaper/168/1011/672/minimalism-boy-the-game-background-wallpaper-preview.jpg);
+  background: url(https://media.karousell.com/media/photos/products/2020/11/20/free_delivery__pac_man_gaming__1605873799_a13e1031_progressive.jpg);
   background-size: 100%;
+  background-position: -10px;
+  background-attachment: fixed;
+  /* background-color: #c89666; */
   margin: auto;
 }
 
@@ -12,8 +16,8 @@ body{
 
 h1 {
     width: 900px;
-    background-color: rgb(0, 150, 220);
-    color: white;
+    background-color: rgb(6, 116, 6);
+    color: rgb(77, 77, 77);
     font-size: 250%;
     text-align: center;
     border: white;
@@ -34,12 +38,13 @@ h1:hover {
  {
 	float: left;
 	list-style-type: none; 
-	margin: 0;
-	padding-bottom: 7px;
+  
+	margin: 0px;
+	padding-bottom: 0px;
 	overflow: hidden;
-    background-color: rgb(0, 150, 220);
+  background-color: rgb(6, 116, 6);
 	width: 100%;
-	height: 83px;
+	height: -3px;
 	background-size: cover;
     border-radius: 30px 50px 15px;
 
@@ -48,20 +53,22 @@ h1:hover {
   }
   li a {
 	float: left;
-	color: rgb(238, 227, 227);
+	color: rgb(128, 216, 135);
 	text-align: center;
 	padding: 1px 16px;
 	text-decoration: none;
   }
   li {
-
-	list-style: none;
+    background-color: rgb(6, 116, 6);
+    list-style: none;
 	display: inline-block;
+  border-radius: 15px;
   }
   
   li a:hover {
 	float: right;
-	background-color: rgb(169, 188, 240);
+	background-color: rgb(169, 240, 190);
+  border-radius: 15px;
   }
   /* for the menu */
 
@@ -228,6 +235,7 @@ h1:hover {
 
 h2 {
   color: rgb(255, 255, 255);
+  
 }
 
 b {
