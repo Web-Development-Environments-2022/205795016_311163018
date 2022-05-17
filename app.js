@@ -29,7 +29,7 @@ var interval_ghosts;
 //pink
 var ghost_pink = new Object();
 ghost_pink.image = new Image(width_cell-4,height_cell-4);
-ghost_pink.image.src = "./photos/ghost_pink.jpg";
+ghost_pink.image.src = "./photos/ghost_pink.png";
 ghost_pink.id=7;
 ghost_pink.showGhost =true;
 ghost_pink.sleep = 0;
@@ -38,7 +38,7 @@ ghost_pink.j=0;
 //blue
 var ghost_blue = new Object();
 ghost_blue.image = new Image(width_cell-4,height_cell-4);
-ghost_blue.image.src = "./photos/ghost_blue.jpg";
+ghost_blue.image.src = "./photos/ghost_blue.png";
 ghost_blue.id=8;
 ghost_blue.showGhost =true;
 ghost_blue.sleep = 0;
@@ -47,7 +47,7 @@ ghost_blue.j=9;
 //orange
 var ghost_orange = new Object();
 ghost_orange.image = new Image(width_cell-4,height_cell-4);
-ghost_orange.image.src = "./photos/ghost_orange.jpg";
+ghost_orange.image.src = "./photos/ghost_orange.png";
 ghost_orange.id=9;
 ghost_orange.showGhost =true;
 ghost_orange.sleep = 0;
@@ -56,7 +56,7 @@ ghost_orange.j=9;
 //red
 var ghost_red = new Object();
 ghost_red.image = new Image(width_cell-4,height_cell-4);
-ghost_red.image.src = "./photos/ghost_red.jpg";
+ghost_red.image.src = "./photos/ghost_red.png";
 ghost_red.id=10;
 ghost_red.showGhost =true;
 ghost_red.sleep = 0;
@@ -67,7 +67,7 @@ ghost_red.j=0;
 var interval_move_50;
 //50 points moving (cherry image)
 var move_50_points = new Object();
-move_50_points.image = new Image(width_cell,height_cell);
+move_50_points.image = new Image(width_cell-4,height_cell-4);
 move_50_points.image.src = "./photos/cherry.png";
 move_50_points.id=11;
 move_50_points.showGhost = true;
@@ -79,7 +79,7 @@ move_50_points.j=5;
 var interval_clock;
 //5 sec clock_bonus (clock_bonus image)
 var clock_bonus_sec = new Object();
-clock_bonus_sec.image = new Image(width_cell,height_cell);
+clock_bonus_sec.image = new Image(width_cell-4,height_cell-4);
 clock_bonus_sec.image.src = "./photos/clock_image.png";
 clock_bonus_sec.id=12;
 clock_bonus_sec.showGhost = true;
@@ -89,8 +89,8 @@ clock_bonus_sec.j=5;
 
 //good drug = add live to user
 var good_drug = new Object();
-good_drug.image = new Image(width_cell,height_cell);
-good_drug.image.src = "./photos/good_drug.png";
+good_drug.image = new Image(width_cell-4,height_cell-4);
+good_drug.image.src = "./photos/good_drug_.png";
 good_drug.id=13;
 good_drug.showGhost = true;
 good_drug.sleep = 0;
@@ -399,10 +399,10 @@ function Draw() {
 				//lime ball
 				let ball_5_color = document.getElementById("5_points").value
 				context.beginPath();
-				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, (canvas.width)/50, 0, 2 * Math.PI); // circle
 				context.fillStyle = ball_5_color; //color
 				context.fill();
-				context.font="30px Arial";
+				context.font="12px Arial";
 				context.textAlign = "center";
 				context.strokeStyle = "black"; //pts color
 				context.strokeText("5",center.x,center.y);
@@ -411,10 +411,10 @@ function Draw() {
 				//"blue ball
 				let ball_15_color = document.getElementById("15_points").value
 				context.beginPath();
-				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, (canvas.width)/50, 0, 2 * Math.PI); // circle
 				context.fillStyle = ball_15_color; //color
 				context.fill();	
-				context.font="30px Arial";
+				context.font="12px Arial";
 				context.textAlign = "center";
 				context.strokeStyle = "white"; //pts color
 				context.strokeText("15",center.x,center.y);
@@ -423,10 +423,10 @@ function Draw() {
 				//red ball
 				let ball_25_color = document.getElementById("25_points").value
 				context.beginPath();
-				context.arc(center.x, center.y, (canvas.width)/30, 0, 2 * Math.PI); // circle
+				context.arc(center.x, center.y, (canvas.width)/50, 0, 2 * Math.PI); // circle
 				context.fillStyle = ball_25_color; //color
 				context.fill();
-				context.font="30px Arial";
+				context.font="12px Arial";
 				context.textAlign = "center";
 				context.strokeStyle = "white"; //pts color
 				context.strokeText("25",center.x,center.y);
@@ -434,23 +434,23 @@ function Draw() {
 			} else if (board[i][j] == 4) {
 				//walls
 				//the original part was :
-				// context.beginPath();
-				// context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
-				// context.fillStyle = "grey"; //color
-				// context.fill();
-				//
-				context.beginPath();
-				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/20);
-				context.fillStyle = "grey"; //color
-				context.fill();
-				context.beginPath();
-				context.rect(center.x - (canvas.width)/20, center.y, (canvas.width)/10, (canvas.width)/20);
-				context.fillStyle = "darkorange"; //color
-				context.fill();
 				context.beginPath();
 				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
-				context.strokeStyle = "black"; //color
-				context.stroke();
+				context.fillStyle = "grey"; //color
+				context.fill();
+				//
+				// context.beginPath();
+				// context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/20);
+				// context.fillStyle = "grey"; //color
+				// context.fill();
+				// context.beginPath();
+				// context.rect(center.x - (canvas.width)/20, center.y, (canvas.width)/10, (canvas.width)/20);
+				// context.fillStyle = "darkorange"; //color
+				// context.fill();
+				// context.beginPath();
+				// context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
+				// context.strokeStyle = "black"; //color
+				// context.stroke();
 			}
 		}
 	}
@@ -913,6 +913,7 @@ function GhostStep(ghost) {
 
 function GoIntoGhost() {
 	ghost_sound.play();
+	total_points=total_points -10;
 	score = score -10;
 	lives--;
 	if (lives==0) {
