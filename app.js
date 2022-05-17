@@ -120,6 +120,7 @@ $(document).ready(function() {
 
 function Start(restart=false) {
 	game_timer_app = document.getElementById("game_time");
+	UpdateSideSettingsMenuValues();
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
@@ -312,8 +313,8 @@ function Start(restart=false) {
 		false
 	);
 
-	interval = setInterval(UpdatePosition,200);
-	interval_ghosts = setInterval(UpdatePositionGhosts,415);
+	interval = setInterval(UpdatePosition,120);
+	interval_ghosts = setInterval(UpdatePositionGhosts,215);
 	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
 	//interval_clock = setInterval(UpdatePositionClockBonus,889);
 }
@@ -569,6 +570,7 @@ function showAndHideDivs(currentScreen)
 			$('#score').hide();
 			$('#time').hide();
 			$('#game').hide();
+			$('#settings_side').hide();
 			break;
 		case "register": // start mode
 			$('#Welcome').hide();
@@ -579,6 +581,7 @@ function showAndHideDivs(currentScreen)
 			$('#score').hide();
 			$('#time').hide();
 			$('#game').hide();
+			$('#settings_side').hide();
 			break;
 		case "login": // start mode
 			$('#Welcome').hide();
@@ -589,6 +592,7 @@ function showAndHideDivs(currentScreen)
 			$('#score').hide();
 			$('#time').hide();
 			$('#game').hide();
+			$('#settings_side').hide();
 			break;
 		case "about": // start mode
 			$('#Welcome').hide();
@@ -599,6 +603,7 @@ function showAndHideDivs(currentScreen)
 			$('#score').hide();
 			$('#time').hide();
 			$('#game').hide();
+			$('#settings_side').hide();
 			break;
 
 		case "settings": // start mode
@@ -611,6 +616,7 @@ function showAndHideDivs(currentScreen)
 			$('#score').hide();
 			$('#time').hide();
 			$('#game').hide();
+			$('#settings_side').hide();
 			break;
 
 		case "game": // start mode
@@ -619,7 +625,7 @@ function showAndHideDivs(currentScreen)
 			$('#Register').hide();
 			$('#Login').hide();
 			$('#About').hide();
-			$('#Settings').show();
+			$('#Settings').hide();
 			$('#score').show();
 			$('#time').show();
 			$('#game').show();
@@ -918,6 +924,26 @@ function GoIntoGhost() {
 	[shape.i,shape.j] = findRandomEmptyCell(board);
 	board[shape.i][shape.j] =2;
 	Draw();
+}
+
+function UpdateSideSettingsMenuValues() {
+	let up_key_move = document.getElementById("up").value;
+	console.log(up_key_move);
+	document.getElementById("up_key").innerHTML = "&#8593; :" + up_key_move;
+	let right_key_move = document.getElementById("right").value;
+	document.getElementById("right_key").innerHTML = "&#8594; :" + right_key_move;
+	let down_key_move = document.getElementById("down").value;
+	document.getElementById("down_key").innerHTML = "&#8595; :" + down_key_move;
+	let left_key_move = document.getElementById("left").value;
+	document.getElementById("left_key").innerHTML = "&#8592; :" + left_key_move;
+	let balls_number_side = document.getElementById("balls").value;
+	document.getElementById("balls_amount_side").innerHTML = "Number of balls : " + balls_number_side;
+	let time_side_show = document.getElementById("game_time").value;
+	document.getElementById("time_side").innerHTML = "Gamie time : "+time_side_show;
+	let number_of_mons = document.getElementById("num_of_monsters").value;
+	document.getElementById("monster_number_side").innerHTML = "Number of monsters : " + number_of_mons;
+	$('#settings_side').show();
+
 }
 
 function End() {
