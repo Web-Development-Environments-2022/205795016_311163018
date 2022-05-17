@@ -19,21 +19,12 @@
         return this.optional(element) || (value.match(/[a-zA-Z]/) && !value.match(/[0-9]/));
     },
     'Full name must contain only alphabetic character.');
-	
-	
-	// $().ready(function(){
-	// 	$.validator.addMethod('myFullname', function(value, element) {
-    //     return this.optional(element) || (value.match(/[a-zA-Z]/));
-    // },
-    // 'Full name must contain only alphabetic character.');
+
+
  
 	$("#signupForm").validate({
 	// in 'rules' user have to specify all the constraints for respective fields
 	rules : {
-		name : {
-			required : true,
-			myFullname: true,
-		},
 		User_Name: {
 			required : true,
 			minlength : 2,
@@ -49,6 +40,10 @@
 			minlength : 6,
 			equalTo : "#pwd",
 		},
+		name : {
+			required : true,
+			myFullname: true,
+		},
 		email : {
 			required : true,
 			email : true
@@ -57,7 +52,7 @@
 			required : true,
 		},
 	massages: {
-		nmae: {
+		name: {
 			required : "Please enter your full name"
 		},
 		User_Name: {
@@ -122,31 +117,31 @@
 					<p><b>Please fill in the details to create an account with us.</b></p>
 					<hr>
 					<label for="User_Name"><b>User Name</b></label><br>
-					<input type="text" id="User_Name" placeholder="User Name" name="User_Name" required><br>
+					<input type="text" id="User_Name" placeholder="User Name" name="User_Name"  ><br>
 					<label for="pwd"><b>Password</b></label><br>
-					<input type="password" id="pwd" placeholder="Enter Password" name="pwd" required><br>
+					<input type="password" id="pwd" placeholder="Enter Password" name="pwd" ><br>
 					<label for="confirm"><b>Confirm Password</b></label><br>
-					<input type="password" id="confirm" placeholder="Confirm Password" name="confirm" required><br>
+					<input type="password" id="confirm" placeholder="Confirm Password" name="confirm" ><br>
 					<label for="name"><b>Full Name</b></label><br>
-					<input type="text" id="name" placeholder="Your Name" name="name" required><br>
+					<input type="text" id="name" placeholder="Your Name" name="name" ><br>
 					<label for="email"><b>Enter Email</b></label><br>
-					<input type="text" id="email" placeholder="Enter Email" name="email" required><br>
+					<input type="text" id="email" placeholder="Enter Email" name="email" ><br>
 					<label for="birthday"><b>Birthday</b></label><br>
-					<input type="date" id="birthday" placeholder="Pick your date" id="birthday" name="birthday" min="1922-05-10" , max="2022-05-16" required>
+					<input type="date" id="birthday" placeholder="Pick your date" id="birthday" name="birthday" min="1922-05-10" , max="2022-05-16" >
 					<p>
-						<input class="submit" onclick="register101();" type="submit" value="Register">
+						<input class="submit" type="submit" value="submit" onclick="register101()">
 						</p>			
 					<hr>
-					<ul>
+					<!-- <ul> -->
 						<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
 						<img id="down" width="0" height="0" src="\photos\down.jpg">
 						<img id="left" width="0" height="0" src="\photos\left.jpg">
 						<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
 						<!-- <li><a href="#" onclick="register();"><h2>Register</h2></a></li> -->
-						<li><a href="#" ><h2>Register</h2></a></li>
+						<!-- <li><a href="#" ><h2>Register</h2></a></li> -->
 
 						
-					</ul>
+					<!-- </ul> -->
 					<!-- <button type="submit" class="registerbtn"><strong>Register</strong></button> -->
 				</div>
 				

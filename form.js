@@ -40,6 +40,9 @@ function register101() {
     let email = $('#email').val()
     let birthday = $('#birthday').val()
     
+    if (user_name == "" || password == "" ||pwd_confirm == ""||full_name == "" || email == "" || birthday== "") {
+        return
+    }
     if(user_name in users){
         window.alert("User name is taken, please change user name.")
         return
@@ -50,61 +53,61 @@ function register101() {
     showAndHideDivs("login")
 }
 
-function register(){
-    let user_name = $('#User_Name').val()
-    let password = $('#pwd').val()
-    let pwd_confirm = $('#confirm').val()
-    let full_name = $('#name').val()
-    let email = $('#email').val()
-    let birthday = $('#birthday').val()
+// function register(){
+//     let user_name = $('#User_Name').val()
+//     let password = $('#pwd').val()
+//     let pwd_confirm = $('#confirm').val()
+//     let full_name = $('#name').val()
+//     let email = $('#email').val()
+//     let birthday = $('#birthday').val()
 
-    if(user_name in users){
-        window.alert("User name is taken, please change user name.")
-        return
-    }
+//     if(user_name in users){
+//         window.alert("User name is taken, please change user name.")
+//         return
+//     }
 
-    if (password.length < 6){
-        window.alert("Password must be at least 6 Charecters with at least one digit and one letter")
-        return
-    }
-    else if(password.search(/[a-zA-Z]/) == -1){
-        window.alert("Password must be at least 6 Charecters with at least one digit and one letter")
-        return
-    }
-    else if(password.search(/\d/) == -1){
-        window.alert("Password must be at least 6 Charecters with at least one digit and one letter")
-        return
-    }
+//     if (password.length < 6){
+//         window.alert("Password must be at least 6 Charecters with at least one digit and one letter")
+//         return
+//     }
+//     else if(password.search(/[a-zA-Z]/) == -1){
+//         window.alert("Password must be at least 6 Charecters with at least one digit and one letter")
+//         return
+//     }
+//     else if(password.search(/\d/) == -1){
+//         window.alert("Password must be at least 6 Charecters with at least one digit and one letter")
+//         return
+//     }
 
-    if (pwd_confirm != password){
-        window.alert("dude..WTF you entered two different password..stop with the weed.")
-        return
-    }
+//     if (pwd_confirm != password){
+//         window.alert("dude..WTF you entered two different password..stop with the weed.")
+//         return
+//     }
 
-    if (full_name.search(/\d/ )!= -1){
-        window.alert("You are not a robot there is no reason for you to have a number in your name.")
-        return
-    }
+//     if (full_name.search(/\d/ )!= -1){
+//         window.alert("You are not a robot there is no reason for you to have a number in your name.")
+//         return
+//     }
 
-    let is_it = ValidateEmail(email)
-    if (!is_it){
-        window.alert("You have entered an invalid email address!")
-        return
-    }
+//     let is_it = ValidateEmail(email)
+//     if (!is_it){
+//         window.alert("You have entered an invalid email address!")
+//         return
+//     }
 
-    users[user_name] = password
-    window.alert("Congrats you registred sucessfully")
-    showAndHideDivs("login")
-    //show('Login','Register' ,'Welcome','About')
-}
+//     users[user_name] = password
+//     window.alert("Congrats you registred sucessfully")
+//     showAndHideDivs("login")
+//     //show('Login','Register' ,'Welcome','About')
+// }
 
 
-function ValidateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)){
-    return (true)
-    }
-    return (false)
-}
+// function ValidateEmail(mail) {
+//     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)){
+//     return (true)
+//     }
+//     return (false)
+// }
 
 function login() {
 
