@@ -312,8 +312,8 @@ function Start(restart=false) {
 		false
 	);
 
-	interval = setInterval(UpdatePosition,120);
-	interval_ghosts = setInterval(UpdatePositionGhosts,215);
+	interval = setInterval(UpdatePosition,220);
+	interval_ghosts = setInterval(UpdatePositionGhosts,315);
 	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1000);
 	//interval_clock = setInterval(UpdatePositionClockBonus,889);
 }
