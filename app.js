@@ -106,8 +106,8 @@ life.image.src = "./photos/life.png";
 //var life_canvas = document.getElementById("life_canvas");
 
 //sounds
-var ghost_sound = new Audio("./sounds/ghost_sound.mp3");
-var ball_pick_sound=new Audio("./sounds/ball_pick.mp3");
+var ghost_sound = new Audio("./sound/ghost_sound.mp3");
+var ball_pick_sound=new Audio("./sound/ball_pick.mp3");
 
 $(document).ready(function() {
 
