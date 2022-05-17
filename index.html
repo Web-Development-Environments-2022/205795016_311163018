@@ -24,6 +24,7 @@
  
 	$("#signupForm").validate({
 	// in 'rules' user have to specify all the constraints for respective fields
+	errorClass: 'errors',
 	rules : {
 		User_Name: {
 			required : true,
@@ -53,7 +54,8 @@
 		},
 	massages: {
 		name: {
-			required : "Please enter your full name"
+			required : "Please enter your full name",
+			
 		},
 		User_Name: {
 			required : "Please enter a username",
@@ -77,11 +79,12 @@
 
 
 	<body>
+		<div class="content">
 		<div id="header">
-			<h1>Welcome to **C*MAN !<br>More than just a PACMAN</h1>
+			<h1>Welcome to **C*MAN ! More than just a PACMAN</h1>
 		</div> 
 		<!-- menu -->
-		<div id = "menu">
+		<div id = "menu" class="sidenav">
 			<ul>
 				<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
 				<img id="down" width="0" height="0" src="\photos\down.jpg">
@@ -97,9 +100,8 @@
 		<br>
 		<br>
 		<br>
-		<br>
-		<br>
-		<br>
+
+
 		
 		<div id="Welcome">
 			<div class="btn-group">
@@ -192,32 +194,32 @@
 				
 							</ul>
 							  <!-- <button onclick="default_controls()"><strong>default keys</strong></button> -->
-							  <td>
-								  UP
+							  <td><b>
+								  UP</b>
 							  </td>
 							  <td>
 								  <input id="up" type="text" onkeydown="myKeyPress(event, 'up')"/> 
 							  </td>
 						  </tr>
 						  <tr>
-							<td>
-								DOWN
+							<td><b>
+								DOWN</b>
 							</td>
 							<td>
 							  <input id="down" type="text" onkeydown="myKeyPress(event, 'down')"/> 
 							</td>
 						</tr>
 						<tr>
-							<td>
-								RIGHT
+							<td><b>
+								RIGHT</b>
 							</td>
 							<td>
 								<input id="right" type="text" onkeydown="myKeyPress(event, 'right')"/> 
 							</td>
 						</tr>
 						<tr>
-							<td>
-								LEFT
+							<td><b>
+								LEFT</b>
 							</td>
 							<td>
 							  <input id="left" type="text" onkeydown="myKeyPress(event, 'left')"/> 
@@ -228,8 +230,8 @@
 						  <tr>
 							  <b>Choose number of balls</b><br>
 							  <ul>
-								  <td>
-									  Balls
+								  <td><b>
+									  Balls</b>
 								  </td>
 								  <td>
 									  <input id="balls" type="text" placeholder="min 50 max 90" name="balls" required>
@@ -241,8 +243,8 @@
 						<tr>
 							<b>Choose color for the balls</b><br>
 							<ul>
-								<td>
-									5 point ball
+								<td><b>
+									5 point ball</b>
 								</td>
 								<td>
 									<select id="5_points">
@@ -255,8 +257,8 @@
 								</td>
 							</ul>
 							<ul>
-								<td>
-									15 point ball
+								<td><b>
+									15 point ball</b>
 								</td>
 								<td>
 									<select id="15_points">
@@ -268,8 +270,8 @@
 									<!-- <input id="color1" type="text" placeholder="min 50 max 90"> -->
 								</td></ul>
 								<ul>
-								<td>
-									25 point ball
+								<td><b>
+									25 point ball</b>
 								</td>
 								<td>
 									<select id="25_points">
@@ -287,8 +289,8 @@
 						<tr>
 							<b>Set time for the game (in seconds)</b><br>
 							<ul>
-								<td>
-									Time
+								<td><b>
+									Time</b>
 								</td>
 								<td>
 									<input id="game_time" type="text" placeholder="min 60 sec" required>
@@ -300,8 +302,8 @@
 						<tr>
 							<b>Choose number of monsters</b><br>
 							<ul>
-								<td>
-									Monsters
+								<td><b>
+									Monsters</b>
 								</td>
 								<td>
 									<input id="num_of_monsters" type="text" placeholder="min 1 max 4" required>
@@ -348,19 +350,23 @@
 			  </div> -->
 
 		  </div>
-		  
-		  
+		</div>
+		<table>
+			<tr><ul><td>
+	<div id="game_stats" class="game_stats">
 		<div id="score" >
-			<label for="lblScore">SCORE:</label>
+			<label for="lblScore"><p>SCORE:</p></label>
 			<input id="lblScore" type="text" />
 		</div>
 		<div id="time">
-			<label for="lblTime">TIME:</label>
+			<label for="lblTime"><p>TIME:</p></label>
 			<input id="lblTime" type="text" />
 		</div>
-		<div id="game">
+	</div>
+</td><td>
+		<div id="game" class="game">
 			<span style="padding-left: 150px;"></span><canvas id="life_canvas" height="100" width="600" ></canvas>
-			<br><canvas id="canvas" height="600" width="600" style="border:5px solid green;"></canvas>
+			<br><canvas id="canvas" height="600" width="600" class="game_canvas" style="border:5px solid green;"></canvas>
 		</div>
 		<div id="settings_side" style="position: absolute; bottom: 200px; margin-left: 615px; border:5px solid green; text-align: center;" >
 			<p>You are the only one who <br>has chosen these settings : </p>
@@ -371,7 +377,12 @@
 			<p id="balls_amount_side"> Number of balls : </p>
 			<p id="time_side">Game time : </p>
 			<p id="monster_number_side">Number of monsters</p>
-		</div>		
+		</div>
+	</td>
+	</ul>
+	</tr>
+	</table>
+			
 	</body>
 	<script type="text/javascript" src="./app.js"></script>
 	<script type="text/javascript" src="./form.js"></script>
