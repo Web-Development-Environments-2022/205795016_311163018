@@ -992,6 +992,11 @@ function End() {
 
 
 function ResetAllData(){
+	window.clearInterval(interval);
+	window.clearInterval(interval_ghosts);
+	if(move_50_points.showGhost) {
+		window.clearInterval(interval_move_50);
+	}	
 	let ans;
 	ans =confirm("Are you sure yow want to start a new game ?"); 
 	if (ans == true) {
@@ -1037,9 +1042,11 @@ function ResetAllData(){
 		good_drug.j=7;
 		showAndHideDivs("settings");
 	} else {
-		// interval = setInterval(UpdatePosition,120);
-		// interval_ghosts = setInterval(UpdatePositionGhosts,215);
-		// interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+		interval = setInterval(UpdatePosition,120);
+		interval_ghosts = setInterval(UpdatePositionGhosts,215);
+		if(move_50_points.showGhost) {
+			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+		}
 	}
 }
 
