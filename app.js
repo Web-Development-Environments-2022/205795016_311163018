@@ -457,7 +457,7 @@ function Draw() {
 }
 
 function UpdatePosition() {
-	if (time_elapsed>= game_timer_app.value) {
+	if (time_elapsed>= game_timer_app.value || score>=total_points) {
 		End();
 	}else {
 		board[shape.i][shape.j] = 0;
