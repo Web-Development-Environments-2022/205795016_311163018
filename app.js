@@ -14,7 +14,7 @@ var total_points =50;
 var food_remain;
 
 var img = new Image();
-img.src = "\\photos\\right_circle.png"
+img.src = "photos./right_circle.png"
 // var img = document.getElementById("right");
 var avatar_style;
 
@@ -29,7 +29,7 @@ var interval_ghosts;
 //pink
 var ghost_pink = new Object();
 ghost_pink.image = new Image(width_cell-4,height_cell-4);
-ghost_pink.image.src = "\\photos\\ghost_pink.jpg";
+ghost_pink.image.src = "photos/ghost_pink.jpg";
 ghost_pink.id=7;
 ghost_pink.showGhost =true;
 ghost_pink.sleep = 0;
@@ -38,7 +38,7 @@ ghost_pink.j=0;
 //blue
 var ghost_blue = new Object();
 ghost_blue.image = new Image(width_cell-4,height_cell-4);
-ghost_blue.image.src = "\\photos\\ghost_blue.jpg";
+ghost_blue.image.src = "photos/ghost_blue.jpg";
 ghost_blue.id=8;
 ghost_blue.showGhost =true;
 ghost_blue.sleep = 0;
@@ -47,7 +47,7 @@ ghost_blue.j=9;
 //orange
 var ghost_orange = new Object();
 ghost_orange.image = new Image(width_cell-4,height_cell-4);
-ghost_orange.image.src = "\\photos\\ghost_orange.jpg";
+ghost_orange.image.src = "photos/ghost_orange.jpg";
 ghost_orange.id=9;
 ghost_orange.showGhost =true;
 ghost_orange.sleep = 0;
@@ -56,7 +56,7 @@ ghost_orange.j=9;
 //red
 var ghost_red = new Object();
 ghost_red.image = new Image(width_cell-4,height_cell-4);
-ghost_red.image.src = "\\photos\\ghost_red.jpg";
+ghost_red.image.src = "photos/ghost_red.jpg";
 ghost_red.id=10;
 ghost_red.showGhost =true;
 ghost_red.sleep = 0;
@@ -68,7 +68,7 @@ var interval_move_50;
 //50 points moving (cherry image)
 var move_50_points = new Object();
 move_50_points.image = new Image(width_cell,height_cell);
-move_50_points.image.src = "\\photos\\cherry.png";
+move_50_points.image.src = "photos/cherry.png";
 move_50_points.id=11;
 move_50_points.showGhost = true;
 move_50_points.sleep = 0;
@@ -80,7 +80,7 @@ var interval_clock;
 //5 sec clock_bonus (clock_bonus image)
 var clock_bonus_sec = new Object();
 clock_bonus_sec.image = new Image(width_cell,height_cell);
-clock_bonus_sec.image.src = "\\photos\\clock_image.png";
+clock_bonus_sec.image.src = "photos/clock_image.png";
 clock_bonus_sec.id=12;
 clock_bonus_sec.showGhost = true;
 clock_bonus_sec.sleep = 0;
@@ -90,7 +90,7 @@ clock_bonus_sec.j=5;
 //good drug = add live to user
 var good_drug = new Object();
 good_drug.image = new Image(width_cell,height_cell);
-good_drug.image.src = "\\photos\\good_drug.png";
+good_drug.image.src = "photos/good_drug.png";
 good_drug.id=13;
 good_drug.showGhost = true;
 good_drug.sleep = 0;
@@ -102,12 +102,12 @@ var lives=5;
 var life_context;
 var life = new Object();
 life.image = new Image(width_cell,height_cell);
-life.image.src = "\\photos\\life.png";
+life.image.src = "photos/life.png";
 //var life_canvas = document.getElementById("life_canvas");
 
 //sounds
-var ghost_sound = new Audio("\\sound\\ghost_sound.mp3");
-var ball_pick_sound=new Audio("\\sound\\ball_pick.mp3");
+var ghost_sound = new Audio("sounds/ghost_sound.mp3");
+var ball_pick_sound=new Audio("sounds/ball_pick.mp3");
 
 $(document).ready(function() {
 
@@ -468,7 +468,7 @@ function UpdatePosition() {
 				eye_y = 4;
 				start_angle = -Math.PI/2;
 				end_angle = -Math.PI/2;
-				//img.src = "\\photos\\up.jpg"
+				//img.src = "/photos/up.jpg"
 				//img = document.getElementById("up");
 				//ctx.drawImage(img, 10, 10);
 			}
@@ -480,7 +480,7 @@ function UpdatePosition() {
 				eye_y = -4;			
 				start_angle = Math.PI/2;
 				end_angle = Math.PI/2;
-				//img.src = "\\photos\\down.jpg"
+				//img.src = "/photos/down.jpg"
 				//img = document.getElementById("down");			
 			}
 		}
@@ -491,7 +491,7 @@ function UpdatePosition() {
 				eye_y = 14;
 				start_angle = Math.PI;
 				end_angle = Math.PI;
-				//img.src = "\\photos\\left.jpg"
+				//img.src = "/photos/left.jpg"
 				//img = document.getElementById("left");
 			}
 		}
@@ -502,7 +502,7 @@ function UpdatePosition() {
 				eye_y = 14;			
 				start_angle = 0;
 				end_angle = 0;
-				//img.src = "\\photos\\right_circle.png"
+				//img.src = "/photos/right_circle.png"
 				//img = document.getElementById("right");
 			}
 		}
