@@ -312,9 +312,9 @@ function Start(restart=false) {
 		false
 	);
 
-	interval = setInterval(UpdatePosition,220);
-	interval_ghosts = setInterval(UpdatePositionGhosts,315);
-	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1000);
+	interval = setInterval(UpdatePosition,200);
+	interval_ghosts = setInterval(UpdatePositionGhosts,415);
+	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
 	//interval_clock = setInterval(UpdatePositionClockBonus,889);
 }
 
@@ -349,13 +349,13 @@ function GetKeyPressed() {
 }
 
 function Draw() {
-	// life_canvas.width=life_canvas.width;
-	// for (var i = 0; i<lives; i++) {
-	// 	var center = new Object();
-	// 	center.x = i * (life_canvas.width)/10 + (life_canvas.width)/20;
-	// 	// life_context.beginPath();
-	// 	life_context.drawImage(life.image,center.x - (width_cell/2) +2 ,(height_cell/2)+2,width_cell,height_cell);
-	// }
+	life_canvas.width=life_canvas.width;
+	for (var i = 0; i<lives; i++) {
+		var center = new Object();
+		center.x = i * (life_canvas.width)/10 + (life_canvas.width)/20;
+		// life_context.beginPath();
+		life_context.drawImage(life.image,center.x - (width_cell/2) +2 ,(height_cell/2)+2,width_cell,height_cell);
+	}
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
@@ -457,96 +457,98 @@ function Draw() {
 
 function UpdatePosition() {
 	if (time_elapsed>= game_timer_app.value) {
-		return End();
-	}
-	board[shape.i][shape.j] = 0;
-	var x = GetKeyPressed();
-	if (x == 1) {
-		if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {//up
-			shape.j--;
-			eye_x = 12;
-			eye_y = 4;
-			start_angle = -Math.PI/2;
-			end_angle = -Math.PI/2;
-			//img.src = "\\photos\\up.jpg"
-			//img = document.getElementById("up");
-			//ctx.drawImage(img, 10, 10);
-		}
-	}
-	if (x == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {//down
-			shape.j++;
-			eye_x = -12;
-			eye_y = -4;			
-			start_angle = Math.PI/2;
-			end_angle = Math.PI/2;
-			//img.src = "\\photos\\down.jpg"
-			//img = document.getElementById("down");			
-		}
-	}
-	if (x == 3) {
-		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {//left
-			shape.i--;
-			eye_x = -5;
-			eye_y = 14;
-			start_angle = Math.PI;
-			end_angle = Math.PI;
-			//img.src = "\\photos\\left.jpg"
-			//img = document.getElementById("left");
-		}
-	}
-	if (x == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {//right
-			shape.i++;
-			eye_x = 5;
-			eye_y = 14;			
-			start_angle = 0;
-			end_angle = 0;
-			//img.src = "\\photos\\right_circle.png"
-			//img = document.getElementById("right");
-		}
-	}
-	if(board[shape.i][shape.j]==11) {
-		//TODO: Notify user!!!
-		score+=50;
-		move_50_points.showGhost=false;
-		window.clearInterval(interval_move_50);
-	}else if(board[shape.i][shape.j]==12) {
-		time_elapsed = time_elapsed -5;
-		//TODO: Notify user!!!
-		clock_bonus_sec.showGhost=false;
-		//window.clearInterval(interval_clock);
-	}else if(board[shape.i][shape.j]==13) {	
-				//TODO: Notify user!!!
-		lives+=1;
-		good_drug.showGhost=false;
-	}else if (board[shape.i][shape.j] == 1 || board[shape.i][shape.j] == 5 || board[shape.i][shape.j] == 6) {
-		ball_pick_sound.play();
-		if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
-			score+=5;
-		} else if (board[shape.i][shape.j] == 5) {//blue ball = 15 points
-			score+=15;
-		} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
-			score+=25;
-		}
-	} else if (board[shape.i][shape.j]>=7 && board[shape.i][board.shape.j]<=10) {
-		GoIntoGhost();
-	}
-
-
-	board[shape.i][shape.j] = 2;
-	var currentTime = new Date();
-	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 20 && time_elapsed >= 100) {
-		pac_color = "fuchsia";
-	}
-	if (score == total_points) {
 		End();
-		// window.clearInterval(interval);
-		// window.clearInterval(interval_ghosts);
-		// window.alert("Game completed");
-	} else {
-		Draw();
+	}else {
+		board[shape.i][shape.j] = 0;
+		var x = GetKeyPressed();
+		if (x == 1) {
+			if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {//up
+				shape.j--;
+				eye_x = 12;
+				eye_y = 4;
+				start_angle = -Math.PI/2;
+				end_angle = -Math.PI/2;
+				//img.src = "\\photos\\up.jpg"
+				//img = document.getElementById("up");
+				//ctx.drawImage(img, 10, 10);
+			}
+		}
+		if (x == 2) {
+			if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {//down
+				shape.j++;
+				eye_x = -12;
+				eye_y = -4;			
+				start_angle = Math.PI/2;
+				end_angle = Math.PI/2;
+				//img.src = "\\photos\\down.jpg"
+				//img = document.getElementById("down");			
+			}
+		}
+		if (x == 3) {
+			if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {//left
+				shape.i--;
+				eye_x = -5;
+				eye_y = 14;
+				start_angle = Math.PI;
+				end_angle = Math.PI;
+				//img.src = "\\photos\\left.jpg"
+				//img = document.getElementById("left");
+			}
+		}
+		if (x == 4) {
+			if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {//right
+				shape.i++;
+				eye_x = 5;
+				eye_y = 14;			
+				start_angle = 0;
+				end_angle = 0;
+				//img.src = "\\photos\\right_circle.png"
+				//img = document.getElementById("right");
+			}
+		}
+		if(board[shape.i][shape.j]==11) {
+			//TODO: Notify user!!!
+			score+=50;
+			move_50_points.showGhost=false;
+			window.clearInterval(interval_move_50);
+		}else if(board[shape.i][shape.j]==12) {
+			time_elapsed = time_elapsed -5;
+			//TODO: Notify user!!!
+			clock_bonus_sec.showGhost=false;
+			//window.clearInterval(interval_clock);
+		}else if(board[shape.i][shape.j]==13) {	
+					//TODO: Notify user!!!
+			lives+=1;
+			good_drug.showGhost=false;
+		}else if (board[shape.i][shape.j] == 1 || board[shape.i][shape.j] == 5 || board[shape.i][shape.j] == 6) {
+			ball_pick_sound.play();
+			if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
+				score+=5;
+			} else if (board[shape.i][shape.j] == 5) {//blue ball = 15 points
+				score+=15;
+			} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
+				score+=25;
+			}
+		} else if (board[shape.i][shape.j]>=7 && board[shape.i][board.shape.j]<=10) {
+			GoIntoGhost();
+		}
+	
+	
+		board[shape.i][shape.j] = 2;
+		var currentTime = new Date();
+		time_elapsed = (currentTime - start_time) / 1000;
+		if (score >= 20 && time_elapsed >= 100) {
+			pac_color = "fuchsia";
+		}
+		if (score == total_points) {
+			End();
+			// window.clearInterval(interval);
+			// window.clearInterval(interval_ghosts);
+			// window.alert("Game completed");
+		} else {
+			Draw();
+		}
+
 	}
 }
 
@@ -621,14 +623,9 @@ function showAndHideDivs(currentScreen)
 			$('#score').show();
 			$('#time').show();
 			$('#game').show();
-
-
 			context = canvas.getContext("2d");
-			// life_context = life_canvas.getContext("2d");
+			life_context = life_canvas.getContext("2d");
 			Start();
-
-
-
 			break;
 	}
 
