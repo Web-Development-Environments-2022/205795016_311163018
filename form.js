@@ -29,6 +29,27 @@ var KEY = {
     
   };
 
+
+
+function register101() {
+
+    let user_name = $('#User_Name').val()
+    let password = $('#pwd').val()
+    let pwd_confirm = $('#confirm').val()
+    let full_name = $('#name').val()
+    let email = $('#email').val()
+    let birthday = $('#birthday').val()
+    
+    if(user_name in users){
+        window.alert("User name is taken, please change user name.")
+        return
+    }
+
+    users[user_name] = password
+    window.alert("Congrats you registred sucessfully")
+    showAndHideDivs("login")
+}
+
 function register(){
     let user_name = $('#User_Name').val()
     let password = $('#pwd').val()
