@@ -133,7 +133,6 @@ function login() {
         }
     }
     else{
-        window.alert(users)
         window.alert("The user name dosent exist in the system, please try again.")
 
     }
