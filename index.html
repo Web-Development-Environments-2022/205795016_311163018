@@ -3,8 +3,6 @@
 	<head>
 
 		<script src="./jquery-3.4.1.slim.min.js"></script>
-		<script type="text/javascript" src="./app.js"></script>
-		<script type="text/javascript" src="./form.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<title>FUCK-MAN</title>
 	</head>
@@ -25,7 +23,7 @@
 				<li><a href="#" onclick="showAndHideDivs('register');"><h2>Register</h2></a></li>
 				<li><a href="#" onclick="showAndHideDivs('login');"><h2>Login</h2></a></li>
 				<li><a href="#" onclick="openAbout(); showMeWhatYouGot(event);"><h2>About</h2></a></li>
-
+				
 			</ul>
 		</div>
 		<br>
@@ -34,7 +32,7 @@
 		<br>
 		<br>
 		<br>
-
+		
 		<div id="Welcome">
 			<div class="btn-group">
 				<button class="button_R" onclick="showAndHideDivs('register');"><span class="text">Register</span></button>
@@ -45,7 +43,7 @@
 				<br>
 				<button class="button-64" role="button" onclick="show('Login','Register' ,'Welcome','About');"><span class="text">Login</span></button> -->		  </div>
 		  <div id="Register" >
-			<form name="regi_form" action='javascript:register()'>
+			  <form name="regi_form" action='javascript:register()'>
 				<div class="container">
 					<h2>Register Here</h2>
 					<p><b>Please fill in the details to create an account with us.</b></p>
@@ -70,18 +68,18 @@
 						<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
 						<li><a href="#" onclick="register(); "><h2>Register</h2></a></li>
 
-		
+						
 					</ul>
 					<!-- <button type="submit" class="registerbtn"><strong>Register</strong></button> -->
 				</div>
-
+				
 			</form>	
 		 </div>
 		  <div id="Login" >
-			<form>
-				<div class="container">
-					<h2>Login</h2>
-					<p><b>Please fill in the details to Login.</b></p>
+			  <form>
+				  <div class="container">
+					  <h2>Login</h2>
+					  <p><b>Please fill in the details to Login.</b></p>
 					<hr>
 					<label for="User_Name"><b>User Name</b></label><br>
 					<input type="text" id="User_Name_login" placeholder="User Name" name="User_Name_login" required><br>
@@ -89,11 +87,11 @@
 					<input type="password" id="pwd_login" placeholder="Enter Password" name="pwd_login" required><br>
 					<ul>
 						<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
-						<img id="down" width="0" height="0" src="\photos\down.jpg">
+							<img id="down" width="0" height="0" src="\photos\down.jpg">
 						<img id="left" width="0" height="0" src="\photos\left.jpg">
 						<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
 						<li><a href="#" onclick="login(); default_controls();"><h2>Login</h2></a></li>
-
+						
 		
 					</ul>
 					<!-- <button type="submit" class="loginbtn" value="Login" onclick="login();"><strong>Login</strong></button> -->
@@ -101,7 +99,7 @@
 				</div>
 
 			</form>
-		  </div>
+		</div>
 
 		  <div id="Settings" >
 			  <table>
@@ -126,7 +124,7 @@
 								  UP
 							  </td>
 							  <td>
-								<input id="up" type="text" onkeydown="myKeyPress(event, 'up')"/> 
+								  <input id="up" type="text" onkeydown="myKeyPress(event, 'up')"/> 
 							  </td>
 						  </tr>
 						  <tr>
@@ -142,7 +140,7 @@
 								RIGHT
 							</td>
 							<td>
-							  <input id="right" type="text" onkeydown="myKeyPress(event, 'right')"/> 
+								<input id="right" type="text" onkeydown="myKeyPress(event, 'right')"/> 
 							</td>
 						</tr>
 						<tr>
@@ -249,13 +247,13 @@
 		  </div>
 
 
+		  
 
 
+		  
 
-
-
-
-
+		  
+		  
 
 
 
@@ -271,15 +269,15 @@
 				<button id="modal-opener">Open Modal</button>
 			  </div>
 			  <div id="modal-root">
-				<div class="modal">
-					<button onclick="closeAbout()" style="float:right" >X</button>
+				  <div class="modal">
+					  <button onclick="closeAbout()" style="float:right" >X</button>
 					<h2>YO Yo Yo</h2>
 				</div>
 			  </div> -->
 
 		  </div>
-
-
+		  
+		  
 		<div id="score" >
 			<label for="lblScore">SCORE:</label>
 			<input id="lblScore" type="text" />
@@ -293,4 +291,6 @@
 			<br><canvas id="canvas" height="900" width="900" style="border:5px solid green;"></canvas>
 		</div>
 	</body>
+	<script type="text/javascript" src="./app.js"></script>
+	<script type="text/javascript" src="./form.js"></script>
 </html>
