@@ -349,13 +349,13 @@ function GetKeyPressed() {
 }
 
 function Draw() {
-	life_canvas.width=life_canvas.width;
-	for (var i = 0; i<lives; i++) {
-		var center = new Object();
-		center.x = i * (life_canvas.width)/10 + (life_canvas.width)/20;
-		// life_context.beginPath();
-		life_context.drawImage(life.image,center.x - (width_cell/2) +2 ,(height_cell/2)+2,width_cell,height_cell);
-	}
+	// life_canvas.width=life_canvas.width;
+	// for (var i = 0; i<lives; i++) {
+	// 	var center = new Object();
+	// 	center.x = i * (life_canvas.width)/10 + (life_canvas.width)/20;
+	// 	// life_context.beginPath();
+	// 	life_context.drawImage(life.image,center.x - (width_cell/2) +2 ,(height_cell/2)+2,width_cell,height_cell);
+	// }
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
@@ -624,7 +624,7 @@ function showAndHideDivs(currentScreen)
 
 
 			context = canvas.getContext("2d");
-			life_context = life_canvas.getContext("2d");
+			// life_context = life_canvas.getContext("2d");
 			Start();
 
 
