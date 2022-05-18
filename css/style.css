@@ -2,12 +2,15 @@
 
 body{
   background: url(https://media.karousell.com/media/photos/products/2020/11/20/free_delivery__pac_man_gaming__1605873799_a13e1031_progressive.jpg);
-  background-size: 100%;
+  background-size: 750;
   background-position: -10px;
+  background-position: center center;
+  background-color: black;
   background-attachment: fixed;
+  background-repeat: no-repeat;
   /* background-color: #c89666; */
   margin: auto;
-  overflow: hidden; /* Hide scrollbars */
+  overflow: hidden; 
 
 }
 
@@ -101,6 +104,7 @@ h1:hover {
     padding: 3px;
     margin-top: 50px;
     margin-left: 65px;
+    border-radius: 6px;
     
     text-decoration: none;
     user-select: none;
@@ -263,4 +267,105 @@ p{
  }
 
  
+ footer {
+  height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: left;
+  margin-left: 50px;
+	flex-direction: column;
+	background: black;
+}
+
+.pagination {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	--ddim: 10px;
+	--rd: 15px;
+	--rdim: calc(var(--rd)*2);
+	--pm: #ffff03;
+}
+
+.pagination label {
+	content: '';
+	margin: 0 10px;
+	height: var(--ddim);
+	width: var(--ddim);
+	background: #f7b997;
+	cursor: pointer;
+}
+
+.pagination label:first-child {margin-left: 0;}
+.pagination label:last-child {margin-right: 0;}
+.pagination input {display: none;}
+
+.pacman {
+	content: '';
+	position: absolute;
+	top: calc(-1*var(--ddim));
+	left: calc(-1*var(--ddim)/2);
+	height: var(--rdim);
+	width: var(--rdim);
+	transition: transform 250ms linear;
+}
+
+.pacman:before,
+.pacman:after {
+	content: '';
+	position: absolute;
+	height: var(--rd);
+	width: var(--rdim);
+	left: 0;
+	background: var(--pm);
+	transition: inherit;
+}
+
+.pacman:before {
+	top: 0;
+	border-top-left-radius: var(--rdim);
+	border-top-right-radius: var(--rdim);
+	transform-origin: bottom center;
+	transform: rotate(-45deg);
+}
+
+.pacman:after {
+	bottom: 0;
+	border-bottom-left-radius: var(--rdim);
+	border-bottom-right-radius: var(--rdim);
+	transform-origin: top center;
+	transform: rotate(45deg);
+}
+
+@keyframes waka {
+	0% {}
+	50% {transform: rotate(0);}
+	100% {}
+}
+
+input[type="radio"]:hover ~ .pacman:before,
+input[type="radio"]:hover ~ .pacman:after {
+	animation: waka 500ms infinite;
+}
+
+input[id="dot-1"]:checked ~ .pacman {transform: translateX(var(--ddim));}
+input[id="dot-2"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)));}
+input[id="dot-3"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*2));}
+input[id="dot-4"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*3));}
+input[id="dot-5"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*4));}
+input[id="dot-6"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*5));}
+input[id="dot-7"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*6));}
+input[id="dot-8"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*7));}
+input[id="dot-9"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*8));}
+input[id="dot-10"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*9));}
+input[id="dot-11"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*10));}
+input[id="dot-12"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*11));}
+input[id="dot-13"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*12));}
+
+.freeText b{
+  margin-left: 650px;
+  
+}
+
+
 
