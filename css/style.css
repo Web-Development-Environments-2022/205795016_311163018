@@ -367,5 +367,9 @@ input[id="dot-13"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + v
   
 }
 
+.About b{
+  color: black;
+}
+
 
 
