@@ -130,10 +130,12 @@ function Start() {
 	var pacman_remain = 1;
 	start_time = new Date();
 	// ConfigureGame();
+	GhostAmount = 2;// TODO: update this after marge with element id
+	GhostAmount = document.getElementById("num_of_monsters").value;// TODO: update this after marge with element id
 	//food_remain = 50;//TODO : update this with element ID from index.html
 	food_remain = document.getElementById("balls").value;
-	if (food_remain>=80) {
-		food_remain =80;
+	if ((food_remain+GhostAmount)>=82) {
+		food_remain =78;
 	}
 	//50*0.6=30 --> 5 points - lime --> board[i][j] = 1;
 	var ball_5_counter = Math.round(food_remain*0.6);
@@ -151,8 +153,6 @@ function Start() {
 	}
 	total_points = ball_5_counter*5 + ball_15_counter*15 + ball_25_counter*25;
 
-	GhostAmount = 2;// TODO: update this after marge with element id
-	GhostAmount = document.getElementById("num_of_monsters").value;// TODO: update this after marge with element id
 	if (GhostAmount==1) {
 		ghost_pink.showGhost = true;
 		ghost_blue.showGhost =false;
@@ -211,10 +211,19 @@ function Start() {
 				(i == 3 && j == 3) ||
 				(i == 3 && j == 4) ||
 				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+				(i == 7 && j == 1) ||
+				(i == 7 && j == 2) ||
+				(i == 6 && j == 7)
 			) {
 				board[i][j] = 4;
+			} else if ((
+				(i == 2 && j == 3) ||
+				(i == 1 && j == 3) ||
+				(i == 6 && j == 1) ||
+				(i == 6 && j == 8) ||
+				(i == 7 && j == 8)) && (food_remain<75)
+			) {
+					board[i][j] = 3;
 			} else if (i==ghost_pink.i && j==ghost_pink.j && ghost_pink.showGhost==true) {
 				board[0][0] = ghost_pink.id;
 				ghost_pink.i=0;
@@ -302,6 +311,7 @@ function Start() {
 			}
 		}
 	}
+	
 	while (food_remain > 0) {
 		var emptyCell = findRandomEmptyCell(board);
 		board[emptyCell[0]][emptyCell[1]] = 1;
@@ -445,22 +455,18 @@ function Draw() {
 				//walls
 				//the original part was :
 				context.beginPath();
-				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
-				context.fillStyle = "grey"; //color
+				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/20, (canvas.width)/10);
+				context.fillStyle = "#383838"; //color
 				context.fill();
-				//
-				// context.beginPath();
-				// context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/20);
-				// context.fillStyle = "grey"; //color
-				// context.fill();
-				// context.beginPath();
-				// context.rect(center.x - (canvas.width)/20, center.y, (canvas.width)/10, (canvas.width)/20);
-				// context.fillStyle = "darkorange"; //color
-				// context.fill();
-				// context.beginPath();
-				// context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/10);
-				// context.strokeStyle = "black"; //color
-				// context.stroke();
+				context.strokeStyle = "#303030";
+				context.stroke();
+			} else if (board[i][j] == 3) {
+				context.beginPath();
+				context.rect(center.x - (canvas.width)/20, center.y - (canvas.width)/20, (canvas.width)/10, (canvas.width)/20);
+				context.fillStyle = "#383838"; //color
+				context.fill();
+				context.strokeStyle = "#303030";
+				context.stroke();
 			}
 		}
 	}
@@ -473,7 +479,7 @@ function UpdatePosition() {
 		board[shape.i][shape.j] = 0;
 		var x = GetKeyPressed();
 		if (x == 1) {
-			if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {//up
+			if (shape.j > 0 && board[shape.i][shape.j - 1] != 4 && board[shape.i][shape.j - 1] != 3) {//up
 				shape.j--;
 				eye_x = 12;
 				eye_y = 4;
@@ -485,7 +491,7 @@ function UpdatePosition() {
 			}
 		}
 		if (x == 2) {
-			if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {//down
+			if (shape.j < 9 && board[shape.i][shape.j + 1] != 4 && board[shape.i][shape.j + 1] != 3 ) {//down
 				shape.j++;
 				eye_x = -12;
 				eye_y = -4;			
@@ -496,7 +502,7 @@ function UpdatePosition() {
 			}
 		}
 		if (x == 3) {
-			if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {//left
+			if (shape.i > 0 && board[shape.i - 1][shape.j] != 4 && board[shape.i - 1][shape.j] != 3 ) {//left
 				shape.i--;
 				eye_x = -5;
 				eye_y = 14;
@@ -507,7 +513,7 @@ function UpdatePosition() {
 			}
 		}
 		if (x == 4) {
-			if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {//right
+			if (shape.i < 9 && board[shape.i + 1][shape.j] != 4 && board[shape.i + 1][shape.j] != 3) {//right
 				shape.i++;
 				eye_x = 5;
 				eye_y = 14;			
@@ -760,7 +766,7 @@ function UpdatePosition50PointsCharacter(){
 			board[move_50_points.i][move_50_points.j]=move_50_points.id;
 		}
 		 else if (shape.j > move_50_points.j && move_50_points.j >= 0 ) {
-			if (board[move_50_points.i][move_50_points.j-1]!=4 && board[move_50_points.i][move_50_points.j-1]<7) {//avoid collision
+			if (board[move_50_points.i][move_50_points.j-1]!=4 && board[move_50_points.i][move_50_points.j-1]!=3 && board[move_50_points.i][move_50_points.j-1]<7) {//avoid collision
 				move_50_points.j--;
 			} else if (move_50_points.i < shape.i && move_50_points.i >0 ) {
 				move_50_points.i--;
@@ -768,7 +774,7 @@ function UpdatePosition50PointsCharacter(){
 				move_50_points.i++;
 			}
 		} else if (shape.j < move_50_points.j && move_50_points.j < board.length -1) {
-			if (board[move_50_points.i][move_50_points.j+1]!=4 && board[move_50_points.i][move_50_points.j+1]<7) {//avoid collision
+			if (board[move_50_points.i][move_50_points.j+1]!=4 && board[move_50_points.i][move_50_points.j+1]!=3 && board[move_50_points.i][move_50_points.j+1]<7) {//avoid collision
 				move_50_points.j++;
 			} else if (move_50_points.i < shape.i && move_50_points.i >0 ) {
 				move_50_points.i--;
@@ -776,7 +782,7 @@ function UpdatePosition50PointsCharacter(){
 				move_50_points.i++;
 			}
 		} else if (shape.i < move_50_points.i && move_50_points.i < board.length -1) {
-			if ( board[move_50_points.i-1][move_50_points.j]!=4 && board[move_50_points.i-1][move_50_points.j]<7) {//avoid collision
+			if ( board[move_50_points.i-1][move_50_points.j]!=4 && board[move_50_points.i-1][move_50_points.j]!=3 && board[move_50_points.i-1][move_50_points.j]<7) {//avoid collision
 				move_50_points.i++;
 			} else if (move_50_points.j < shape.j && move_50_points.j < board.length -1 ) {
 				move_50_points.j++;
@@ -886,35 +892,35 @@ function GhostStep(ghost) {
 	if (board[ghost.i][ghost.j] == 2){
 		GoIntoGhost();
 	} else if (shape.i > ghost.i && ghost.i < board.length -1 ) {
-		if (board[ghost.i+1][ghost.j]!=4 && board[ghost.i+1][ghost.j]<7) {//avoid collision
+		if (board[ghost.i+1][ghost.j]!=4 && board[ghost.i+1][ghost.j]!=3 && board[ghost.i+1][ghost.j]<7) {//avoid collision
 			ghost.i++;
-		} else if (ghost.j < shape.j && ghost.j < board.length -1 ) {
+		} else if (ghost.j < shape.j && ghost.j < board.length -1 && board[ghost.i][ghost.j+1]!=3 && board[ghost.i][ghost.j+1]!=4) {
 			ghost.j++;
-		} else {
+		} else if (board[ghost.i][ghost.j-1]!=3 && board[ghost.i][ghost.j-1]!=4){
 			ghost.j--;
 		}
 	} else if (shape.i < ghost.i && ghost.i > 0) {
-		if ( board[ghost.i-1][ghost.j]!=4 && board[ghost.i-1][ghost.j]<7) {//avoid collision
+		if ( board[ghost.i-1][ghost.j]!=4 && board[ghost.i-1][ghost.j]!=3 && board[ghost.i-1][ghost.j]<7) {//avoid collision
 			ghost.i--;
-		} else if (ghost.j < shape.j && ghost.j < board.length -1 ) {
+		} else if (ghost.j < shape.j && ghost.j < board.length -1 && board[ghost.i][ghost.j+1]!=3 && board[ghost.i][ghost.j+1]!=4) {
 			ghost.j++;
-		} else {
+		} else if(board[ghost.i][ghost.j-1]!=3){
 			ghost.j--;
 		}
 	} else if (shape.j>ghost.j && ghost.j < board.length -1) {
-		if (board[ghost.i][ghost.j+1]!=4 && board[ghost.i][ghost.j+1]<7) {//avoid collision
+		if (board[ghost.i][ghost.j+1]!=4 && board[ghost.i][ghost.j+1]!=3 && board[ghost.i][ghost.j+1]<7) {//avoid collision
 			ghost.j++;
-		} else if (ghost.i < shape.i && ghost.i < board.length -1 ) {
+		} else if (ghost.i < shape.i && ghost.i < board.length -1 && board[ghost.i+1][ghost.j]!=3 && board[ghost.i+1][ghost.j]!=4) {
 			ghost.i++;
-		} else {
+		} else if (board[ghost.i-1][ghost.j]!=3 && board[ghost.i-1][ghost.j]!=4){
 			ghost.i--;
 		}
 	} else if (shape.j < ghost.j && ghost.j >= 0 ) {
-		if (board[ghost.i][ghost.j-1]!=4 && board[ghost.i][ghost.j-1]<7) {//avoid collision
+		if (board[ghost.i][ghost.j-1]!=4 && board[ghost.i][ghost.j-1]!=3 && board[ghost.i][ghost.j-1]<7) {//avoid collision
 			ghost.j--;
-		} else if (ghost.i < shape.i && ghost.i < board.length -1 ) {
+		} else if (ghost.i < shape.i && ghost.i < board.length -1 && board[ghost.i+1][ghost.j]!=3 && board[ghost.i+1][ghost.j]!=4) {
 			ghost.i++;
-		} else {
+		} else if (board[ghost.i-1][ghost.j]!=3 && board[ghost.i-1][ghost.j]!=4) {
 			ghost.i--;
 		}
 	}
