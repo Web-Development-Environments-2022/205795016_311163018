@@ -274,7 +274,12 @@ p{
 	align-items: left;
   margin-left: 50px;
 	flex-direction: column;
-	background: black;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
 }
 
 .pagination {
@@ -363,7 +368,7 @@ input[id="dot-12"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + v
 input[id="dot-13"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + var(--rdim)*12));}
 
 .freeText b{
-  margin-left: 650px;
+  margin-left: -100px;
   
 }
 

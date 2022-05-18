@@ -587,6 +587,8 @@ function showAndHideDivs(currentScreen)
 			$('#time').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
+			$('#footer').show();
+
 			break;
 		case "register": // start mode
 			$('#Welcome').hide();
@@ -598,6 +600,8 @@ function showAndHideDivs(currentScreen)
 			$('#time').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
+			$('#footer').show();
+
 			break;
 		case "login": // start mode
 			$('#Welcome').hide();
@@ -609,6 +613,8 @@ function showAndHideDivs(currentScreen)
 			$('#time').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
+			$('#footer').show();
+
 			break;
 		case "about": // start mode
 			$('#Welcome').hide();
@@ -620,6 +626,8 @@ function showAndHideDivs(currentScreen)
 			$('#time').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
+			$('#footer').show();
+
 			break;
 
 		case "settings": // start mode
@@ -633,6 +641,8 @@ function showAndHideDivs(currentScreen)
 			$('#time').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
+			$('#footer').show();
+
 			break;
 
 		case "game": // start mode
@@ -645,6 +655,7 @@ function showAndHideDivs(currentScreen)
 			$('#score').show();
 			$('#time').show();
 			$('#game').show();
+			$('#footer').hide();
 			context = canvas.getContext("2d");
 			life_context = life_canvas.getContext("2d");
 			Start();
