@@ -118,7 +118,7 @@ $(document).ready(function() {
 });
 
 
-function Start(restart=false) {
+function Start() {
 	game_timer_app = document.getElementById("game_time");
 	UpdateSideSettingsMenuValues();
 	board = new Array();
@@ -193,6 +193,16 @@ function Start(restart=false) {
 	clock_bonus_sec.sleep = 0;
 	good_drug.showGhost = true;
 	good_drug.sleep = 0;
+	
+	ghost_pink.i=0;
+	ghost_pink.j=0;
+	ghost_red.i=9;
+	ghost_red.j=0;
+	ghost_orange.i=0;
+	ghost_orange.j=9;
+	ghost_blue.i=9;
+	ghost_blue.j=9;
+	lives = 5;
 	for (var i = 0; i < 10; i++) {
 		board[i] = new Array();
 		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -530,7 +540,7 @@ function UpdatePosition() {
 			} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
 				score+=25;
 			}
-		} else if (board[shape.i][shape.j]>=7 && board[shape.i][board.shape.j]<=10) {
+		} else if (board[shape.i][shape.j]>=7 && board[shape.i][shape.j]<=10) {
 			GoIntoGhost();
 		}
 	
@@ -929,7 +939,6 @@ function GoIntoGhost() {
 
 function UpdateSideSettingsMenuValues() {
 	let up_key_move = document.getElementById("up").value;
-	console.log(up_key_move);
 	document.getElementById("up_key").innerHTML = "&#8593; :" + up_key_move;
 	let right_key_move = document.getElementById("right").value;
 	document.getElementById("right_key").innerHTML = "&#8594; :" + right_key_move;
@@ -950,8 +959,8 @@ function UpdateSideSettingsMenuValues() {
 function End() {
 	window.clearInterval(interval);
 	window.clearInterval(interval_ghosts);
-	if(move_50_points.show) {
-		move_50_points.show=false;
+	if(move_50_points.showGhost) {
+		move_50_points.showGhost=false;
 		window.clearInterval(interval_move_50);
 	}
 	if(clock_bonus_sec.show) {
@@ -980,4 +989,69 @@ function End() {
 	lives=5;
 	showAndHideDivs("settings");
 }
+
+
+function ResetAllData(){
+	window.clearInterval(interval);
+	window.clearInterval(interval_ghosts);
+	if(move_50_points.showGhost) {
+		window.clearInterval(interval_move_50);
+	}	
+	let ans;
+	ans =confirm("Are you sure yow want to start a new game ?"); 
+	if (ans == true) {
+		food_remain = document.getElementById("balls_amount_side").value;
+		total_points=food_remain*0.6*5+food_remain*0.3*15+food_remain*0.1*25;
+		lives = 5;
+		score=0;
+		start_time = new Date();
+		time_elapsed = 0;
+		ghost_pink.showGhost =true;
+		ghost_pink.sleep = 0;
+		ghost_pink.i=0;
+		ghost_pink.j=0;
+		//blue
+		ghost_blue.showGhost =true;
+		ghost_blue.sleep = 0;
+		ghost_blue.i=9;
+		ghost_blue.j=9;
+		//orange
+		ghost_orange.showGhost =true;
+		ghost_orange.sleep = 0;
+		ghost_orange.i=0;
+		ghost_orange.j=9;
+		//red
+		ghost_red.showGhost =true;
+		ghost_red.sleep = 0;
+		ghost_red.i=9;
+		ghost_red.j=0;
+
+		move_50_points.showGhost = true;
+		move_50_points.sleep = 0;
+		move_50_points.i=5;
+		move_50_points.j=5;
+
+		clock_bonus_sec.showGhost = true;
+		clock_bonus_sec.sleep = 0;
+		clock_bonus_sec.i=5;
+		clock_bonus_sec.j=5;
+
+		good_drug.showGhost = true;
+		good_drug.sleep = 0;
+		good_drug.i=7;
+		good_drug.j=7;
+		showAndHideDivs("settings");
+	} else {
+		interval = setInterval(UpdatePosition,120);
+		interval_ghosts = setInterval(UpdatePositionGhosts,215);
+		if(move_50_points.showGhost) {
+			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+		}
+	}
+}
+
+function Pause(){
+	window.alert("OK OK we stooped !!!\nmeanhile we'll all sit and wait for you until you click \'OK\' ");
+}
+
 
