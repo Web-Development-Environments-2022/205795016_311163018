@@ -12,11 +12,8 @@ var eye_x = 5;
 var eye_y =15;
 var total_points =50;
 var food_remain;
+var game_on;
 
-var img = new Image();
-img.src = "./photos./right_circle.png"
-// var img = document.getElementById("right");
-var avatar_style;
 
 //cell size
 var height_cell = 60;
@@ -135,7 +132,7 @@ function Start() {
 	score = 0;
 	pac_color = "yellow";
 	var cnt = 100;
-	// img = document.getElementById("right");
+	game_on = true;
 
 	var pacman_remain = 1;
 	start_time = new Date();
@@ -623,6 +620,15 @@ function UpdatePosition() {
 function showAndHideDivs(currentScreen)
 {
 
+	if (game_on) {
+		time_before = time_elapsed;
+		window.clearInterval(interval);
+		window.clearInterval(interval_ghosts);
+		if(move_50_points.showGhost) {
+			window.clearInterval(interval_move_50);
+		}
+	}
+	
 	switch(currentScreen)
 	{
 		case "welcome": // start mode
@@ -636,7 +642,7 @@ function showAndHideDivs(currentScreen)
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
-
+			game_on = false;
 			break;
 		case "register": // start mode
 			$('#Welcome').hide();
@@ -649,7 +655,7 @@ function showAndHideDivs(currentScreen)
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
-
+			game_on = false;
 			break;
 		case "login": // start mode
 			$('#Welcome').hide();
@@ -662,6 +668,7 @@ function showAndHideDivs(currentScreen)
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
+			game_on = false;
 
 			break;
 		case "about": // start mode
@@ -690,7 +697,8 @@ function showAndHideDivs(currentScreen)
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
-
+			game_on = false;
+			
 			break;
 
 		case "game": // start mode
@@ -709,6 +717,16 @@ function showAndHideDivs(currentScreen)
 			Start();
 			break;
 	}
+	
+	if (game_on) {
+		interval = setInterval(UpdatePosition,200);
+		interval_ghosts = setInterval(UpdatePositionGhosts,315);
+		if(move_50_points.showGhost) {
+			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+		}
+		time_elapsed = time_before;
+		document.getElementById("game_time").innerHTML = time_elapsed;
+	}	
 
 
 
@@ -1022,7 +1040,7 @@ function UpdateSideSettingsMenuValues() {
 	let balls_number_side = document.getElementById("balls").value;
 	document.getElementById("balls_amount_side").innerHTML = "Number of balls : " + balls_number_side;
 	let time_side_show = document.getElementById("game_time").value;
-	document.getElementById("time_side").innerHTML = "Gamie time : "+time_side_show;
+	document.getElementById("time_side").innerHTML = "Game time : "+time_side_show;
 	let number_of_mons = document.getElementById("num_of_monsters").value;
 	document.getElementById("monster_number_side").innerHTML = "Number of monsters : " + number_of_mons;
 	$('#settings_side').show();
@@ -1119,6 +1137,7 @@ function ResetAllData(){
                 coca.i=1;
                 coca.j=8;
 		
+		game_on = false;
 		showAndHideDivs("settings");
 	} else {
 		interval = setInterval(UpdatePosition,120);
