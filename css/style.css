@@ -22,7 +22,9 @@ body{
 
 h1 {
     width: 900px;
-    background-color: rgb(6, 116, 6);
+    /* background-color: rgb(6, 116, 6); */
+    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+
     color: rgb(77, 77, 77);
     font-size: 200%;
     text-align: center;
@@ -49,7 +51,9 @@ h1:hover {
   margin-left: 35px;
 	padding-bottom: 0px;
 	overflow: hidden;
-  background-color: rgb(6, 116, 6);
+  /* background-color: rgb(6, 116, 6); */
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+
 	width: 80%;
 	height: 22px;
   padding-bottom:45px ;
@@ -67,7 +71,9 @@ h1:hover {
 	text-decoration: none;
   }
   li {
-    background-color: rgb(6, 116, 6);
+    /* background-color: rgb(6, 116, 6); */
+    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+
     list-style: none;
 	display: inline-block;
   border-radius: 15px;
@@ -75,7 +81,9 @@ h1:hover {
   
   li a:hover {
 	float: right;
-	background-color: rgb(169, 240, 190);
+	background-color: rgb(125, 55, 139);
+  background-image: linear-gradient(144deg,#008deb, #c0bcda 50%,#b481da);
+
   border-radius: 15px;
   }
 
@@ -89,6 +97,7 @@ h1:hover {
     color: white;
 
  }
+
 
 
 

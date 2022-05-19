@@ -83,21 +83,32 @@
 		<div id="header" class="header">
 			
 			<h1>Welcome to DRUGMAN ! More than just a PACMAN</h1>
+			<div id = "menu" class="sidenav">
+				<ul>
+					<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
+					<img id="down" width="0" height="0" src="\photos\down.jpg">
+					<img id="left" width="0" height="0" src="\photos\left.jpg">
+					<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
+					<li><a href="#" onclick="showAndHideDivs('welcome');"><h2>Welcome</h2></a></li>
+					<li><a href="#" onclick="showAndHideDivs('register');"><h2>Register</h2></a></li>
+					<li><a href="#" onclick="showAndHideDivs('login');"><h2>Login</h2></a></li>
+					<li><a href="#" onclick="openAbout(); showMeWhatYouGot(event);"><h2>About</h2></a></li>
+				</ul>
+			</div>
 		</div> 
 		<!-- menu -->
-		<div id = "menu" class="sidenav">
-			<ul>
+		<!-- <div id = "menu" class="sidenav">
+			<ul> -->
 				<!-- <img id="up" width="0" height="0" src="\photos\up.jpg">
 				<img id="down" width="0" height="0" src="\photos\down.jpg">
 				<img id="left" width="0" height="0" src="\photos\left.jpg">
 				<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
-				<li><a href="#" onclick="showAndHideDivs('welcome');"><h2>Welcome</h2></a></li>
+				<!-- <li><a href="#" onclick="showAndHideDivs('welcome');"><h2>Welcome</h2></a></li>
 				<li><a href="#" onclick="showAndHideDivs('register');"><h2>Register</h2></a></li>
 				<li><a href="#" onclick="showAndHideDivs('login');"><h2>Login</h2></a></li>
 				<li><a href="#" onclick="openAbout(); showMeWhatYouGot(event);"><h2>About</h2></a></li>
-				
 			</ul>
-		</div>
+		</div> -->
 		<br>
 		<br>
 		<br>
@@ -190,6 +201,8 @@
 								<img id="right" width="0" height="0" src="\photos\right.jpg"> -->
 								<li><a href="#" onclick="default_controls(); "><h2>Default keys</h2></a></li>
 								<li><a href="#" onclick="random_opt(); "><h2>Random options</h2></a></li>
+								<li><a id="start_btn" href="#" onclick="check_settings();"><h2>Start Game</h2></a></li>
+
 								<!-- <li><a href="#" onclick="random_opt(); "><h2>random options</h2></a></li> -->
 		
 				
@@ -312,9 +325,9 @@
 							</ul>
 						</tr>
 					</table>
-					  <ul>
+					  <!-- <ul>
 						<li><a id="start_btn" href="#" onclick="check_settings();"><h2>Start Game</h2></a></li>
-					</ul>
+					</ul> -->
 					  
 					  <!-- <button onclick="check_settings()"><strong>Start Game</strong></button> -->
 				  </form>
