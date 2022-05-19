@@ -345,3 +345,11 @@ function showgame(){
     // return false;
 
 }
+window.addEventListener('mouseup',function(event){
+    var dialog = document.getElementById('About');
+    if(event.target != About && event.target.parentNode == About){
+        //$('#About').hide();
+
+        document.getElementById("dialog").close();
+    }
+});  

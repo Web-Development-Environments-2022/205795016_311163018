@@ -14,6 +14,7 @@ body{
 
 }
 
+
 .content {
   max-width: 500px;
   margin: auto;
@@ -23,7 +24,7 @@ h1 {
     width: 900px;
     background-color: rgb(6, 116, 6);
     color: rgb(77, 77, 77);
-    font-size: 250%;
+    font-size: 200%;
     text-align: center;
     border: white;
     border-width: 10px;
@@ -45,13 +46,15 @@ h1:hover {
 	list-style-type: none; 
   
 	margin: 0px;
+  margin-left: 35px;
 	padding-bottom: 0px;
 	overflow: hidden;
   background-color: rgb(6, 116, 6);
-	width: 100%;
-	height: -3px;
-	background-size: cover;
-    border-radius: 30px 50px 15px;
+	width: 80%;
+	height: 22px;
+  padding-bottom:45px ;
+	/* background-size: cover; */
+  border-radius: 30px 50px 15px;
 
 
 
@@ -74,6 +77,10 @@ h1:hover {
 	float: right;
 	background-color: rgb(169, 240, 190);
   border-radius: 15px;
+  }
+
+  li a h2 {
+    padding-bottom:0px ;
   }
   /* for the menu */
 
@@ -163,7 +170,7 @@ h1:hover {
   /* Full-width input fields */
   .container input[type=text], input[type=password] {
     width: 45%;
-    padding: 15px;
+    padding: 5px;
     margin: 5px 0 2px 0;
     display: inline-block;
     border: none;
@@ -241,6 +248,7 @@ h1:hover {
 
 h2 {
   color: rgb(255, 255, 255);
+  font-size:100% ;
   
 }
 
@@ -376,5 +384,12 @@ input[id="dot-13"]:checked ~ .pacman {transform: translateX(calc(var(--ddim) + v
   color: black;
 }
 
+/* 
+.start_btn{
+
+  position: absolute;
+  left: 180px;
+  top: 50%;
+} */
 
 
