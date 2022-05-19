@@ -286,10 +286,12 @@ function setControls(u , d ,r ,l){
 
 
 function openAbout() {
-    $('#About').show();
-
-
-	document.getElementById("dialog").showModal();
+    if (game_on){
+        PauseAbout();
+    } else {
+        $('#About').show();
+        document.getElementById("dialog").showModal();
+    }
 }
 
 function closeAbout() {
