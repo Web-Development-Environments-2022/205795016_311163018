@@ -979,6 +979,13 @@ function End() {
 			msg="Winner !";
 		}
 	}
+	if (lives==0) {
+		msg="Loser !";
+	} else if(score<100) {
+		msg = "Yoy are better than " + score + " points !";
+	} else {
+		msg="Winner !";
+	}
 	window.alert(msg);
 	time_elapsed =0;
 	score = 0;
