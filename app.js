@@ -1,19 +1,22 @@
 var context;
 var shape = new Object();
+shape.i=1;
+shape.j=4;
 var board;
 var score;
 var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var interval_time =185;
 var start_angle = 0;
 var end_angle =0;
 var eye_x = 5;
 var eye_y =15;
 var total_points =50;
 var food_remain;
-var game_on;
-var paused;
+var game_on = false;
+var paused = true;
 
 //cell size
 var height_cell = 60;
@@ -23,6 +26,7 @@ var width_cell = 60;
 //ghosts
 var GhostAmount=1;
 var interval_ghosts;
+var interval_ghosts_time = 285;
 //pink
 var ghost_pink = new Object();
 ghost_pink.image = new Image(width_cell-4,height_cell-4);
@@ -62,6 +66,7 @@ ghost_red.j=0;
 
 
 var interval_move_50;
+var interval_move_50_time = 1001;
 //50 points moving (cherry image)
 var move_50_points = new Object();
 move_50_points.image = new Image(width_cell-4,height_cell-4);
@@ -140,6 +145,11 @@ function Start() {
 	var cnt = 100;
 	game_on = true;
 	paused = false;
+	
+	ghost_pink.image.src = "./photos/ghost_pink.png";
+	ghost_blue.image.src = "./photos/ghost_blue.png";
+	ghost_orange.image.src = "./photos/ghost_orange.png";
+	ghost_red.image.src = "./photos/ghost_red.png";
 
 	var pacman_remain = 1;
 	start_time = new Date();
@@ -209,7 +219,7 @@ function Start() {
 	good_drug.sleep = 0;
 	
 	coca.showGhost = true;
-        coca.sleep = 0;
+	coca.sleep = 0;
 	
 	ghost_pink.i=0;
 	ghost_pink.j=0;
@@ -352,9 +362,9 @@ function Start() {
 		false
 	);
 
-	interval = setInterval(UpdatePosition,120);
-	interval_ghosts = setInterval(UpdatePositionGhosts,215);
-	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+	interval = setInterval(UpdatePosition,interval_time);
+	interval_ghosts = setInterval(UpdatePositionGhosts,interval_ghosts_time);
+	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,interval_move_50_time);
 	//interval_clock = setInterval(UpdatePositionClockBonus,889);
 }
 
@@ -435,9 +445,9 @@ function Draw() {
 			else if (i==good_drug.i && j==good_drug.j && good_drug.showGhost==true) {
 				context.drawImage(good_drug.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
 			} //coca - make the ghost to move slow for few seconds
-                        else if (i==coca.i && j==coca.j && coca.showGhost==true) {
-                                context.drawImage(coca.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
-                        }else if (board[i][j] == 1) {
+			else if (i==coca.i && j==coca.j && coca.showGhost==true) {
+					context.drawImage(coca.image,center.x - (width_cell/2) +2 ,center.y - (height_cell/2)+2,width_cell,height_cell);
+			}else if (board[i][j] == 1) {
 				//lime ball
 				let ball_5_color = document.getElementById("5_points").value
 				context.beginPath();
@@ -507,9 +517,6 @@ function UpdatePosition() {
 				eye_y = 4;
 				start_angle = -Math.PI/2;
 				end_angle = -Math.PI/2;
-				//img.src = "/photos/up.jpg"
-				//img = document.getElementById("up");
-				//ctx.drawImage(img, 10, 10);
 			}
 		}
 		if (x == 2) {
@@ -518,9 +525,7 @@ function UpdatePosition() {
 				eye_x = -12;
 				eye_y = -4;			
 				start_angle = Math.PI/2;
-				end_angle = Math.PI/2;
-				//img.src = "/photos/down.jpg"
-				//img = document.getElementById("down");			
+				end_angle = Math.PI/2;			
 			}
 		}
 		if (x == 3) {
@@ -530,8 +535,6 @@ function UpdatePosition() {
 				eye_y = 14;
 				start_angle = Math.PI;
 				end_angle = Math.PI;
-				//img.src = "/photos/left.jpg"
-				//img = document.getElementById("left");
 			}
 		}
 		if (x == 4) {
@@ -541,54 +544,54 @@ function UpdatePosition() {
 				eye_y = 14;			
 				start_angle = 0;
 				end_angle = 0;
-				//img.src = "/photos/right_circle.png"
-				//img = document.getElementById("right");
 			}
 		}
 		if(board[shape.i][shape.j]==11) {
 			//TODO: Notify user!!!
+			board[shape.i][shape.j] = move_50_points.sleep;
 			score+=50;
 			move_50_points.showGhost=false;
 			window.clearInterval(interval_move_50);
 		}else if(board[shape.i][shape.j]==12) {
+			board[shape.i][shape.j] = clock_bonus_sec.sleep;
 			time_elapsed = time_elapsed -5;
 			//TODO: Notify user!!!
 			clock_bonus_sec.showGhost=false;
-			//window.clearInterval(interval_clock);
 		}else if(board[shape.i][shape.j]==13) {	
-					//TODO: Notify user!!!
+			//TODO: Notify user!!!
+			board[shape.i][shape.j] = good_drug.sleep;
 			lives+=1;
 			good_drug.showGhost=false;
 		}else if(board[shape.i][shape.j]==14) {//coca - ghost should move slow for 5 seconds
-                        //TODO: Notify user!!!
-                        //clock_bonus_sec.showGhost=false;
-                        coca.showGhost=false;
-                        window.clearInterval(interval_ghosts);
-                        interval_ghosts = setInterval(UpdatePositionGhosts,1150);
-                        good_drug.showGhost=false;
-                        board[good_drug.i][good_drug.j]=0;
-                        pac_color = "lime";
-                        board[coca.i][coca.j]=0;
-                        
-                        ghost_pink.image.src = "./photos/police_1.png";
-                        ghost_blue.image.src = "./photos/police_2.png";
-                        ghost_orange.image.src = "./photos/police_1.png";
-                        ghost_red.image.src = "./photos/police_2.png";
-                        setTimeout(function(){
-                                pac_color = "yellow";
-                                window.clearInterval(interval_ghosts);
-                                interval_ghosts = setInterval(UpdatePositionGhosts,215);
-                                [good_drug.i][good_drug.j]=findRandomEmptyCell(board);
-                                board[good_drug.i][good_drug.j]=13;
-                                [coca.i][coca.j]=findRandomEmptyCell(board);
-                                board[coca.i][coca.j]=14;
-                                good_drug.showGhost=true;
-                                coca.showGhost=true;
-                                ghost_pink.image.src = "./photos/ghost_pink.png";
-                                ghost_blue.image.src = "./photos/ghost_blue.png";
-                                ghost_orange.image.src = "./photos/ghost_orange.png";
-                                ghost_red.image.src = "./photos/ghost_red.png";
-                        },10000);
+			//TODO: Notify user!!!
+			board[shape.i][shape.j] = coca.sleep;
+			coca.showGhost=false;
+			window.clearInterval(interval_ghosts);
+			interval_ghosts = setInterval(UpdatePositionGhosts,1150);
+			good_drug.showGhost=false;
+			board[good_drug.i][good_drug.j]=0;
+			pac_color = "lime";
+			board[coca.i][coca.j]=0;
+			
+			ghost_pink.image.src = "./photos/police_1.png";
+			ghost_blue.image.src = "./photos/police_2.png";
+			ghost_orange.image.src = "./photos/police_1.png";
+			ghost_red.image.src = "./photos/police_2.png";
+			setTimeout(function(){
+					pac_color = "yellow";
+					window.clearInterval(interval_ghosts);
+					interval_ghosts = setInterval(UpdatePositionGhosts,interval_ghosts_time);
+					[good_drug.i][good_drug.j]=findRandomEmptyCell(board);
+					board[good_drug.i][good_drug.j]=13;
+					[coca.i][coca.j]=findRandomEmptyCell(board);
+					board[coca.i][coca.j]=14;
+					good_drug.showGhost=true;
+					coca.showGhost=true;
+					ghost_pink.image.src = "./photos/ghost_pink.png";
+					ghost_blue.image.src = "./photos/ghost_blue.png";
+					ghost_orange.image.src = "./photos/ghost_orange.png";
+					ghost_red.image.src = "./photos/ghost_red.png";
+			},10000);
 		}else if (board[shape.i][shape.j] == 1 || board[shape.i][shape.j] == 5 || board[shape.i][shape.j] == 6) {
 			ball_pick_sound.play();
 			if (board[shape.i][shape.j] == 1) {//lime ball = 5 points
@@ -598,11 +601,11 @@ function UpdatePosition() {
 			} else if (board[shape.i][shape.j] == 6) {//red ball = 25 points
 				score+=25;
 			}
-		} else if (board[shape.i][shape.j]>=7 && board[shape.i][shape.j]<=10) {
+		}else if (board[shape.i][shape.j]>=7 && board[shape.i][shape.j]<=10) {
 			GoIntoGhost();
+			return;
 		}
-	
-	
+
 		board[shape.i][shape.j] = 2;
 		var currentTime = new Date();
 		time_elapsed = (currentTime - start_time) / 1000;
@@ -614,6 +617,7 @@ function UpdatePosition() {
 		} else {
 			Draw();
 		}
+		
 
 	}
 }
@@ -724,10 +728,10 @@ function showAndHideDivs(currentScreen)
 	}
 	
 	if (game_on) {
-		interval = setInterval(UpdatePosition,200);
-		interval_ghosts = setInterval(UpdatePositionGhosts,315);
+		interval = setInterval(UpdatePosition,interval_time);
+		interval_ghosts = setInterval(UpdatePositionGhosts,interval_ghosts_time);
 		if(move_50_points.showGhost) {
-			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,interval_move_50_time);
 		}
 		time_elapsed = time_before;
 		document.getElementById("game_time").innerHTML = time_elapsed;
@@ -753,35 +757,35 @@ function UpdatePositionGhosts() {
 		if(ghost_red.showGhost) {
 			GhostStep(ghost_red);
 		}
-		if(clock_bonus_sec.showGhost && Math.round(time_elapsed)%7==0) {
+		if(clock_bonus_sec.showGhost) {// && Math.round(time_elapsed)%7==0) {
 			board[clock_bonus_sec.i][clock_bonus_sec.j] = clock_bonus_sec.sleep;
 			if (board[clock_bonus_sec.i][clock_bonus_sec.j] == 2) {
+				// board[clock_bonus_sec.i][clock_bonus_sec.j] = clock_bonus_sec.sleep;
 				clock_bonus_sec.showGhost=false;
-				score = score +50;
-				board[clock_bonus_sec.i][clock_bonus_sec.j] = 0;
-			} else {
+				time_elapsed = time_elapsed -5;
+				// board[clock_bonus_sec.i][clock_bonus_sec.j] = 0;
+			} else if (Math.round(time_elapsed)%7==0){
 				[clock_bonus_sec.i,clock_bonus_sec.j] = findRandomEmptyCell(board);
 				board[clock_bonus_sec.i][clock_bonus_sec.j]=clock_bonus_sec.id;
 			}
 		}
-		if(good_drug.showGhost && Math.round(time_elapsed)%13==0) {
+		if(good_drug.showGhost) { //&& Math.round(time_elapsed)%13==0) {
 			board[good_drug.i][good_drug.j] = good_drug.sleep;
 			if (board[good_drug.i][good_drug.j] == 2) {
 				good_drug.showGhost=false;
 				lives+=1;
-				board[good_drug.i][good_drug.j] = 0;
-			} else {
+			} else if(Math.round(time_elapsed)%13==0){
 				[good_drug.i,good_drug.j] = findRandomEmptyCell(board);
 				board[good_drug.i][good_drug.j]=good_drug.id;
 			}
 		}
-			if(coca.showGhost && Math.round(time_elapsed)%11==0) {
-					board[coca.i][coca.j] = coca.sleep;
-					if (board[coca.i][coca.j] != 2) {
-							[coca.i,coca.j] = findRandomEmptyCell(board);
-							board[coca.i][coca.j]=coca.id;
-					}
-			}	
+		if(coca.showGhost) { //&& Math.round(time_elapsed)%11==0) {
+			board[coca.i][coca.j] = coca.sleep;
+			if ((board[coca.i][coca.j] != 2) && (Math.round(time_elapsed)%11==0) ) {
+				[coca.i,coca.j] = findRandomEmptyCell(board);				
+			}
+			board[coca.i][coca.j]=coca.id;
+		}	
 		Draw();
 	}
 }
@@ -879,7 +883,9 @@ function GhostLocationReset() {//set ghost location to grid corners
 function GhostStep(ghost) {
 	if (!paused && game_on) {
 		board[ghost.i][ghost.j]==ghost.sleep;
-		if (shape.i > ghost.i && ghost.i < board.length -1 ) {
+		if (board[ghost.i][ghost.j] == 2){
+			GoIntoGhost();
+		} else if (shape.i > ghost.i && ghost.i < board.length -1 ) {
 			if (board[ghost.i+1][ghost.j]!=4 && board[ghost.i+1][ghost.j]!=3 && board[ghost.i+1][ghost.j]<7) {//avoid collision
 				ghost.i++;
 			} else if (ghost.j < shape.j && ghost.j < board.length -1 && board[ghost.i][ghost.j+1]!=3 && board[ghost.i][ghost.j+1]!=4) {
@@ -887,6 +893,7 @@ function GhostStep(ghost) {
 			} else if (board[ghost.i][ghost.j-1]!=3 && board[ghost.i][ghost.j-1]!=4){
 				ghost.j--;
 			}
+			board[ghost.i][ghost.j]==ghost.id;
 		} else if (shape.i < ghost.i && ghost.i > 0) {
 			if ( board[ghost.i-1][ghost.j]!=4 && board[ghost.i-1][ghost.j]!=3 && board[ghost.i-1][ghost.j]<7) {//avoid collision
 				ghost.i--;
@@ -895,6 +902,7 @@ function GhostStep(ghost) {
 			} else if(board[ghost.i][ghost.j-1]!=3){
 				ghost.j--;
 			}
+			board[ghost.i][ghost.j]==ghost.id;
 		} else if (shape.j>ghost.j && ghost.j < board.length -1) {
 			if (board[ghost.i][ghost.j+1]!=4 && board[ghost.i][ghost.j+1]!=3 && board[ghost.i][ghost.j+1]<7) {//avoid collision
 				ghost.j++;
@@ -903,6 +911,7 @@ function GhostStep(ghost) {
 			} else if (board[ghost.i-1][ghost.j]!=3 && board[ghost.i-1][ghost.j]!=4){
 				ghost.i--;
 			}
+			board[ghost.i][ghost.j]==ghost.id;
 		} else if (shape.j < ghost.j && ghost.j >= 0 ) {
 			if (board[ghost.i][ghost.j-1]!=4 && board[ghost.i][ghost.j-1]!=3 && board[ghost.i][ghost.j-1]<7) {//avoid collision
 				ghost.j--;
@@ -911,8 +920,9 @@ function GhostStep(ghost) {
 			} else if (board[ghost.i-1][ghost.j]!=3 && board[ghost.i-1][ghost.j]!=4) {
 				ghost.i--;
 			}
+			board[ghost.i][ghost.j]==ghost.id;
 		}
-		board[ghost.i][ghost.j]==ghost.id;
+		// board[ghost.i][ghost.j]==ghost.id;
 
 	}
 }
@@ -1041,10 +1051,10 @@ function ResetAllData(ask_user=true){
 		game_on = false;
 		showAndHideDivs("settings");
 	} else {
-		interval = setInterval(UpdatePosition,120);
-		interval_ghosts = setInterval(UpdatePositionGhosts,215);
+		interval = setInterval(UpdatePosition,interval_time);
+		interval_ghosts = setInterval(UpdatePositionGhosts,interval_ghosts_time);
 		if(move_50_points.showGhost) {
-			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,interval_move_50_time);
 		}
 		paused = false;
 		game_on = true;
@@ -1059,10 +1069,10 @@ function Pause(){
 		for (var i = killId; i > 0; i--) clearInterval(i)
 	  }, 10);
 	window.alert("OK OK we stooped !!!\nmeanhile we'll all sit and wait for you until you click \'OK\' ");
-	interval = setInterval(UpdatePosition,120);
-	interval_ghosts = setInterval(UpdatePositionGhosts,215);
+	interval = setInterval(UpdatePosition,interval_time);
+	interval_ghosts = setInterval(UpdatePositionGhosts,interval_ghosts_time);
 	if(move_50_points.showGhost) {
-		interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+		interval_move_50 = setInterval(UpdatePosition50PointsCharacter,interval_move_50_time);
 	}
 	paused = false;
 	game_on = true;
@@ -1085,10 +1095,10 @@ function PauseAbout(){
 	} else {
 		paused = false;
 		game_on = true;
-		interval = setInterval(UpdatePosition,120);
-		interval_ghosts = setInterval(UpdatePositionGhosts,215);
+		interval = setInterval(UpdatePosition,interval_time);
+		interval_ghosts = setInterval(UpdatePositionGhosts,interval_ghosts_time);
 		if(move_50_points.showGhost) {
-			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,1001);
+			interval_move_50 = setInterval(UpdatePosition50PointsCharacter,interval_move_50_time);
 		}
 	}
 }
