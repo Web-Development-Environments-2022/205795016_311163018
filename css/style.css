@@ -10,7 +10,7 @@ body{
   background-repeat: no-repeat;
   /* background-color: #c89666; */
   margin: auto;
-  overflow: hidden; 
+  /* overflow: hidden;  */
 
 }
 
@@ -44,27 +44,35 @@ h1:hover {
 /* menu stuff */
 #menu
  {
-	float: left;
 	list-style-type: none; 
-  
+  /* display: inline-block; */
 	margin: 0px;
-  margin-left: 35px;
+  margin-left: -185px;
 	padding-bottom: 0px;
 	overflow: hidden;
   /* background-color: rgb(6, 116, 6); */
   background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
-
-	width: 80%;
+  align-items: center;
+	width: 900px;
 	height: 22px;
   padding-bottom:45px ;
 	/* background-size: cover; */
   border-radius: 30px 50px 15px;
 
 
+  
+  }
+
+  li h3 {
+    margin-right: -50px;
+    float: left;
+    color: rgb(255, 255, 255);
+    font-size: 100%;
+    width: 390px;
 
   }
   li a {
-	float: left;
+	float: right;
 	color: rgb(128, 216, 135);
 	text-align: center;
 	padding: 1px 16px;
@@ -72,15 +80,14 @@ h1:hover {
   }
   li {
     /* background-color: rgb(6, 116, 6); */
-    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
-
-    list-style: none;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  list-style: none;
 	display: inline-block;
   border-radius: 15px;
   }
   
   li a:hover {
-	float: right;
+	/* float: right; */
 	background-color: rgb(125, 55, 139);
   background-image: linear-gradient(144deg,#008deb, #c0bcda 50%,#b481da);
 
@@ -118,7 +125,7 @@ h1:hover {
     max-width: 100%;
     min-width: 0px;
     padding: 3px;
-    margin-top: 50px;
+    margin-top: 15px;
     margin-left: 65px;
     border-radius: 6px;
     
