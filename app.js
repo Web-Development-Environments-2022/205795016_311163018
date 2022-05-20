@@ -967,19 +967,15 @@ function End() {
 		for (var i = killId; i > 0; i--) clearInterval(i)
 	  }, 10);
 	var msg;
-	if (time_elapsed>=game_timer_app.value) {
+	if (score>=total_points) {
+		msg = "WINNER ! \n SCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
+	} else if (time_elapsed>=game_timer_app.value) {
 		if (lives==0) {
 			msg="Loser !";
 		} else if(score<100) {
 			msg = "Yoy are better than " + score + " points !";
 		} else {
 			msg="Winner !";
-		}
-	} else {
-		if (score>=total_points) {
-			msg = "WINNER ! \n SCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
-		} else {
-			msg = "Game Over ! \nYOU LOSE ! \nSCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
 		}
 	}
 	window.alert(msg);
