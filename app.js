@@ -370,7 +370,6 @@ function Start() {
 	interval = setInterval(UpdatePosition,interval_time);
 	interval_ghosts = setInterval(UpdatePositionGhosts,interval_ghosts_time);
 	interval_move_50 = setInterval(UpdatePosition50PointsCharacter,interval_move_50_time);
-	//interval_clock = setInterval(UpdatePositionClockBonus,889);
 }
 
 function findRandomEmptyCell(board) {
@@ -561,7 +560,7 @@ function UpdatePosition() {
 			time_elapsed = time_elapsed -5;
 			board[shape.i][shape.j] = clock_bonus_sec.sleep;
 			//TODO: Notify user!!!
-			clock_bonus_sec.showGhost=false;
+			//clock_bonus_sec.showGhost=false;
 		}else if(board[shape.i][shape.j]==13) {	
 			//TODO: Notify user!!!
 			board[shape.i][shape.j] = good_drug.sleep;
@@ -771,7 +770,7 @@ function UpdatePositionGhosts() {
 			var last_clock_location = board[clock_bonus_sec.i][clock_bonus_sec.j];
 			board[clock_bonus_sec.i][clock_bonus_sec.j] = clock_bonus_sec.sleep;
 			if (board[clock_bonus_sec.i][clock_bonus_sec.j] == 2 || last_clock_location == 2) {
-				clock_bonus_sec.showGhost=false;
+				//clock_bonus_sec.showGhost=false;
 				time_elapsed = time_elapsed -5;
 				// board[clock_bonus_sec.i][clock_bonus_sec.j] = 0;
 			} else if (Math.round(time_elapsed)%7==0){
@@ -845,20 +844,6 @@ function UpdatePosition50PointsCharacter(){
 	}
 }
 
-function UpdatePositionClockBonus(){
-	if(clock_bonus_sec.showGhost && !paused && game_on) {
-		board[clock_bonus_sec.i][clock_bonus_sec.j] = clock_bonus_sec.sleep;
-		if (board[clock_bonus_sec.i][clock_bonus_sec.j] == 2) {
-			clock_bonus_sec.showGhost=false;
-            time_elapsed = time_elapsed -5;			
-			board[clock_bonus_sec.i][clock_bonus_sec.j] = 0;
-		} else {
-			[clock_bonus_sec.i,clock_bonus_sec.j] = findRandomEmptyCell(board);
-			board[clock_bonus_sec.i][clock_bonus_sec.j]=clock_bonus_sec.id;
-		}
-		Draw();
-	}
-}
 
 function GhostLocationReset() {//set ghost location to grid corners
 	if (ghost_pink.showGhost==true) {
