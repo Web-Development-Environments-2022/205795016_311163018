@@ -656,6 +656,8 @@ function showAndHideDivs(currentScreen)
 			$('#settings_side').hide();
 			$('#footer').show();
 			game_on = false;
+			game_song.pause();
+
 			break;
 		case "register": // start mode
 			$('#Welcome').hide();
@@ -670,6 +672,8 @@ function showAndHideDivs(currentScreen)
 			$('#settings_side').hide();
 			$('#footer').show();
 			game_on = false;
+			game_song.pause();
+
 			break;
 		case "login": // start mode
 			$('#Welcome').hide();
@@ -684,6 +688,8 @@ function showAndHideDivs(currentScreen)
 			$('#settings_side').hide();
 			$('#footer').show();
 			game_on = false;
+			game_song.pause();
+
 
 			break;
 		case "about": // start mode
@@ -698,6 +704,8 @@ function showAndHideDivs(currentScreen)
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
+			game_song.pause();
+
 
 			break;
 
@@ -715,6 +723,7 @@ function showAndHideDivs(currentScreen)
 			$('#settings_side').hide();
 			$('#footer').show();
 			game_on = false;
+			game_song.pause();
 			
 			break;
 
