@@ -739,6 +739,7 @@ function showAndHideDivs(currentScreen)
 			$('#player_name').show();
 			$('#game').show();
 			$('#footer').hide();
+			update_player_name();
 			context = canvas.getContext("2d");
 			life_context = life_canvas.getContext("2d");
 			Start();
