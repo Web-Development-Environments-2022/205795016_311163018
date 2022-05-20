@@ -553,8 +553,8 @@ function UpdatePosition() {
 			move_50_points.showGhost=false;
 			window.clearInterval(interval_move_50);
 		}else if(board[shape.i][shape.j]==12) {
-			board[shape.i][shape.j] = clock_bonus_sec.sleep;
 			time_elapsed = time_elapsed -5;
+			board[shape.i][shape.j] = clock_bonus_sec.sleep;
 			//TODO: Notify user!!!
 			clock_bonus_sec.showGhost=false;
 		}else if(board[shape.i][shape.j]==13) {	
@@ -758,9 +758,9 @@ function UpdatePositionGhosts() {
 			GhostStep(ghost_red);
 		}
 		if(clock_bonus_sec.showGhost) {// && Math.round(time_elapsed)%7==0) {
+			var last_clock_location = board[clock_bonus_sec.i][clock_bonus_sec.j];
 			board[clock_bonus_sec.i][clock_bonus_sec.j] = clock_bonus_sec.sleep;
-			if (board[clock_bonus_sec.i][clock_bonus_sec.j] == 2) {
-				// board[clock_bonus_sec.i][clock_bonus_sec.j] = clock_bonus_sec.sleep;
+			if (board[clock_bonus_sec.i][clock_bonus_sec.j] == 2 || last_clock_location == 2) {
 				clock_bonus_sec.showGhost=false;
 				time_elapsed = time_elapsed -5;
 				// board[clock_bonus_sec.i][clock_bonus_sec.j] = 0;
@@ -770,8 +770,9 @@ function UpdatePositionGhosts() {
 			}
 		}
 		if(good_drug.showGhost) { //&& Math.round(time_elapsed)%13==0) {
+			var last_good_location = board[good_drug.i][good_drug.j];
 			board[good_drug.i][good_drug.j] = good_drug.sleep;
-			if (board[good_drug.i][good_drug.j] == 2) {
+			if (board[good_drug.i][good_drug.j] == 2 || last_good_location ==2) {
 				good_drug.showGhost=false;
 				lives+=1;
 			} else if(Math.round(time_elapsed)%13==0){
