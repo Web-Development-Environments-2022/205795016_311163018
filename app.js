@@ -648,6 +648,7 @@ function showAndHideDivs(currentScreen)
 			$('#About').hide();
 			$('#score').hide();
 			$('#time').hide();
+			$('#player_name').hide()
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -661,6 +662,7 @@ function showAndHideDivs(currentScreen)
 			$('#About').hide();
 			$('#score').hide();
 			$('#time').hide();
+			$('#player_name').hide()
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -674,6 +676,7 @@ function showAndHideDivs(currentScreen)
 			$('#About').hide();
 			$('#score').hide();
 			$('#time').hide();
+			$('#player_name').hide()
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -688,6 +691,7 @@ function showAndHideDivs(currentScreen)
 			$('#About').show();
 			$('#score').hide();
 			$('#time').hide();
+			$('#player_name').hide()
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -703,6 +707,7 @@ function showAndHideDivs(currentScreen)
 			$('#Settings').show();
 			$('#score').hide();
 			$('#time').hide();
+			$('#player_name').hide()
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -721,6 +726,8 @@ function showAndHideDivs(currentScreen)
 			$('#time').show();
 			$('#game').show();
 			$('#footer').hide();
+			$('#player_name').show()
+			update_player_name();
 			context = canvas.getContext("2d");
 			life_context = life_canvas.getContext("2d");
 			Start();

@@ -35,6 +35,7 @@ h1 {
     transition: border-width 0.4s;
     border-radius: 15px 50px 30px;
     margin-inline-start: -160px;
+
     
 }
 h1:hover {
