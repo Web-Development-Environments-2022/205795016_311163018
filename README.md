@@ -10,4 +10,4 @@ Functions:
 1) Medicine - when the player reach the medicine he gets another life.
 2) Cherry - gives 50 points.
 3) Clock - 5 extra seconds.
-4) cocaina bag - make the ghosts go slower.
+4) Cocaina bag - make the ghosts go slower.
