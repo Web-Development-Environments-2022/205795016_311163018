@@ -120,6 +120,9 @@ life.image.src = "./photos/life.png";
 //sounds
 var ghost_sound = new Audio("./sound/ghost_sound.mp3");
 var ball_pick_sound=new Audio("./sound/ball_pick.mp3");
+var game_song = new Audio("./sound/song.mp3");
+var end_music = new Audio("./sound/end_music.wav");
+
 
 
 var ans
@@ -137,6 +140,8 @@ function Start() {
 	var killId = setTimeout(function() {
 		for (var i = killId; i > 0; i--) clearInterval(i)
 	  }, 10);
+	game_song = new Audio("./sound/song.mp3");
+	game_song.play();
 	game_timer_app = document.getElementById("game_time");
 	UpdateSideSettingsMenuValues();
 	board = new Array();
@@ -603,7 +608,6 @@ function UpdatePosition() {
 			}
 		}else if (board[shape.i][shape.j]>=7 && board[shape.i][shape.j]<=10) {
 			GoIntoGhost();
-			return;
 		}
 
 		board[shape.i][shape.j] = 2;
@@ -648,7 +652,7 @@ function showAndHideDivs(currentScreen)
 			$('#About').hide();
 			$('#score').hide();
 			$('#time').hide();
-			$('#player_name').hide()
+			$('#player_name').hide();			
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -662,7 +666,7 @@ function showAndHideDivs(currentScreen)
 			$('#About').hide();
 			$('#score').hide();
 			$('#time').hide();
-			$('#player_name').hide()
+			$('#player_name').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -676,7 +680,7 @@ function showAndHideDivs(currentScreen)
 			$('#About').hide();
 			$('#score').hide();
 			$('#time').hide();
-			$('#player_name').hide()
+			$('#player_name').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -691,7 +695,7 @@ function showAndHideDivs(currentScreen)
 			$('#About').show();
 			$('#score').hide();
 			$('#time').hide();
-			$('#player_name').hide()
+			$('#player_name').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -707,7 +711,7 @@ function showAndHideDivs(currentScreen)
 			$('#Settings').show();
 			$('#score').hide();
 			$('#time').hide();
-			$('#player_name').hide()
+			$('#player_name').hide();
 			$('#game').hide();
 			$('#settings_side').hide();
 			$('#footer').show();
@@ -724,10 +728,9 @@ function showAndHideDivs(currentScreen)
 			$('#Settings').hide();
 			$('#score').show();
 			$('#time').show();
+			$('#player_name').show();
 			$('#game').show();
 			$('#footer').hide();
-			$('#player_name').show()
-			update_player_name();
 			context = canvas.getContext("2d");
 			life_context = life_canvas.getContext("2d");
 			Start();
@@ -793,6 +796,7 @@ function UpdatePositionGhosts() {
 				[coca.i,coca.j] = findRandomEmptyCell(board);				
 			}
 			board[coca.i][coca.j]=coca.id;
+			
 		}	
 		Draw();
 	}
@@ -948,7 +952,7 @@ function GoIntoGhost() {
 	board[shape.i][shape.j]=0;
 	[shape.i,shape.j] = findRandomEmptyCell(board);
 	board[shape.i][shape.j] =2;
-	Draw();
+	//Draw();
 }
 
 function UpdateSideSettingsMenuValues() {
@@ -971,9 +975,11 @@ function UpdateSideSettingsMenuValues() {
 }
 
 function End() {
+	game_song.pause();
+	end_music.play();
 	var killId = setTimeout(function() {
 		for (var i = killId; i > 0; i--) clearInterval(i)
-	  }, 10);
+	}, 10);
 	var msg;
 	if (score>=total_points) {
 		msg = "WINNER ! \n SCORE : " + score.toString() +"\nTIME : " + time_elapsed.toString();
