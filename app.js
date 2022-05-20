@@ -892,7 +892,7 @@ function GhostStep(ghost) {
 		board[ghost.i][ghost.j]==ghost.sleep;
 		if (board[ghost.i][ghost.j] == 2){
 			GoIntoGhost();
-		} else if ((GhostAmount>1) && (Math.floor(Math.random() * (13+GhostAmount))%5 !=0)) {
+		} else if ((GhostAmount>1) && (Math.floor(Math.random() * (13+GhostAmount))%2 !=0)) {
 			board[ghost.i][ghost.j]==ghost.id;
 		}else if (shape.i > ghost.i && ghost.i < board.length -1 ) {
 			if (board[ghost.i+1][ghost.j]!=4 && board[ghost.i+1][ghost.j]!=3 && board[ghost.i+1][ghost.j]<7) {//avoid collision
